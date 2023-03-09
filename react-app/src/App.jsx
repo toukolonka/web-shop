@@ -4,6 +4,7 @@ import {
   Routes, Route
 } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import CartContextProvider from './context/CartContext';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
@@ -30,15 +31,17 @@ function App() {
   }
 
   return (
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/products/:id" element={<Wrapper component={<Product />}/>} />
-        <Route path="/products" element={<Wrapper component={<Products />}/>} />
-        <Route path="/cart" element={<Wrapper component={<Cart />}/>} />
-        <Route path="/" element={<Wrapper component={<Home />}/>} />
-      </Routes>
-    </Router>
+    <CartContextProvider>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/products/:id" element={<Wrapper component={<Product />}/>} />
+          <Route path="/products" element={<Wrapper component={<Products />}/>} />
+          <Route path="/cart" element={<Wrapper component={<Cart />}/>} />
+          <Route path="/" element={<Wrapper component={<Home />}/>} />
+        </Routes>
+      </Router>
+    </CartContextProvider>
   );
 }
 

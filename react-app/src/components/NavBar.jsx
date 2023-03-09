@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 
 function NavBar() {
+  const { getTotalQuantity } = useContext(CartContext);
   return (
     <nav className="border-gray-200 py-1 bg-white">
       <div className="container flex flex-wrap products-center justify-between mx-auto max-w-xl w-full">
@@ -11,7 +13,7 @@ function NavBar() {
         <div className="block w-auto" id="navbar-default">
           <ul className="flex flex-row space-x-4 mt-0 text-sm font-medium border-0 py-4 px-1">
             <CustomLink to="/products">Products</CustomLink>
-            <CustomLink to="/cart">Cart</CustomLink>
+            <CustomLink to="/cart">Cart ({getTotalQuantity()})</CustomLink>
           </ul>
         </div>
       </div>

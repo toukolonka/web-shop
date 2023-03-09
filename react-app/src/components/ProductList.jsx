@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 import ProductCard from './ProductCard';
 
 function ProductList(props) {
+  const { addToCart } = useContext(CartContext);
+
   return (
     <>
       {props.products.map(product =>
-        <Link to={`/products/${product.id}`} key={product.id}>
-          <ProductCard product={product} />
-        </Link>
+        <div key={product.id} className='my-2'>
+          <Link to={`/products/${product.id}`} className='inline-block pr-4'>
+            <ProductCard product={product} />
+          </Link>
+          <button className='btn btn-blue' onClick={() => addToCart(product)}>Add to cart</button>
+        </div>
       )}
     </>
   );

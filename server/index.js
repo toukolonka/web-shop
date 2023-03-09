@@ -7,11 +7,13 @@ app.use(cors());
 let products = [
   {
     id: 1,
-    name: 'PC'
+    name: 'PC',
+    price: '100',
   },
   {
     id: 2,
-    name: 'Mac'
+    name: 'Mac',
+    price: '500',
   }
 ];
 
