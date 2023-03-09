@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import PlusMinusButton from '../components/PlusMinusButton';
 import { CartContext } from '../context/CartContext';
 
 function Product() {
@@ -22,8 +23,16 @@ function Product() {
       { product &&
       <>
         <h2>{product.name}</h2>
-        <button onClick={() => addToCart(product)} className='btn btn-blue block my-2'>Add to cart</button>
-        {getProductQuantity(id) > 0 && <button onClick={() => removeFromCart(id)} className='btn btn-red'>Remove from cart</button>}
+        {getProductQuantity(id) > 0
+          ?
+          <PlusMinusButton
+            count={getProductQuantity(product.id)}
+            decrementCount={() => removeFromCart(product.id)}
+            incrementCount={() => addToCart(product)}
+          />
+          :
+          <button onClick={() => addToCart(product)} className='btn btn-blue block'>Add to cart</button>
+        }
       </>
       }
     </>

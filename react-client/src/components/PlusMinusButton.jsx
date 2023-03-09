@@ -4,7 +4,7 @@ function PlusMinusButton(props) {
   return (
     <div className='inline'>
       <button className='btn btn-red inline' onClick={props.decrementCount}>-</button>
-      <span className='px-4'>{props.count}</span>
+      <div className='inline-flex w-12 justify-center'>{props.count}</div>
       <button className='btn btn-blue inline' onClick={props.incrementCount}>+</button>
     </div>
   );

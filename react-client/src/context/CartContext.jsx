@@ -84,9 +84,9 @@ const CartContextProvider = (props) => {
     );
   }
 
-  const checkout = () => {
+  function checkout() {
     setCartProducts([]);
-  };
+  }
 
   const contextValue = {
     cartProducts,

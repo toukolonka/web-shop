@@ -10,6 +10,7 @@ import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Products from './pages/Products';
 import Product from './pages/Product';
+import Order from './pages/Order';
 
 function Wrapper(props) {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/products/:id" element={<Wrapper component={<Product />}/>} />
           <Route path="/products" element={<Wrapper component={<Products />}/>} />
           <Route path="/cart" element={<Wrapper component={<Cart />}/>} />
+          <Route path="/order/:id" element={<Wrapper component={<Order />}/>} />
           <Route path="/" element={<Wrapper component={<Home />}/>} />
         </Routes>
       </Router>

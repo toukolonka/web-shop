@@ -9,7 +9,7 @@ function ProductList(props) {
   return (
     <>
       {props.products.map(product =>
-        <div key={product.id} className='my-2'>
+        <div key={product.id} className='my-2 w-2/3 flex justify-between items-center'>
           <Link to={`/products/${product.id}`} className='inline-block pr-4'>
             <ProductCard product={product} />
           </Link>
