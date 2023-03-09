@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Routes, Route
+  Switch, Route
 } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import CartContextProvider from './context/CartContext';
@@ -32,13 +32,23 @@ function App() {
     <CartContextProvider>
       <Router>
         <NavBar />
-        <Routes>
-          <Route path="/products/:id" element={<Wrapper component={<Product />}/>} />
-          <Route path="/products" element={<Wrapper component={<Products />}/>} />
-          <Route path="/cart" element={<Wrapper component={<Cart />}/>} />
-          <Route path="/order/:id" element={<Wrapper component={<Order />}/>} />
-          <Route path="/" element={<Wrapper component={<Home />}/>} />
-        </Routes>
+        <Switch>
+          <Route path="/products/:id">
+            <Wrapper component={<Product />} />
+          </Route>
+          <Route path="/products">
+            <Wrapper component={<Products />} />
+          </Route>
+          <Route path="/cart">
+            <Wrapper component={<Cart />} />
+          </Route>
+          <Route path="/order/:id">
+            <Wrapper component={<Order />} />
+          </Route>
+          <Route path="/">
+            <Wrapper component={<Home />} />
+          </Route>
+        </Switch>
       </Router>
     </CartContextProvider>
   );

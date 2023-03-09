@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { Prompt } from 'react-router-dom';
 import FormInput from './FormInput';
 
 const firstNameMinLength = 2;
@@ -13,6 +14,7 @@ function OrderForm(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
+  const [isFormDirty, setIsFormDirty] = useState(false);
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -36,7 +38,10 @@ function OrderForm(props) {
           id="first_name"
           pattern="^[A-Za-z0-9]{2,150}$"
           errorMessage="First name should be 2-50 characters long and shouldn't include any special character!"
-          onChange={(event) => setFirstName(event.target.value)}
+          onChange={(event) => {
+            if (!isFormDirty) setIsFormDirty(true);
+            setFirstName(event.target.value);
+          }}
           value={firstName}
         />
         <FormInput
@@ -45,7 +50,10 @@ function OrderForm(props) {
           id="last_name"
           pattern="^[A-Za-z0-9]{2,150}$"
           errorMessage="Last name should be 2-50 characters long and shouldn't include any special character!"
-          onChange={(event) => setLastName(event.target.value)}
+          onChange={(event) => {
+            if (!isFormDirty) setIsFormDirty(true);
+            setLastName(event.target.value);
+          }}
           value={lastName}
         />
         <FormInput
@@ -54,7 +62,10 @@ function OrderForm(props) {
           id="address"
           pattern="^[A-Za-z0-9]{10,150}$"
           errorMessage="Address should be 10-50 characters long and shouldn't include any special character!"
-          onChange={(event) => setAddress(event.target.value)}
+          onChange={(event) => {
+            if (!isFormDirty) setIsFormDirty(true);
+            setAddress(event.target.value);
+          }}
           value={address}
         />
       </div>
@@ -66,6 +77,10 @@ function OrderForm(props) {
       >
             Place order
       </button>
+      <Prompt
+        when={isFormDirty}
+        message="Are you sure you want to leave?"
+      />
     </form>
   );
 }

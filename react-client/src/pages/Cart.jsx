@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PlusMinusButton from '../components/PlusMinusButton';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
@@ -13,7 +13,7 @@ function Cart() {
     getTotalPrice,
     checkout,
   } = useContext(CartContext);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   async function placeOrder(recipientInfo) {
     checkout();
@@ -30,7 +30,7 @@ function Cart() {
       }
     });
     const orderId = await response.json();
-    navigate(`/order/${orderId}`);
+    history.push(`/order/${orderId}`);
   }
 
   return (
