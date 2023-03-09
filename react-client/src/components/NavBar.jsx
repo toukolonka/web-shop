@@ -24,8 +24,8 @@ function NavBar() {
 function CustomLink({ to, children, ...props }) {
   const resolvedPath = useResolvedPath(to);
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
-  const classNames = 'block py-2 pr-4 text-gray-700 hover:scale-110';
-  const className = isActive ? (classNames + ' text-blue-700') : classNames;
+  const classNames = 'block py-2 pr-4 hover:scale-110';
+  const className = isActive ? (classNames + ' text-blue-700') : (classNames + ' text-gray-700');
 
   return (
     <li>

@@ -22,12 +22,9 @@ function Wrapper(props) {
 }
 
 function App() {
-  console.log(localStorage.getItem('user'));
-
   if (!localStorage.getItem('user')) {
     let uuid = uuidv4();
     localStorage.setItem('user', uuid);
-    console.log('UUID: ', uuid);
   }
 
   return (

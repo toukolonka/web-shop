@@ -24,8 +24,6 @@ const CartContextProvider = (props) => {
   function getProductQuantity(productId) {
     const quantity = cartProducts.find(product => product.id === productId)?.quantity;
 
-    console.log(quantity);
-
     if (quantity === undefined) {
       return 0;
     }
@@ -73,7 +71,6 @@ const CartContextProvider = (props) => {
             ? { ...product, quantity: product.quantity - 1 }
             : product
       );
-      console.log(newProducts);
       setCartProducts(newProducts);
     }
   }

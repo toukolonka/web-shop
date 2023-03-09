@@ -11,8 +11,6 @@ function Cart() {
     getTotalPrice
   } = useContext(CartContext);
 
-  console.log(cartProducts);
-
   return (
     <>
       <h1>Cart</h1>
