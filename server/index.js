@@ -4,7 +4,7 @@ const cors = require('cors');
 
 app.use(cors());
 
-let items = [
+let products = [
   {
     id: 1,
     name: 'PC'
@@ -15,14 +15,14 @@ let items = [
   }
 ];
 
-app.get('/api/items', (_, response) => {
-  response.json(items);
+app.get('/api/products', (_, response) => {
+  response.json(products);
 });
 
-app.get('/api/items/:id', (request, response) => {
+app.get('/api/products/:id', (request, response) => {
   const id = Number(request.params.id);
-  const item = items.find(item => item.id === id);
-  response.json(item);
+  const product = products.find(product => product.id === id);
+  response.json(product);
 });
 
 const PORT = 3001;

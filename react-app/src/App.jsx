@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
-import Items from './pages/Items';
-import Item from './pages/Item';
+import Products from './pages/Products';
+import Product from './pages/Product';
 
 function Wrapper(props) {
   return (
@@ -33,8 +33,8 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/items/:id" element={<Wrapper component={<Item />}/>} />
-        <Route path="/items" element={<Wrapper component={<Items />}/>} />
+        <Route path="/products/:id" element={<Wrapper component={<Product />}/>} />
+        <Route path="/products" element={<Wrapper component={<Products />}/>} />
         <Route path="/cart" element={<Wrapper component={<Cart />}/>} />
         <Route path="/" element={<Wrapper component={<Home />}/>} />
       </Routes>
