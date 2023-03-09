@@ -1,22 +1,15 @@
-/* eslint-disable no-undef */
 module.exports = {
   'env': {
     'browser': true,
-    'es2021': true,
+    'commonjs': true,
+    'es2021': true
   },
-  'extends': [
-    'eslint:recommended',
-    'plugin:react/recommended',
-  ],
+  'extends': 'eslint:recommended',
   'overrides': [
   ],
   'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module',
+    'ecmaVersion': 'latest'
   },
-  'plugins': [
-    'react',
-  ],
   'rules': {
     'semi': [2, 'always'],
     'indent': ['error', 2],
@@ -35,5 +28,5 @@ module.exports = {
       'error',
       'single'
     ],
-  },
+  }
 };
