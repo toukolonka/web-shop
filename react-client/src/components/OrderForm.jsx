@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Prompt } from 'react-router-dom';
 import FormInput from './FormInput';
+import Modal from './Modal';
 
 const firstNameMinLength = 2;
 const firstNameMaxLength = 50;
@@ -15,6 +16,7 @@ function OrderForm(props) {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [isFormDirty, setIsFormDirty] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -37,7 +39,7 @@ function OrderForm(props) {
           type="text"
           id="first_name"
           pattern="^[A-Za-z0-9]{2,150}$"
-          errorMessage="First name should be 2-50 characters long and shouldn't include any special character!"
+          errorMessage="First name should be 2-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
             if (!isFormDirty) setIsFormDirty(true);
             setFirstName(event.target.value);
@@ -49,7 +51,7 @@ function OrderForm(props) {
           type="text"
           id="last_name"
           pattern="^[A-Za-z0-9]{2,150}$"
-          errorMessage="Last name should be 2-50 characters long and shouldn't include any special character!"
+          errorMessage="Last name should be 2-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
             if (!isFormDirty) setIsFormDirty(true);
             setLastName(event.target.value);
@@ -61,7 +63,7 @@ function OrderForm(props) {
           type="text"
           id="address"
           pattern="^[A-Za-z0-9]{10,150}$"
-          errorMessage="Address should be 10-50 characters long and shouldn't include any special character!"
+          errorMessage="Address should be 10-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
             if (!isFormDirty) setIsFormDirty(true);
             setAddress(event.target.value);
@@ -72,11 +74,18 @@ function OrderForm(props) {
       <button
         type="button"
         disabled={buttonDisabled}
-        onClick={() => props.placeOrder(recipientInfo)}
+        onClick={() => setIsModalOpen(true)}
         className={classNames('btn', 'btn-green', { 'btn-disabled': buttonDisabled })}
       >
-            Place order
+        Place order
       </button>
+      <Modal
+        open={isModalOpen}
+        onSubmit={() => props.placeOrder(recipientInfo)}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        Confirm order
+      </Modal>
       <Prompt
         when={isFormDirty}
         message="Are you sure you want to leave?"
