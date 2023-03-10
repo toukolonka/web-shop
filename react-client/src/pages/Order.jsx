@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function Order() {
-  const id = Number(useParams().id);
+  const id = useParams().id;
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
@@ -23,16 +23,16 @@ function Order() {
       <h1 className='my-4'>Order Summary</h1>
       <ul>
         <li>Order ID: {order.id}</li>
-        <li>User ID: {order.user}</li>
+        <li>User ID: {order.userId}</li>
         <li>Date: {order.createdAt}</li>
-        <li>Recipient name: {order.recipient.firstName} {order.recipient.lastName}</li>
-        <li>Delivery address: {order.recipient.address}</li>
+        <li>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</li>
+        <li>Delivery address: {order.recipientInfo.address}</li>
       </ul>
       <h2 className='mt-4'>Products</h2>
       {
-        order.products.map(product =>
-          <div key={product.id}>
-            {product.name} ({product.quantity} * {product.price}€)
+        order.products.map(productObject =>
+          <div key={productObject.product.id}>
+            {productObject.product.name} ({productObject.quantity} * {productObject.product.price}€)
           </div>
         )
       }

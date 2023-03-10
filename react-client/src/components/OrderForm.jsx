@@ -62,7 +62,7 @@ function OrderForm(props) {
           label="Delivery address"
           type="text"
           id="address"
-          pattern="^[A-Za-z0-9]{10,150}$"
+          pattern="^[A-Za-z0-9_ ]{10,150}$"
           errorMessage="Address should be 10-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
             if (!isFormDirty) setIsFormDirty(true);

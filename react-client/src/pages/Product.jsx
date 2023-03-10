@@ -6,7 +6,7 @@ import { CartContext } from '../context/CartContext';
 function Product() {
   const [product, setProduct] = useState(null);
   const { addToCart, removeFromCart, getProductQuantity } = useContext(CartContext);
-  const id = Number(useParams().id);
+  const id = useParams().id;
 
   useEffect(() => {
     async function fetchData() {

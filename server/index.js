@@ -1,57 +1,72 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+const config = require('./utils/config');
+const logger = require('./utils/logger');
+
+const Product = require('./models/product');
+const Order = require('./models/order');
+
+const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-let products = [
-  {
-    id: 1,
-    name: 'PC',
-    price: '100',
-  },
-  {
-    id: 2,
-    name: 'Mac',
-    price: '500',
-  }
-];
+mongoose
+  .connect(config.MONGODB_URI)
+  .then(() => {
+    logger.info('connected to MongoDB');
+  })
+  .catch((error) => {
+    logger.info('error connecting to MongoDB:', error.message);
+  });
 
-let order = [];
-let recipient = {};
-let user = null;
-
-app.get('/api/products', (_, response) => {
+app.get('/api/products', async (_, response) => {
+  const products = await Product.find({});
   response.json(products);
 });
 
-app.get('/api/products/:id', (request, response) => {
-  const id = Number(request.params.id);
-  const product = products.find(product => product.id === id);
+app.get('/api/products/:id', async (request, response) => {
+  const product = await Product.findById(request.params.id);
   response.json(product);
 });
 
-app.get('/api/orders/:id', (_, response) => {
-  response.json({
-    id: 123,
-    createdAt: Date.now(),
-    products: order,
-    recipient,
-    user,
-  });
+app.get('/api/orders/:id', async (request, response) => {
+  const order = await Order
+    .findById(request.params.id)
+    .populate({
+      path: 'products',
+      type: Array,
+      populate: {
+        path: 'product',
+        model: 'Product',
+      },
+    });
+  response.json(order);
 });
 
-app.post('/api/orders', (request, response) => {
+app.post('/api/orders', async (request, response) => {
   const { orderProducts, recipientInfo, userId } = request.body;
-  console.log(userId);
-  order = orderProducts;
-  recipient = recipientInfo;
-  user = userId;
-  response.json(123);
+
+  const products = orderProducts.map((product) => ({
+    product: product.id,
+    quantity: product.quantity
+  }));
+
+  const order = new Order({
+    userId,
+    recipientInfo,
+    products,
+    createdAt: new Date(Date.now()).toISOString()
+  });
+
+  const newOrder = await order.save();
+
+  response.json(newOrder._id);
 });
 
-const PORT = 3001;
+const PORT = config.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });

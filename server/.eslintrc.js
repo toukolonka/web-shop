@@ -22,7 +22,7 @@ module.exports = {
     'arrow-spacing': [
       'error', { 'before': true, 'after': true },
     ],
-    'no-console': 0,
+    'no-console': 'warn',
     'comma-dangle': ['error', 'only-multiline'],
     'quotes': [
       'error',
