@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import DoubleIconButton from '../components/DoubleIconButton';
+import ProductCard from '../components/ProductCard';
 import { CartContext } from '../context/CartContext';
 
 function Product() {
@@ -17,26 +18,34 @@ function Product() {
     fetchData();
   }, []);
 
+  const addToCartButton = product
+    ?
+    <div className='inline-flex justify-center'>
+      {getProductQuantity(id) > 0
+        ?
+        <DoubleIconButton
+          leftIcon="-"
+          rightIcon="+"
+          leftButtonClassNames='btn-red'
+          rightButtonClassNames='btn-blue'
+          handleLeftClick={() => removeFromCart(product.id)}
+          handleRightClick={() => addToCart(product)}
+          count={getProductQuantity(product.id)}
+        />
+        :
+        <button onClick={() => addToCart(product)} className='btn btn-blue block'>Add to cart</button>
+      }
+    </div>
+    :
+    null;
+
   return (
     <>
-      <h1>Product</h1>
       { product &&
       <>
-        <h2>{product.name}</h2>
-        {getProductQuantity(id) > 0
-          ?
-          <DoubleIconButton
-            leftIcon="-"
-            rightIcon="+"
-            leftButtonClassNames='btn-red'
-            rightButtonClassNames='btn-blue'
-            handleLeftClick={() => removeFromCart(product.id)}
-            handleRightClick={() => addToCart(product)}
-            count={getProductQuantity(product.id)}
-          />
-          :
-          <button onClick={() => addToCart(product)} className='btn btn-blue block'>Add to cart</button>
-        }
+        <div className="">
+          <ProductCard product={product} addToCartButton={addToCartButton} />
+        </div>
       </>
       }
     </>

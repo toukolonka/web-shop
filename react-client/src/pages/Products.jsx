@@ -32,7 +32,6 @@ function Products() {
 
   return (
     <>
-      <h1>Products</h1>
       <ProductList
         products={products}
         page={page}

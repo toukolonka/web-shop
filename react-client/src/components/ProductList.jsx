@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import DoubleIconButton from './DoubleIconButton';
 import ProductCard from './ProductCard';
 
@@ -8,8 +8,8 @@ function ProductList(props) {
   return (
     <>
       {props.products.map(product =>
-        <div key={product.id} className='my-2 flex justify-between items-center'>
-          <Link to={`/products/${product.id}`} className='inline-block pr-4'>
+        <div key={product.id} className='my-2 flex justify-center items-center'>
+          <Link to={`/products/${product.id}`} className="bg-gray-800 border border-gray-200 rounded-lg shadow hover:bg-gray-700 max-w-sm">
             <ProductCard product={product} />
           </Link>
         </div>

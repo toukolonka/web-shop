@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import DoubleIconButton from '../components/DoubleIconButton';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
+import CartProductCard from '../components/CartProductCard';
 
 function Cart() {
   const {
@@ -35,17 +35,12 @@ function Cart() {
 
   return (
     <>
-      <h1 className='my-4'>Shopping cart</h1>
       {cartProducts.map(product =>
-        <div key={product.id}  className='my-2 w-2/3 flex justify-between items-center'>
-          <span className='pr-4'>Product name: {product.name}</span>
-          <DoubleIconButton
-            leftIcon="-"
-            rightIcon="+"
-            leftButtonClassNames='btn-red'
-            rightButtonClassNames='btn-blue'
-            handleLeftClick={() => removeFromCart(product.id)}
-            handleRightClick={() => addToCart(product)}
+        <div key={product.id}  className='my-2 w-full flex justify-between items-center'>
+          <CartProductCard
+            product={product}
+            removeFromCart={() => removeFromCart(product.id)}
+            addToCart={() => addToCart(product)}
             count={getProductQuantity(product.id)}
           />
         </div>
@@ -53,7 +48,7 @@ function Cart() {
       { cartProducts.length > 0
         ?
         <>
-          <h2 className='my-4'>Total price: {getTotalPrice()}€</h2>
+          <h2 className='my-4 xs:text-left text-center font-bold'>Total price: {getTotalPrice()}€</h2>
           <OrderForm placeOrder={placeOrder} />
         </>
         :
