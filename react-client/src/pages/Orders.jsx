@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import OrderCard from '../components/OrderCard';
 
 function Orders() {
   const [orders, setOrders] = useState(null);
@@ -16,10 +17,16 @@ function Orders() {
     return <div>Loading...</div>;
   }
 
+  if (orders.length === 0) {
+    return <div>No orders</div>;
+  }
+
   return (
     <>
-      <h1 className='my-4'>My orders</h1>
-      {orders.map(order => <div key={order.id}>{order.id}</div>)}
+      {orders.map(order =>
+        <div key={order.id} className='my-2 flex justify-center items-center'>
+          <OrderCard order={order} />
+        </div>)}
     </>
   );
 }

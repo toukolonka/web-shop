@@ -75,7 +75,7 @@ function OrderForm(props) {
         type="button"
         disabled={buttonDisabled}
         onClick={() => setIsModalOpen(true)}
-        className={classNames('btn', 'btn-green', 'w-full', { 'btn-disabled': buttonDisabled })}
+        className={classNames('btn', 'btn-blue', 'w-full', { 'btn-disabled': buttonDisabled })}
       >
         Place order
       </button>

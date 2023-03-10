@@ -16,6 +16,8 @@ const orderSchema = new Schema({
       quantity: Number,
     },
   ],
+  totalPrice: Number,
+  totalProductCount: Number,
   createdAt: Date,
 });
 

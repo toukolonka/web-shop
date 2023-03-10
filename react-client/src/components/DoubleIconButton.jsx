@@ -6,7 +6,10 @@ function DoubleIconButton(props) {
     <div className='inline'>
       <button
         className={classNames('btn', 'inline', props.leftButtonClassNames)}
-        onClick={props.handleLeftClick}
+        onClick={ (e) => {
+          e.preventDefault();
+          props.handleLeftClick();
+        }}
         disabled={props.leftButtonDisabled}
       >
         {props.leftIcon}
@@ -14,7 +17,10 @@ function DoubleIconButton(props) {
       <div className={classNames('inline-flex', 'w-12', 'justify-center', props.textClassNames)}>{props.count}</div>
       <button
         className={classNames('btn', 'inline', props.rightButtonClassNames)}
-        onClick={props.handleRightClick}
+        onClick={ (e) => {
+          e.preventDefault();
+          props.handleRightClick();
+        }}
         disabled={props.rightButtonDisabled}
       >
         {props.rightIcon}

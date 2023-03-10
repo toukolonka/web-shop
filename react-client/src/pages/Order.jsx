@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import CartProductCard from '../components/CartProductCard';
 
 function Order() {
   const id = useParams().id;
@@ -21,19 +22,15 @@ function Order() {
 
   return (
     <>
-      <h1 className='my-4'>Order Summary</h1>
-      <ul>
-        <li>Order ID: {order.id}</li>
-        <li>User ID: {order.userId}</li>
-        <li>Date: {format(new Date(order.createdAt), 'dd.MM.yyyy')}</li>
-        <li>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</li>
-        <li>Delivery address: {order.recipientInfo.address}</li>
-      </ul>
-      <h2 className='mt-4'>Products</h2>
+      <h1 className='text-center'>Order on {format(new Date(order.createdAt), 'dd.MM.yyyy HH:mm')}</h1>
+      <p className='text-center'>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</p>
+      <p className='text-center'>Delivery address: {order.recipientInfo.address}</p>
+      <p className='text-center'>Total price: {order.totalPrice}€</p>
+      <h2 className='my-4 text-center'>Products</h2>
       {
         order.products.map(productObject =>
           <div key={productObject.product.id}>
-            {productObject.product.name} ({productObject.quantity} * {productObject.product.price}€)
+            <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
           </div>
         )
       }

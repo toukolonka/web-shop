@@ -45,7 +45,9 @@ app.get('/api/products/:id', async (request, response) => {
 
 app.get('/api/orders', async (request, response) => {
   const { userId } = request.query;
-  const orders = await Order.find({ userId });
+  const orders = await Order
+    .find({ userId })
+    .sort({ createdAt: 'desc' });
   response.json(orders);
 });
 
@@ -64,7 +66,7 @@ app.get('/api/orders/:id', async (request, response) => {
 });
 
 app.post('/api/orders', async (request, response) => {
-  const { orderProducts, recipientInfo, userId } = request.body;
+  const { orderProducts, recipientInfo, userId, totalPrice, totalProductCount } = request.body;
 
   const products = orderProducts.map((product) => ({
     product: product.id,
@@ -75,7 +77,9 @@ app.post('/api/orders', async (request, response) => {
     userId,
     recipientInfo,
     products,
-    createdAt: new Date(Date.now()).toISOString()
+    createdAt: new Date(Date.now()).toISOString(),
+    totalPrice,
+    totalProductCount,
   });
 
   const newOrder = await order.save();
