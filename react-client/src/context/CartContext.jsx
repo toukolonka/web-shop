@@ -1,9 +1,27 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState, useRef } from 'react';
 
 export const CartContext = createContext(null);
 
 const CartContextProvider = (props) => {
   const [cartProducts, setCartProducts] = useState([]);
+
+  const firstUpdate = useRef(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('cart')) {
+      setCartProducts(JSON.parse(localStorage.getItem('cart')));
+    } else {
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    localStorage.setItem('cart', JSON.stringify(cartProducts));
+  }, [cartProducts]);
 
   function getTotalQuantity() {
     let totalQuantity = 0;
