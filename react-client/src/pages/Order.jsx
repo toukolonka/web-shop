@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 function Order() {
   const id = useParams().id;
@@ -24,7 +25,7 @@ function Order() {
       <ul>
         <li>Order ID: {order.id}</li>
         <li>User ID: {order.userId}</li>
-        <li>Date: {order.createdAt}</li>
+        <li>Date: {format(new Date(order.createdAt), 'dd.MM.yyyy')}</li>
         <li>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</li>
         <li>Delivery address: {order.recipientInfo.address}</li>
       </ul>
