@@ -1,21 +1,32 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../context/CartContext';
+import classNames from 'classnames';
+import DoubleIconButton from './DoubleIconButton';
 import ProductCard from './ProductCard';
 
 function ProductList(props) {
-  const { addToCart } = useContext(CartContext);
-
   return (
     <>
       {props.products.map(product =>
-        <div key={product.id} className='my-2 w-2/3 flex justify-between items-center'>
+        <div key={product.id} className='my-2 flex justify-between items-center'>
           <Link to={`/products/${product.id}`} className='inline-block pr-4'>
             <ProductCard product={product} />
           </Link>
-          <button className='btn btn-blue' onClick={() => addToCart(product)}>Add to cart</button>
         </div>
       )}
+      <div className='flex justify-center'>
+        <DoubleIconButton
+          leftIcon="<"
+          rightIcon=">"
+          leftButtonDisabled={props.page <= 1}
+          rightButtonDisabled={props.page >= props.pageCount}
+          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : props.page <= 1 })}
+          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : props.page >= props.pageCount })}
+          handleLeftClick={props.handlePrevious}
+          handleRightClick={props.handleNext}
+          count={props.page}
+        />
+      </div>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import PlusMinusButton from '../components/PlusMinusButton';
+import DoubleIconButton from '../components/DoubleIconButton';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
 
@@ -39,10 +39,14 @@ function Cart() {
       {cartProducts.map(product =>
         <div key={product.id}  className='my-2 w-2/3 flex justify-between items-center'>
           <span className='pr-4'>Product name: {product.name}</span>
-          <PlusMinusButton
+          <DoubleIconButton
+            leftIcon="-"
+            rightIcon="+"
+            leftButtonClassNames='btn-red'
+            rightButtonClassNames='btn-blue'
+            handleLeftClick={() => removeFromCart(product.id)}
+            handleRightClick={() => addToCart(product)}
             count={getProductQuantity(product.id)}
-            decrementCount={() => removeFromCart(product.id)}
-            incrementCount={() => addToCart(product)}
           />
         </div>
       )}

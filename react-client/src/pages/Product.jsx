@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import PlusMinusButton from '../components/PlusMinusButton';
+import DoubleIconButton from '../components/DoubleIconButton';
 import { CartContext } from '../context/CartContext';
 
 function Product() {
@@ -25,10 +25,14 @@ function Product() {
         <h2>{product.name}</h2>
         {getProductQuantity(id) > 0
           ?
-          <PlusMinusButton
+          <DoubleIconButton
+            leftIcon="-"
+            rightIcon="+"
+            leftButtonClassNames='btn-red'
+            rightButtonClassNames='btn-blue'
+            handleLeftClick={() => removeFromCart(product.id)}
+            handleRightClick={() => addToCart(product)}
             count={getProductQuantity(product.id)}
-            decrementCount={() => removeFromCart(product.id)}
-            incrementCount={() => addToCart(product)}
           />
           :
           <button onClick={() => addToCart(product)} className='btn btn-blue block'>Add to cart</button>

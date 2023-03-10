@@ -22,9 +22,20 @@ mongoose
     logger.info('error connecting to MongoDB:', error.message);
   });
 
-app.get('/api/products', async (_, response) => {
-  const products = await Product.find({});
-  response.json(products);
+const PRODUCTS_PER_PAGE = 1;
+
+app.get('/api/products', async (request, response) => {
+  const { page } = request.query;
+  const documentCount = await Product.estimatedDocumentCount({});
+  const products = await Product
+    .find({})
+    .skip((page - 1) * PRODUCTS_PER_PAGE)
+    .limit(PRODUCTS_PER_PAGE);
+  const pageCount = Math.ceil(documentCount / PRODUCTS_PER_PAGE);
+  response.json({
+    products,
+    pageCount,
+  });
 });
 
 app.get('/api/products/:id', async (request, response) => {
