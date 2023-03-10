@@ -32,6 +32,12 @@ app.get('/api/products/:id', async (request, response) => {
   response.json(product);
 });
 
+app.get('/api/orders', async (request, response) => {
+  const { userId } = request.query;
+  const orders = await Order.find({ userId });
+  response.json(orders);
+});
+
 app.get('/api/orders/:id', async (request, response) => {
   const order = await Order
     .findById(request.params.id)

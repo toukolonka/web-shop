@@ -14,6 +14,7 @@ function NavBar() {
           <ul className="flex flex-row space-x-4 mt-0 text-sm font-medium border-0 py-4 px-1">
             <CustomLink to="/products">Products</CustomLink>
             <CustomLink to="/cart">Cart ({getTotalQuantity()})</CustomLink>
+            <CustomLink to="/orders">Orders</CustomLink>
           </ul>
         </div>
       </div>
