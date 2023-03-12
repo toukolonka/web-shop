@@ -22,12 +22,12 @@ function Orders() {
   }
 
   return (
-    <>
+    <div className='sm:grid sm:grid-cols-2'>
       {orders.map(order =>
-        <div key={order.id} className='my-2 flex justify-center items-center'>
+        <div key={order.id} className='m-2 flex justify-center items-center'>
           <OrderCard order={order} />
         </div>)}
-    </>
+    </div>
   );
 }
 

@@ -21,12 +21,18 @@ function Products() {
       if (p === 1) return p;
       return p - 1;
     });
+    window.scrollTo({
+      top: 0,
+    });
   }
 
   function handleNext() {
     setPage((p) => {
       if (p >= pageCount) return p;
       return p + 1;
+    });
+    window.scrollTo({
+      top: 0,
     });
   }
 

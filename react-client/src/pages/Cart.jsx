@@ -41,16 +41,18 @@ function Cart() {
 
   return (
     <>
-      {cartProducts.map(product =>
-        <div key={product.id}  className='my-2 w-full flex justify-between items-center'>
-          <CartProductCard
-            product={product}
-            removeFromCart={() => removeFromCart(product.id)}
-            addToCart={() => addToCart(product)}
-            count={getProductQuantity(product.id)}
-          />
-        </div>
-      )}
+      <div className='xs:grid sm:block xs:grid-cols-2'>
+        {cartProducts.map(product =>
+          <div key={product.id}  className='m-2 flex justify-between items-center'>
+            <CartProductCard
+              product={product}
+              removeFromCart={() => removeFromCart(product.id)}
+              addToCart={() => addToCart(product)}
+              count={getProductQuantity(product.id)}
+            />
+          </div>
+        )}
+      </div>
       { cartProducts.length > 0
         ?
         <>

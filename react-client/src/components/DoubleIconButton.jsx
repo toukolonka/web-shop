@@ -5,7 +5,7 @@ function DoubleIconButton(props) {
   return (
     <div className='inline'>
       <button
-        className={classNames('btn', 'inline', props.leftButtonClassNames)}
+        className={classNames('btn w-10 inline-flex justify-center', props.leftButtonClassNames)}
         onClick={ (e) => {
           e.preventDefault();
           props.handleLeftClick();
@@ -14,9 +14,9 @@ function DoubleIconButton(props) {
       >
         {props.leftIcon}
       </button>
-      <div className={classNames('inline-flex', 'w-12', 'justify-center', props.textClassNames)}>{props.count}</div>
+      <div className={classNames('inline-flex w-12 justify-center', props.textClassNames)}>{props.count}</div>
       <button
-        className={classNames('btn', 'inline', props.rightButtonClassNames)}
+        className={classNames('btn w-10 inline-flex justify-center', props.rightButtonClassNames)}
         onClick={ (e) => {
           e.preventDefault();
           props.handleRightClick();
