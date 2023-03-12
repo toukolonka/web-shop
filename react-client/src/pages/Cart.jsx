@@ -36,7 +36,7 @@ function Cart() {
     });
     checkout();
     const orderId = await response.json();
-    history.push(`/order/${orderId}`);
+    history.push(`/orders/${orderId}`);
   }
 
   return (

@@ -27,13 +27,15 @@ function Order() {
       <p className='text-center'>Delivery address: {order.recipientInfo.address}</p>
       <p className='text-center'>Total price: {order.totalPrice}€</p>
       <h2 className='my-4 text-center'>Products</h2>
-      {
-        order.products.map(productObject =>
-          <div key={productObject.product.id} className='mx-2'>
-            <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
-          </div>
-        )
-      }
+      <div className='xs:grid sm:block xs:grid-cols-2'>
+        {
+          order.products.map(productObject =>
+            <div key={productObject.product.id} className='mx-2'>
+              <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+            </div>
+          )
+        }
+      </div>
     </>
   );
 }

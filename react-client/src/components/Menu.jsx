@@ -5,7 +5,7 @@ const Menu = (props) => {
   return (
     <div>
       { props.isOpen &&
-      <div className='flex justify-between text-sm font-medium mx-4'>
+      <div className='flex justify-between text-sm font-medium ml-4 mr-1'>
         <CustomLink to="/" onClick={props.setOpen}>
           Home
         </CustomLink>
