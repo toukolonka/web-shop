@@ -29,7 +29,7 @@ function Order() {
       <h2 className='my-4 text-center'>Products</h2>
       {
         order.products.map(productObject =>
-          <div key={productObject.product.id}>
+          <div key={productObject.product.id} className='mx-2'>
             <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
           </div>
         )

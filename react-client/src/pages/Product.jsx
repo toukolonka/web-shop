@@ -43,7 +43,7 @@ function Product() {
     <>
       { product &&
       <>
-        <div className="">
+        <div className='mx-2'>
           <ProductCard product={product} addToCartButton={addToCartButton} />
         </div>
       </>
