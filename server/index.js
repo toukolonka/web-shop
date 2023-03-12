@@ -22,7 +22,7 @@ mongoose
     logger.info('error connecting to MongoDB:', error.message);
   });
 
-const PRODUCTS_PER_PAGE = 1;
+const PRODUCTS_PER_PAGE = 10;
 
 app.get('/api/products', async (request, response) => {
   const { page } = request.query;
