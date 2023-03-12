@@ -23,10 +23,12 @@ function Order() {
   return (
     <>
       <h1 className='text-center'>Order on {format(new Date(order.createdAt), 'dd.MM.yyyy HH:mm')}</h1>
-      <p className='text-center'>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</p>
-      <p className='text-center'>Delivery address: {order.recipientInfo.address}</p>
-      <p className='text-center'>Total price: {order.totalPrice}€</p>
-      <h2 className='my-4 text-center'>Products</h2>
+      <div className='m-4 text-center xs:text-start'>
+        <p>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</p>
+        <p>Delivery address: {order.recipientInfo.address}</p>
+        <p>Total price: {order.totalPrice}€</p>
+      </div>
+      <h2 className='m-4'>Products</h2>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {
           order.products.map(productObject =>
