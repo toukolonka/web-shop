@@ -25,13 +25,22 @@ mongoose
 const PRODUCTS_PER_PAGE = 10;
 
 app.get('/api/products', async (request, response) => {
-  const { page } = request.query;
-  const documentCount = await Product.estimatedDocumentCount({});
+  const { page, search, minPrice, maxPrice } = request.query;
+
+  const searchQuery = {
+    name: { $regex: search, $options: 'i' },
+    $and: [{ price: { $gte: minPrice === '' ? 0 : minPrice } }, { price: { $lte: maxPrice === '' ? Infinity : maxPrice } } ]
+  };
+
+  const documentCount = await Product.countDocuments(searchQuery);
+
   const products = await Product
-    .find({})
+    .find(searchQuery)
     .skip((page - 1) * PRODUCTS_PER_PAGE)
     .limit(PRODUCTS_PER_PAGE);
+
   const pageCount = Math.ceil(documentCount / PRODUCTS_PER_PAGE);
+
   response.json({
     products,
     pageCount,

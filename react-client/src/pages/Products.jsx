@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import Filter from '../components/Filter';
 import ProductList from '../components/ProductList';
+import Search from '../components/Search';
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
+  const [searchValue, setSearchValue] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
+  async function fetchData() {
+    const response = await fetch(`http://localhost:3001/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+    const data = await response.json();
+    setProducts(data.products);
+    setPageCount(data.pageCount);
+  }
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`http://localhost:3001/api/products?page=${page}`);
-      const data = await response.json();
-      setProducts(data.products);
-      setPageCount(data.pageCount);
-    }
     fetchData();
   }, [page]);
 
@@ -38,6 +44,17 @@ function Products() {
 
   return (
     <>
+      <Search
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        search={fetchData}
+      />
+      <Filter
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        setMinPrice={setMinPrice}
+        setMaxPrice={setMaxPrice}
+      />
       <ProductList
         products={products}
         page={page}
