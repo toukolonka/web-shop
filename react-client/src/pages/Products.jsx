@@ -22,6 +22,11 @@ function Products() {
     fetchData();
   }, [page]);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    fetchData();
+  }
+
   function handlePrevious() {
     setPage((p) => {
       if (p === 1) return p;
@@ -44,17 +49,18 @@ function Products() {
 
   return (
     <>
-      <Search
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        search={fetchData}
-      />
-      <Filter
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        setMinPrice={setMinPrice}
-        setMaxPrice={setMaxPrice}
-      />
+      <form onSubmit={handleSubmit}>
+        <Search
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+        <Filter
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          setMinPrice={setMinPrice}
+          setMaxPrice={setMaxPrice}
+        />
+      </form>
       <ProductList
         products={products}
         page={page}

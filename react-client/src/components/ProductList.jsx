@@ -16,7 +16,7 @@ function ProductList(props) {
           </div>
         )}
       </div>
-      <div className='flex justify-center'>
+      <div className='flex justify-center my-2'>
         <DoubleIconButton
           leftIcon="<"
           rightIcon=">"

@@ -6,7 +6,7 @@ function Search(props) {
   return (
     <div className='flex mx-2'>
       <SearchInput searchValue={props.searchValue} setSearchValue={props.setSearchValue}/>
-      <SearchButton search={props.search} />
+      <SearchButton />
     </div>
   );
 }
