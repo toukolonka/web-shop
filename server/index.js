@@ -29,7 +29,7 @@ app.get('/api/products', async (request, response) => {
 
   const searchQuery = {
     name: { $regex: search, $options: 'i' },
-    $and: [{ price: { $gte: minPrice === '' ? 0 : minPrice } }, { price: { $lte: maxPrice === '' ? Infinity : maxPrice } } ]
+    $and: [{ price: { $gte: !minPrice ? 0 : minPrice } }, { price: { $lte: !maxPrice ? Infinity : maxPrice } } ]
   };
 
   const documentCount = await Product.countDocuments(searchQuery);

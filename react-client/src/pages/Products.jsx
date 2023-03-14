@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import Filter from '../components/Filter';
 import ProductList from '../components/ProductList';
 import Search from '../components/Search';
@@ -10,6 +11,17 @@ function Products() {
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const history = useHistory();
+  const firstRender = useRef(true);
+
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const pageParam = searchParams.get('page');
+  const searchParam = searchParams.get('search');
+  const minPriceParam = searchParams.get('minPrice');
+  const maxPriceParam = searchParams.get('maxPrice');
+
+  const noSearchParams = !searchParam && !minPriceParam && !maxPriceParam;
 
   async function fetchData() {
     const response = await fetch(`http://localhost:3001/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
@@ -19,13 +31,25 @@ function Products() {
   }
 
   useEffect(() => {
-    fetchData();
-  }, [page]);
+    Number(pageParam) && setPage(Number(pageParam));
+    searchParam && setSearchValue(searchParam);
+    Number(minPriceParam) && setMinPrice(Number(minPriceParam));
+    Number(maxPriceParam) && setMaxPrice(Number(maxPriceParam));
+  }, []);
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      noSearchParams && fetchData();
+      return;
+    }
+
+    history.push({
+      pathname: 'products',
+      search: `?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+    });
     fetchData();
-  }
+  }, [page, searchValue, minPrice, maxPrice]);
 
   function handlePrevious() {
     setPage((p) => {
@@ -49,7 +73,7 @@ function Products() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Search
           searchValue={searchValue}
           setSearchValue={setSearchValue}
