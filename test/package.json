@@ -1,0 +1,14 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "playwright": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.31.2",
+    "lighthouse": "^9.6.8",
+    "playwright": "^1.31.2",
+    "playwright-lighthouse": "^2.2.2"
+  }
+}
