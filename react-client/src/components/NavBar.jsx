@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import Burger from './Burger';
 import { CartContext } from '../context/CartContext';
 import Menu from './Menu';
+import CustomLink from './CustomLink';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,21 +37,6 @@ function NavBar() {
         </div>
       </nav>
     </>
-  );
-}
-
-export function CustomLink({ to, children, ...props }) {
-  const location = useLocation();
-  const isActive = to !== '/' && location.pathname.startsWith(to) || location.pathname === to;
-
-  return (
-    <Link
-      to={to}
-      {...props}
-      className={classNames('block', 'py-2', 'pr-4', 'hover:scale-110', { 'text-blue-700': isActive }, { 'text-gray-700': !isActive })}
-    >
-      {children}
-    </Link>
   );
 }
 

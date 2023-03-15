@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import Filter from '../components/Filter';
+import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
-import Search from '../components/Search';
+import SearchInput from '../components/SearchInput';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -73,16 +73,20 @@ function Products() {
 
   return (
     <>
-      <form>
-        <Search
+      <form className='flex flex-wrap mx-2 ml-2'>
+        <SearchInput
           searchValue={searchValue}
           setSearchValue={setSearchValue}
         />
-        <Filter
-          minPrice={minPrice}
-          maxPrice={maxPrice}
-          setMinPrice={setMinPrice}
-          setMaxPrice={setMaxPrice}
+        <FilterInput
+          placeholder="Minimum price"
+          value={minPrice}
+          setFilterValue={setMinPrice}
+        />
+        <FilterInput
+          placeholder="Maximum price"
+          value={maxPrice}
+          setFilterValue={setMaxPrice}
         />
       </form>
       <ProductList
