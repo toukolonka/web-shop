@@ -2,11 +2,10 @@
   "name": "test",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "playwright": "playwright test"
-  },
+  "scripts": {},
   "devDependencies": {
     "@playwright/test": "^1.31.2",
+    "eslint": "^8.36.0",
     "lighthouse": "^9.6.8",
     "playwright": "^1.31.2",
     "playwright-lighthouse": "^2.2.2"

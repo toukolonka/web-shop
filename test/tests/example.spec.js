@@ -4,7 +4,7 @@ const { playAudit } = require('playwright-lighthouse');
 const thresholds = {
   performance: 50,
   accessibility: 50,
-  "best-practices": 50,
+  'best-practices': 50,
   seo: 50,
   pwa: 10,
 };
