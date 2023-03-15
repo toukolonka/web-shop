@@ -40,7 +40,7 @@ function Products() {
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
-      noSearchParams && fetchData();
+      (Number(pageParam) === 1 || !pageParam) && noSearchParams && fetchData();
       return;
     }
 
