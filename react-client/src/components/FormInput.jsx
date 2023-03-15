@@ -19,7 +19,7 @@ const FormInput = (props) => {
         // eslint-disable-next-line react/no-unknown-property
         focused={focused.toString()}
       />
-      <span className='error'>{errorMessage}</span>
+      <span className='text-xs p-1 text-red-500 hidden'>{errorMessage}</span>
     </div>
   );
 };
