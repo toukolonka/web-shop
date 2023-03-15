@@ -9,5 +9,8 @@
     "lighthouse": "^9.6.8",
     "playwright": "^1.31.2",
     "playwright-lighthouse": "^2.2.2"
+  },
+  "dependencies": {
+    "find-free-port": "^2.0.0"
   }
 }
