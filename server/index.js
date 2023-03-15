@@ -24,7 +24,7 @@ mongoose
     logger.info('error connecting to MongoDB:', error.message);
   });
 
-const PORT = config.PORT || 3001;
+const PORT = config.PORT || 8080;
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });

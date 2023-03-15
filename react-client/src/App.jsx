@@ -16,7 +16,7 @@ import Orders from './pages/Orders';
 function Wrapper(props) {
   return (
     <div className='mx-auto max-w-xl w-full my-2'>
-      <div className='mx-2 sm:mx-0'>
+      <div className='mx-2'>
         {props.component}
       </div>
     </div>

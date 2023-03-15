@@ -6,7 +6,7 @@ function Orders() {
 
   useEffect(() => {
     async function fetchOrder() {
-      const response = await fetch(`http://localhost:3001/api/orders?userId=${localStorage.getItem('user')}`);
+      const response = await fetch(`http://localhost:8080/api/orders?userId=${localStorage.getItem('user')}`);
       const orderData = await response.json();
       setOrders(orderData);
     }

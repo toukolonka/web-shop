@@ -20,7 +20,7 @@ function Cart() {
   const totalProductCount = getTotalQuantity();
 
   async function placeOrder(recipientInfo) {
-    const response = await fetch('http://localhost:3001/api/orders', {
+    const response = await fetch('http://localhost:8080/api/orders', {
       method: 'POST',
       body: JSON.stringify(
         {

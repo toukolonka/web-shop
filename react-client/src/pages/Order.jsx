@@ -9,7 +9,7 @@ function Order() {
 
   useEffect(() => {
     async function fetchOrder() {
-      const response = await fetch(`http://localhost:3001/api/orders/${id}`);
+      const response = await fetch(`http://localhost:8080/api/orders/${id}`);
       const orderData = await response.json();
       setOrder(orderData);
     }

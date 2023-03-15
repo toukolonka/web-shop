@@ -2,7 +2,11 @@
 
 ### Getting started
 
-#### Server
+```bash
+docker-compose up
+```
+
+#### Server (development)
 
 ```bash
 cd server
@@ -12,7 +16,7 @@ npm install
 npm run dev
 ```
 
-#### Client
+#### Client (development)
 
 ```bash
 cd react-client

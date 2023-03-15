@@ -32,7 +32,7 @@ function OrderForm(props) {
   };
 
   return (
-    <form>
+    <form className='mx-2'>
       <div className="grid gap-6 mb-6 sm:grid-cols-2">
         <FormInput
           label="First name"

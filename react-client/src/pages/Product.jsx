@@ -11,7 +11,7 @@ function Product() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`http://localhost:3001/api/products/${id}`);
+      const response = await fetch(`http://localhost:8080/api/products/${id}`);
       const data = await response.json();
       setProduct(data);
     }

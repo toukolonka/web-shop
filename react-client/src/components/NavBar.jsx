@@ -17,8 +17,8 @@ function NavBar() {
     <>
       <nav className="border-gray-200 py-1 bg-white">
         <div className="container flex flex-wrap items-center justify-between mx-auto max-w-xl w-full h-16">
-          <Link to="/" className="hidden xs:flex items-center ml-2 sm:ml-0">
-            <span className="self-center text-xl font-semibold whitespace-nowrap ">Web Shop</span>
+          <Link to="/" className="hidden xs:flex items-center sm:ml-0">
+            <span className="ml-4 self-center text-xl font-semibold whitespace-nowrap ">Web Shop</span>
           </Link>
           <div className="hidden xs:block ml-2 w-auto" id="navbar-default">
             <div className="flex flex-row space-x-4 mt-0 text-sm font-medium border-0 py-4 px-1">

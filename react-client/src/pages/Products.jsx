@@ -24,7 +24,7 @@ function Products() {
   const noSearchParams = !searchParam && !minPriceParam && !maxPriceParam;
 
   async function fetchData() {
-    const response = await fetch(`http://localhost:3001/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+    const response = await fetch(`http://localhost:8080/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
     const data = await response.json();
     setProducts(data.products);
     setPageCount(data.pageCount);

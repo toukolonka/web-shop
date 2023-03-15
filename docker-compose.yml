@@ -1,0 +1,30 @@
+version: "3.4"
+
+volumes:
+  react_node_modules:
+
+services:
+  react-client:
+    build: react-client
+    image: react-client
+    restart: "no"
+    volumes:
+      - ./react-client/:/app
+      - react_node_modules:/app/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    env_file:
+      - project.env
+
+  server:
+    build: server
+    image: server
+    restart: "no"
+    volumes:
+      - ./server/:/app
+    ports:
+      - 8080:8080
+    env_file:
+      - project.env
