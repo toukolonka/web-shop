@@ -6,10 +6,10 @@ function ProductCard(props) {
     <div data-testid={`productCard${props.product.price}`}>
       <img
         className={classNames('rounded-t-lg', { 'rounded-lg': props.addToCartButton })}
-        src={`https://picsum.photos/seed/${props.product.id}/800/400`}
+        src={`https://picsum.photos/seed/${props.product.id}/600/300`}
         alt="Product image"
-        width="800"
-        height="400"
+        width="600"
+        height="300"
       />
       <div className="flex flex-col items-center p-5">
         <strong className={classNames('mb-2 card-text', { 'text-white': !props.addToCartButton }, { 'text-gray-700': props.addToCartButton })}>{props.product.name}</strong>

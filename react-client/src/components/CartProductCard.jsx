@@ -7,10 +7,10 @@ function CartProductCard(props) {
     <Link to={`/products/${props.product.id}`} className="flex flex-col w-full items-center justify-between border rounded-lg shadow sm:flex-row sm:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700 mb-4">
       <img
         className="object-cover w-full rounded-t-lg h-auto sm:w-48 sm:rounded-none sm:rounded-l-lg"
-        src={`https://picsum.photos/seed/${props.product.id}/600/400`}
+        src={`https://picsum.photos/seed/${props.product.id}/450/300`}
         alt="Product image"
-        width="800"
-        height="400"
+        width="450"
+        height="300"
       />
       <div className="flex flex-col justify-center items-center pl-4">
         <strong className="text-white card-text">{props.product.name}</strong>
