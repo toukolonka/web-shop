@@ -711,8 +711,8 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
     await browser.close();
 
     const report = await flow.generateReport();
-    fs.writeFileSync('flow.report.html', report);
-    open('flow.report.html', {wait: false});
+    fs.writeFileSync('reports/buy.report.html', report);
+    open('reports/buy.report.html', {wait: false});
 
     async function waitForSelectors(selectors, frame, options) {
       for (const selector of selectors) {
