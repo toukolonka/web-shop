@@ -25,3 +25,23 @@ npm install
 
 npm run dev
 ```
+
+#### Lighthouse performance tests
+
+```bash
+cd test-playwright
+
+npm install
+
+npx playwright test pages
+```
+
+#### Lighthouse user flow tests
+
+```bash
+cd test-puppeteer
+
+npm install
+
+npm run test
+```

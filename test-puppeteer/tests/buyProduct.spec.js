@@ -8,7 +8,7 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
       args:[
         '--start-maximized'
       ],
-      headless: false
+      // headless: false
     });
     const page = await browser.newPage();
 
