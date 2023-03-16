@@ -22,9 +22,9 @@ function NavBar() {
           </Link>
           <div className="hidden xs:block ml-2 w-auto" id="navbar-default">
             <div className="flex flex-row space-x-4 mt-0 text-sm font-medium border-0 py-4 px-1">
-              <CustomLink to="/products">Products</CustomLink>
-              <CustomLink to="/orders">Orders</CustomLink>
-              <CustomLink to="/cart">Cart ({getTotalQuantity()})</CustomLink>
+              <CustomLink dataTestId="productsNavLink" to="/products">Products</CustomLink>
+              <CustomLink dataTestId="ordersNavLink" to="/orders">Orders</CustomLink>
+              <CustomLink dataTestId="cartNavLink" to="/cart">Cart ({getTotalQuantity()})</CustomLink>
             </div>
           </div>
           <div className='flex ml-2 items-center xs:hidden justify-between w-full text-sm font-medium py-4 px-1'>

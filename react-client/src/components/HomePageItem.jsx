@@ -8,7 +8,7 @@ function HomePageItem(props) {
       to={props.to}
       data-testid={props.dataTestid}
     >
-      <h5 className="mb-2 mx-auto text-2xl font-bold tracking-tight text-white">{props.name}</h5>
+      <strong className="mb-2 mx-auto text-2xl font-bold tracking-tight text-white">{props.name}</strong>
     </Link>
   );
 }

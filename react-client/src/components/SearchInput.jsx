@@ -8,6 +8,7 @@ function SearchInput(props) {
       placeholder="Search"
       value={props.searchValue}
       onChange={(event) => props.setSearchValue(event.target.value)}
+      data-testid="searchButton"
     />
   );
 }

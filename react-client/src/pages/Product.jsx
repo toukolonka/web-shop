@@ -33,7 +33,7 @@ function Product() {
           count={getProductQuantity(product.id)}
         />
         :
-        <button onClick={() => addToCart(product)} className='btn btn-blue block w-32'>Add to cart</button>
+        <button data-testid="addToCartButton" onClick={() => addToCart(product)} className='btn btn-blue block w-32'>Add to cart</button>
       }
     </div>
     :

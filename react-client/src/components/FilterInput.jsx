@@ -8,6 +8,7 @@ function FilterInput(props) {
       placeholder={props.placeholder}
       value={props.value}
       onChange={(event) => props.setFilterValue(event.target.value)}
+      data-testid={props.dataTestId}
     />
   );
 }

@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "name": "test-puppeteer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node ./tests/buyProduct.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "lighthouse": "^9.6.8",
+    "open": "^8.4.2",
+    "puppeteer": "^19.7.5"
+  }
+}

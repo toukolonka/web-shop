@@ -56,7 +56,7 @@ function Cart() {
       { cartProducts.length > 0
         ?
         <>
-          <h2 className='my-4 xs:text-left text-center font-bold'>Total price: {totalPrice}€</h2>
+          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {totalPrice}€</strong>
           <OrderForm placeOrder={placeOrder} />
         </>
         :

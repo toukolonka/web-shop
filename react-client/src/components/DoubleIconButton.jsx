@@ -11,6 +11,7 @@ function DoubleIconButton(props) {
           props.handleLeftClick();
         }}
         disabled={props.leftButtonDisabled}
+        data-testid="leftButton"
       >
         {props.leftIcon}
       </button>
@@ -22,6 +23,7 @@ function DoubleIconButton(props) {
           props.handleRightClick();
         }}
         disabled={props.rightButtonDisabled}
+        data-testid="rightButton"
       >
         {props.rightIcon}
       </button>

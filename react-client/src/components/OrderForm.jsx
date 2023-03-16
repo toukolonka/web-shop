@@ -32,12 +32,13 @@ function OrderForm(props) {
   };
 
   return (
-    <form className='mx-2'>
+    <form className='mx-2 mt-4'>
       <div className="grid gap-6 mb-6 sm:grid-cols-2">
         <FormInput
           label="First name"
           type="text"
           id="first_name"
+          dataTestId="firstNameInput"
           pattern="^[A-Za-z0-9]{2,150}$"
           errorMessage="First name should be 2-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
@@ -50,6 +51,7 @@ function OrderForm(props) {
           label="Last name"
           type="text"
           id="last_name"
+          dataTestId="lastNameInput"
           pattern="^[A-Za-z0-9]{2,150}$"
           errorMessage="Last name should be 2-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
@@ -62,6 +64,7 @@ function OrderForm(props) {
           label="Delivery address"
           type="text"
           id="address"
+          dataTestId="addressInput"
           pattern="^[A-Za-z0-9_ ]{10,150}$"
           errorMessage="Address should be 10-150 characters long and shouldn't include any special character!"
           onChange={(event) => {
@@ -76,6 +79,7 @@ function OrderForm(props) {
         disabled={buttonDisabled}
         onClick={() => setIsModalOpen(true)}
         className={classNames('btn', 'btn-blue', 'w-full', { 'btn-disabled': buttonDisabled })}
+        data-testid="placeOrderButton"
       >
         Place order
       </button>

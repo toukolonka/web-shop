@@ -82,11 +82,13 @@ function Products() {
           placeholder="Minimum price"
           value={minPrice}
           setFilterValue={setMinPrice}
+          dataTestId="minPriceInput"
         />
         <FilterInput
           placeholder="Maximum price"
           value={maxPrice}
           setFilterValue={setMaxPrice}
+          dataTestId="maxPriceInput"
         />
       </form>
       <ProductList

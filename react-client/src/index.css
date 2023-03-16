@@ -46,6 +46,12 @@ h2 {
 .input {
   @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-500 p-2.5;
 }
+.card-text {
+  @apply text-2xl font-bold tracking-tight
+}
+.card-secondary-text {
+  @apply font-normal
+}
 
 input:invalid[focused="true"]{
   border: 1px solid red;
