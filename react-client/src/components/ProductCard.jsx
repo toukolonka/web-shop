@@ -7,6 +7,7 @@ function ProductCard(props) {
       <img
         className={classNames('rounded-t-lg', { 'rounded-lg': props.addToCartButton })}
         src={`https://picsum.photos/seed/${props.product.id}/600/300`}
+        crossOrigin="anonymous"
         alt="Product image"
         width="600"
         height="300"

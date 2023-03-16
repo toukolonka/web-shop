@@ -11,7 +11,6 @@ const lighthouseTest = test.extend({
   port: [
     // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
-      // eslint-disable-next-line no-unused-vars
       await use(getRandomInt());
     },
     { scope: 'worker' },
@@ -21,6 +20,7 @@ const lighthouseTest = test.extend({
     async ({ port }, use) => {
       const browser = await chromium.launch({
         args: [`--remote-debugging-port=${port}`, '--disable-extensions'],
+        // headless: false,
       });
       await use(browser);
     },
