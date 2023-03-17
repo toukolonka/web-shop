@@ -18,7 +18,7 @@ function Orders() {
   }
 
   if (orders.length === 0) {
-    return <div>No orders</div>;
+    return <div className='m-4'>No orders.</div>;
   }
 
   return (

@@ -24,12 +24,16 @@ orderRouter.get('/:id', async (request, response) => {
 });
 
 orderRouter.post('/', async (request, response) => {
-  const { orderProducts, recipientInfo, userId, totalPrice, totalProductCount } = request.body;
+  const { orderProducts, recipientInfo, userId } = request.body;
 
   const products = orderProducts.map((product) => ({
     product: product.id,
     quantity: product.quantity
   }));
+
+  const totalPrice = orderProducts.reduce((a, product) => a + (product.price * product.quantity), 0);
+
+  const totalProductCount = orderProducts.reduce((a, product) => a + product.quantity, 0);
 
   const order = new Order({
     userId,

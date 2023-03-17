@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { Prompt } from 'react-router-dom';
@@ -22,15 +22,10 @@ function OrderForm() {
 
   const {
     cartProducts,
-    getTotalPrice,
-    getTotalQuantity,
     checkout,
   } = useContext(CartContext);
 
   const history = useHistory();
-
-  const totalPrice = getTotalPrice();
-  const totalProductCount = getTotalQuantity();
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -39,22 +34,18 @@ function OrderForm() {
     || address.length < addressMinLength
     || address.length > addressMaxLength;
 
-  const recipientInfo = {
-    firstName,
-    lastName,
-    address,
-  };
-
   async function placeOrder() {
     const response = await fetch('http://localhost:8080/api/orders', {
       method: 'POST',
       body: JSON.stringify(
         {
           orderProducts: cartProducts,
-          recipientInfo,
+          recipientInfo: {
+            firstName,
+            lastName,
+            address,
+          },
           userId: localStorage.getItem('user'),
-          totalPrice,
-          totalProductCount
         }),
       headers: {
         'Content-Type': 'application/json'
@@ -65,8 +56,8 @@ function OrderForm() {
     history.push(`/orders/${orderId}`);
   }
 
-  const handlePlaceOrder = React.useCallback(() => placeOrder(), []);
-  const handleModalClose = React.useCallback(() => setIsModalOpen(false), [isModalOpen]);
+  const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]);
 
   return (
     <form className='mx-2 mt-4'>

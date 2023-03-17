@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import RenderIfVisible from 'react-render-if-visible';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import CartProductCard from '../components/CartProductCard';
@@ -32,9 +33,11 @@ function Order() {
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {
           order.products.map(productObject =>
-            <div key={productObject.product.id} className='mx-2'>
-              <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
-            </div>
+            <RenderIfVisible key={productObject.product.id}>
+              <div className='mx-2'>
+                <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+              </div>
+            </RenderIfVisible>
           )
         }
       </div>

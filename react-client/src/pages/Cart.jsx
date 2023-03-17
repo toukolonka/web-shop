@@ -11,13 +11,11 @@ function Cart() {
     addToCart,
     removeFromCart,
     getTotalPrice,
-    getTotalQuantity,
     checkout,
   } = useContext(CartContext);
   const history = useHistory();
 
   const totalPrice = getTotalPrice();
-  const totalProductCount = getTotalQuantity();
 
   async function placeOrder(recipientInfo) {
     const response = await fetch('http://localhost:8080/api/orders', {
@@ -27,8 +25,6 @@ function Cart() {
           orderProducts: cartProducts,
           recipientInfo,
           userId: localStorage.getItem('user'),
-          totalPrice,
-          totalProductCount
         }),
       headers: {
         'Content-Type': 'application/json'

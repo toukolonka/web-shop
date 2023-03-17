@@ -5,6 +5,10 @@ import DoubleIconButton from './DoubleIconButton';
 import ProductCard from './ProductCard';
 
 function ProductList(props) {
+  if (props.products.length === 0) {
+    return <div className='m-4'>No products found.</div>;
+  }
+
   return (
     <>
       <div className='xs:grid xs:grid-cols-2'>

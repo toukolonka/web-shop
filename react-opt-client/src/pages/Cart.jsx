@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
+import RenderIfVisible from 'react-render-if-visible';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
 import CartProductCard from '../components/CartProductCard';
@@ -12,20 +13,22 @@ function Cart() {
     getTotalPrice,
   } = useContext(CartContext);
 
-  const totalPrice = getTotalPrice();
+  const totalPrice = useMemo(() => getTotalPrice(), [cartProducts]);
 
   return (
     <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {cartProducts.map(product =>
-          <div key={product.id}  className='m-2 flex justify-between items-center'>
-            <CartProductCard
-              product={product}
-              removeFromCart={() => removeFromCart(product.id)}
-              addToCart={() => addToCart(product)}
-              count={getProductQuantity(product.id)}
-            />
-          </div>
+          <RenderIfVisible key={product.id}>
+            <div key={product.id}  className='m-2 flex justify-between items-center'>
+              <CartProductCard
+                product={product}
+                removeFromCart={() => removeFromCart(product.id)}
+                addToCart={() => addToCart(product)}
+                count={getProductQuantity(product.id)}
+              />
+            </div>
+          </RenderIfVisible>
         )}
       </div>
       { cartProducts.length > 0

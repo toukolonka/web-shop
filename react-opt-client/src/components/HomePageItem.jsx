@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 function HomePageItem(props) {
@@ -13,4 +13,4 @@ function HomePageItem(props) {
   );
 }
 
-export default React.memo(HomePageItem);
+export default memo(HomePageItem);

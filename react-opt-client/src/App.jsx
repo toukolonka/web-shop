@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Switch, Route
@@ -6,12 +6,12 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import CartContextProvider from './context/CartContext';
 import NavBar from './components/NavBar';
-const Home = React.lazy(() => import('./pages/Home'));
-const Cart = React.lazy(() => import('./pages/Cart'));
-const Products = React.lazy(() => import('./pages/Products'));
-const Product = React.lazy(() => import('./pages/Product'));
-const Order = React.lazy(() => import('./pages/Order'));
-const Orders = React.lazy(() => import('./pages/Orders'));
+const Home = lazy(() => import('./pages/Home'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Products = lazy(() => import('./pages/Products'));
+const Product = lazy(() => import('./pages/Product'));
+const Order = lazy(() => import('./pages/Order'));
+const Orders = lazy(() => import('./pages/Orders'));
 
 function Wrapper(props) {
   return (
@@ -33,7 +33,7 @@ function App() {
     <CartContextProvider>
       <Router>
         <NavBar />
-        <React.Suspense fallback={<div></div>}>
+        <Suspense fallback={<div></div>}>
           <Switch>
             <Route path="/products/:id">
               <Wrapper component={<Product />} />
@@ -54,7 +54,7 @@ function App() {
               <Wrapper component={<Home />} />
             </Route>
           </Switch>
-        </React.Suspense>
+        </Suspense>
       </Router>
     </CartContextProvider>
   );

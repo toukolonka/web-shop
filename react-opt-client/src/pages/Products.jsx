@@ -17,7 +17,6 @@ function Products() {
   const deferredMaxPrice = useDeferredValue(maxPrice);
 
   const handlePageCount = useCallback((newPageCount) => {
-    console.log(newPageCount);
     setPageCount(newPageCount), [pageCount];
   });
 
