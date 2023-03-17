@@ -28,7 +28,7 @@ function Order() {
         <p>Delivery address: {order.recipientInfo.address}</p>
         <p>Total price: {order.totalPrice}€</p>
       </div>
-      <h2 className='m-4'>Products</h2>
+      <h2 className='m-4 text-center xs:text-start'>Products</h2>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {
           order.products.map(productObject =>

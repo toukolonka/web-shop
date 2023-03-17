@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { Prompt } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
 import FormInput from './FormInput';
 import Modal from './Modal';
 
@@ -11,12 +13,24 @@ const lastNameMaxLength = 50;
 const addressMinLength = 10;
 const addressMaxLength = 100;
 
-function OrderForm(props) {
+function OrderForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {
+    cartProducts,
+    getTotalPrice,
+    getTotalQuantity,
+    checkout,
+  } = useContext(CartContext);
+
+  const history = useHistory();
+
+  const totalPrice = getTotalPrice();
+  const totalProductCount = getTotalQuantity();
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -30,6 +44,29 @@ function OrderForm(props) {
     lastName,
     address,
   };
+
+  async function placeOrder() {
+    const response = await fetch('http://localhost:8080/api/orders', {
+      method: 'POST',
+      body: JSON.stringify(
+        {
+          orderProducts: cartProducts,
+          recipientInfo,
+          userId: localStorage.getItem('user'),
+          totalPrice,
+          totalProductCount
+        }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    checkout();
+    const orderId = await response.json();
+    history.push(`/orders/${orderId}`);
+  }
+
+  const handlePlaceOrder = React.useCallback(() => placeOrder(), []);
+  const handleModalClose = React.useCallback(() => setIsModalOpen(false), [isModalOpen]);
 
   return (
     <form className='mx-2 mt-4'>
@@ -85,11 +122,10 @@ function OrderForm(props) {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={() => props.placeOrder(recipientInfo)}
-        onCancel={() => setIsModalOpen(false)}
-      >
-        Confirm order
-      </Modal>
+        onSubmit={handlePlaceOrder}
+        onCancel={handleModalClose}
+        text="Confirm order"
+      />
       <Prompt
         when={isFormDirty}
         message="Are you sure you want to leave?"

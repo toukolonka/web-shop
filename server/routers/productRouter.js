@@ -1,7 +1,7 @@
 const productRouter = require('express').Router();
 const Product = require('../models/product');
 
-const PRODUCTS_PER_PAGE = 10;
+const PRODUCTS_PER_PAGE = 50;
 
 productRouter.get('/', async (request, response) => {
   const { page, search, minPrice, maxPrice } = request.query;

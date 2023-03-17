@@ -13,4 +13,4 @@ function HomePageItem(props) {
   );
 }
 
-export default HomePageItem;
+export default React.memo(HomePageItem);

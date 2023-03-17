@@ -11,4 +11,4 @@ function OrderCard(props) {
   );
 }
 
-export default OrderCard;
+export default React.memo(OrderCard);

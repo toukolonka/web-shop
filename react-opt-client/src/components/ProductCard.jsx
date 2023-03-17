@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ProductCard(props) {
   return (
     <div data-testid={`productCard${props.product.price}`}>
-      <img
+      <LazyLoadImage
         className={classNames('rounded-t-lg', { 'rounded-lg': props.addToCartButton })}
         src={`https://picsum.photos/seed/${props.product.id}/600/300`}
         crossOrigin="anonymous"

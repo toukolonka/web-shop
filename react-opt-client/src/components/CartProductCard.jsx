@@ -1,11 +1,12 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import DoubleIconButton from './DoubleIconButton';
 
 function CartProductCard(props) {
   return (
     <Link to={`/products/${props.product.id}`} className="flex flex-col w-full items-center justify-between border rounded-lg shadow sm:flex-row sm:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700 mb-4">
-      <img
+      <LazyLoadImage
         className="object-cover w-full rounded-t-lg h-auto sm:w-48 sm:rounded-none sm:rounded-l-lg"
         src={`https://picsum.photos/seed/${props.product.id}/450/300`}
         crossOrigin="anonymous"
@@ -17,10 +18,7 @@ function CartProductCard(props) {
         <strong className="text-white card-text">{props.product.name}</strong>
         <p className="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      { props.noButtons
-        ?
-        <div />
-        :
+      { !props.noButtons &&
         <div className='m-4'>
           <DoubleIconButton
             leftIcon="-"

@@ -9,13 +9,11 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { getTotalQuantity } = useContext(CartContext);
 
-  const toggleHamburger = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleHamburger = React.useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
 
   return (
     <>
-      <nav className="border-gray-200 py-1 bg-white">
+      <nav className="border-gray-200 py-1 bg-white sticky top-0 z-50">
         <div className="container flex flex-wrap items-center justify-between mx-auto max-w-xl w-full h-16">
           <Link to="/" className="hidden xs:flex items-center sm:ml-0">
             <span className="ml-4 self-center text-xl font-semibold whitespace-nowrap ">Web Shop</span>

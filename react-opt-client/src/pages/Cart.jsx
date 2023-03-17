@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
 import CartProductCard from '../components/CartProductCard';
@@ -11,33 +10,9 @@ function Cart() {
     addToCart,
     removeFromCart,
     getTotalPrice,
-    getTotalQuantity,
-    checkout,
   } = useContext(CartContext);
-  const history = useHistory();
 
   const totalPrice = getTotalPrice();
-  const totalProductCount = getTotalQuantity();
-
-  async function placeOrder(recipientInfo) {
-    const response = await fetch('http://localhost:8080/api/orders', {
-      method: 'POST',
-      body: JSON.stringify(
-        {
-          orderProducts: cartProducts,
-          recipientInfo,
-          userId: localStorage.getItem('user'),
-          totalPrice,
-          totalProductCount
-        }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    checkout();
-    const orderId = await response.json();
-    history.push(`/orders/${orderId}`);
-  }
 
   return (
     <>
@@ -57,7 +32,7 @@ function Cart() {
         ?
         <>
           <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {totalPrice}€</strong>
-          <OrderForm placeOrder={placeOrder} />
+          <OrderForm />
         </>
         :
         <p>Shopping cart is empty</p>

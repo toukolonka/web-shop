@@ -1,55 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState, useCallback, useDeferredValue } from 'react';
+import classNames from 'classnames';
+import DoubleIconButton from '../components/DoubleIconButton';
 import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
 import SearchInput from '../components/SearchInput';
 
 function Products() {
-  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const history = useHistory();
-  const firstRender = useRef(true);
 
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const pageParam = searchParams.get('page');
-  const searchParam = searchParams.get('search');
-  const minPriceParam = searchParams.get('minPrice');
-  const maxPriceParam = searchParams.get('maxPrice');
+  const deferredSearchValue = useDeferredValue(searchValue);
+  const deferredMinPrice = useDeferredValue(minPrice);
+  const deferredMaxPrice = useDeferredValue(maxPrice);
 
-  const noSearchParams = !searchParam && !minPriceParam && !maxPriceParam;
-
-  async function fetchData() {
-    const response = await fetch(`http://localhost:8080/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
-    const data = await response.json();
-    setProducts(data.products);
-    setPageCount(data.pageCount);
-  }
-
-  useEffect(() => {
-    Number(pageParam) && setPage(Number(pageParam));
-    searchParam && setSearchValue(searchParam);
-    Number(minPriceParam) && setMinPrice(Number(minPriceParam));
-    Number(maxPriceParam) && setMaxPrice(Number(maxPriceParam));
-  }, []);
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      (Number(pageParam) === 1 || !pageParam) && noSearchParams && fetchData();
-      return;
-    }
-
-    history.push({
-      pathname: 'products',
-      search: `?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-    });
-    fetchData();
-  }, [page, searchValue, minPrice, maxPrice]);
+  const handlePageCount = useCallback((newPageCount) => {
+    console.log(newPageCount);
+    setPageCount(newPageCount), [pageCount];
+  });
 
   function handlePrevious() {
     setPage((p) => {
@@ -92,12 +62,25 @@ function Products() {
         />
       </form>
       <ProductList
-        products={products}
         page={page}
-        pageCount={pageCount}
-        handlePrevious={handlePrevious}
-        handleNext={handleNext}
+        handlePageCount={handlePageCount}
+        searchValue={deferredSearchValue}
+        minPrice={deferredMinPrice}
+        maxPrice={deferredMaxPrice}
       />
+      <div className='flex justify-center my-2'>
+        <DoubleIconButton
+          leftIcon="<"
+          rightIcon=">"
+          leftButtonDisabled={page <= 1}
+          rightButtonDisabled={page >= pageCount}
+          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page <= 1 })}
+          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page >= pageCount })}
+          handleLeftClick={handlePrevious}
+          handleRightClick={handleNext}
+          count={page}
+        />
+      </div>
     </>
   );
 }
