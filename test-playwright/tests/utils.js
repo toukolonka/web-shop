@@ -80,15 +80,23 @@ function printTable() {
   ];
   const calculatedRows = {
     react: {},
+    reactOpt: {},
   };
 
   auditTypes.forEach((auditType) => {
     const reactValues = readAudits('react-', auditType);
+    const reactOptValues = readAudits('react-opt-', auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
       median: median(reactValues.slice(1)),
       average: average(reactValues.slice(1)),
+    };
+
+    calculatedRows.reactOpt[auditType] = {
+      firstRun: reactOptValues[0],
+      median: median(reactOptValues.slice(1)),
+      average: average(reactOptValues.slice(1)),
     };
   });
 
@@ -136,6 +144,7 @@ function printTable() {
 
   const rows = [
     ['React', 'react'],
+    ['React optimized', 'reactOpt']
   ];
 
   // eslint-disable-next-line no-console

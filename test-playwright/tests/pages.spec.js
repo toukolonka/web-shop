@@ -14,7 +14,7 @@ lighthouseTest.afterAll(() => {
   printTable();
 });
 
-testSuites(['react']);
+testSuites(['react', 'react-opt']);
 
 function testSuites(names) {
   Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>

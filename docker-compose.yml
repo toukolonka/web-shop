@@ -18,6 +18,20 @@ services:
     env_file:
       - project.env
 
+  react-opt-client:
+    build: react-opt-client
+    image: react-opt-client
+    restart: "no"
+    volumes:
+      - ./react-opt-client/:/app
+      - react_node_modules:/app/node_modules
+    ports:
+      - 3001:3001
+    depends_on:
+      - server
+    env_file:
+      - project.env
+
   server:
     build: server
     image: server

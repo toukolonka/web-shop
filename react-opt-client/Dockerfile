@@ -13,5 +13,5 @@ RUN apt-get update
 RUN apt-get install nginx -y
 COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY --from=build /app/dist /var/www/html/
-EXPOSE 3000
+EXPOSE 3001
 CMD ["nginx","-g","daemon off;"]

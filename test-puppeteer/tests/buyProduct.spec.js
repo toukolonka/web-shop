@@ -25,8 +25,10 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
       },
     }
 
+    const baseUrl = 'http://localhost:3000/';
+
     const flow = await startFlow(page, {name: 'Single Navigation'});
-    await flow.navigate('http://localhost:3000/', options);
+    await flow.navigate(baseUrl, options);
     const timeout = 5000;
     page.setDefaultTimeout(timeout);
 
@@ -41,7 +43,7 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
         const targetPage = page;
         const promises = [];
         promises.push(targetPage.waitForNavigation());
-        await targetPage.goto('http://localhost:3000/');
+        await targetPage.goto(baseUrl);
         await Promise.all(promises);
     }
     await flow.snapshot({stepName: 'Home page opened', ...options});
