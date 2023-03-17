@@ -221,79 +221,6 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
         const targetPage = page;
         await scrollIntoViewIfNeeded([
             [
-                'aria/Maximum price'
-            ],
-            [
-                '[data-testid=maxPriceInput]'
-            ],
-            [
-                'xpath///*[@data-testid="maxPriceInput"]'
-            ]
-        ], targetPage, timeout);
-        const element = await waitForSelectors([
-            [
-                'aria/Maximum price'
-            ],
-            [
-                '[data-testid=maxPriceInput]'
-            ],
-            [
-                'xpath///*[@data-testid="maxPriceInput"]'
-            ]
-        ], targetPage, { timeout, visible: true });
-        await element.click({
-          offset: {
-            x: 117.39996337890625,
-            y: 19.399993896484375,
-          },
-        });
-    }
-    {
-        const targetPage = page;
-        await scrollIntoViewIfNeeded([
-            [
-                'aria/Maximum price'
-            ],
-            [
-                '[data-testid=maxPriceInput]'
-            ],
-            [
-                'xpath///*[@data-testid="maxPriceInput"]'
-            ]
-        ], targetPage, timeout);
-        const element = await waitForSelectors([
-            [
-                'aria/Maximum price'
-            ],
-            [
-                '[data-testid=maxPriceInput]'
-            ],
-            [
-                'xpath///*[@data-testid="maxPriceInput"]'
-            ]
-        ], targetPage, { timeout, visible: true });
-        const inputType = await element.evaluate(el => el.type);
-        if (inputType === 'select-one') {
-          await changeSelectElement(element, '2000')
-        } else if ([
-            'textarea',
-            'text',
-            'url',
-            'tel',
-            'search',
-            'password',
-            'number',
-            'email'
-        ].includes(inputType)) {
-          await typeIntoElement(element, '2000');
-        } else {
-          await changeElementValue(element, '2000');
-        }
-    }
-    {
-        const targetPage = page;
-        await scrollIntoViewIfNeeded([
-            [
                 'html'
             ],
             [
@@ -310,8 +237,8 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
         ], targetPage, { timeout, visible: true });
         await element.click({
           offset: {
-            x: 556,
-            y: 233,
+            x: 5,
+            y: 200,
           },
         });
     }
