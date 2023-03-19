@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import Link from 'next/link';
 import Burger from './Burger';
 import { CartContext } from '../context/CartContext';
@@ -11,9 +11,7 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { getTotalQuantity } = useContext(CartContext);
 
-  const toggleHamburger = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleHamburger = useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
 
   return (
     <>
