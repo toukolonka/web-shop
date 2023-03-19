@@ -1,7 +1,6 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import { Prompt } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import FormInput from './FormInput';
 import Modal from './Modal';
@@ -116,10 +115,6 @@ function OrderForm() {
         onSubmit={handlePlaceOrder}
         onCancel={handleModalClose}
         text="Confirm order"
-      />
-      <Prompt
-        when={isFormDirty}
-        message="Are you sure you want to leave?"
       />
     </form>
   );

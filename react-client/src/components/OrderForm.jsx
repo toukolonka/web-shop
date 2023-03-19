@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { Prompt } from 'react-router-dom';
 import FormInput from './FormInput';
 import Modal from './Modal';
 
@@ -90,10 +89,6 @@ function OrderForm(props) {
       >
         Confirm order
       </Modal>
-      <Prompt
-        when={isFormDirty}
-        message="Are you sure you want to leave?"
-      />
     </form>
   );
 }
