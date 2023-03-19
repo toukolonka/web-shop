@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
           <div className='mx-auto max-w-xl w-full my-2'>
             <div className='mx-2'>
               {children}
+              <div id="portal"></div>
             </div>
           </div>
         </CartContextProvider>

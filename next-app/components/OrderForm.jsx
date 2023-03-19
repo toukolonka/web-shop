@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useContext } from 'react';
-import { redirect } from 'next/navigation';
+import React, { useState, useContext, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { CartContext } from '../context/CartContext';
 import FormInput from './FormInput';
+import Modal from './Modal';
 
 const firstNameMinLength = 2;
 const firstNameMaxLength = 50;
@@ -18,12 +19,14 @@ function OrderForm() {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [isFormDirty, setIsFormDirty] = useState(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     cartProducts,
     checkout,
   } = useContext(CartContext);
+
+  const router = useRouter();
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -51,11 +54,11 @@ function OrderForm() {
     });
     checkout();
     const orderId = await response.json();
-    redirect(`/orders/${orderId}`);
+    router.push(`/orders/${orderId}`);
   }
 
-  /* const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]); */
+  const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]);
 
   return (
     <form className='mx-2 mt-4'>
@@ -103,12 +106,18 @@ function OrderForm() {
       <button
         type="button"
         disabled={buttonDisabled}
-        onClick={placeOrder}
+        onClick={() => setIsModalOpen(true)}
         className={classNames('btn', 'btn-blue', 'w-full', { 'btn-disabled': buttonDisabled })}
         data-testid="placeOrderButton"
       >
         Place order
       </button>
+      <Modal
+        open={isModalOpen}
+        onSubmit={handlePlaceOrder}
+        onCancel={handleModalClose}
+        text="Confirm order"
+      />
     </form>
   );
 }
