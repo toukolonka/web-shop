@@ -38,7 +38,7 @@ function Cart() {
           <OrderForm />
         </>
         :
-        <p>Shopping cart is empty</p>
+        <p className='mx-2'>Shopping cart is empty</p>
       }
     </>
   );
