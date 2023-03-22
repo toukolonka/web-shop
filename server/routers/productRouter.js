@@ -7,7 +7,7 @@ productRouter.get('/', async (request, response) => {
   const { page, search, minPrice, maxPrice } = request.query;
 
   const searchQuery = {
-    name: { $regex: search, $options: 'i' },
+    name: { $regex: search ? search : '', $options: 'i' },
     $and: [{ price: { $gte: !minPrice ? 0 : minPrice } }, { price: { $lte: !maxPrice ? Infinity : maxPrice } } ]
   };
 

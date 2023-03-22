@@ -1,87 +1,43 @@
-'use client';
-
-import React, { useState, useCallback, useDeferredValue } from 'react';
-import classNames from 'classnames';
-import DoubleIconButton from '@/components/DoubleIconButton';
-import FilterInput from '@/components/FilterInput';
+import React from 'react';
 import ProductList from '@/components/ProductList';
-import SearchInput from '@/components/SearchInput';
+import SearchForm from '@/components/SearchForm';
 
-function Products() {
-  const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(1);
-  const [searchValue, setSearchValue] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+async function getProducts(params) {
+  const { page, search, minPrice, maxPrice } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/products?page=${page}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+  );
+  const data = await response.json();
+  return data;
+}
 
-  const deferredSearchValue = useDeferredValue(searchValue);
-  const deferredMinPrice = useDeferredValue(minPrice);
-  const deferredMaxPrice = useDeferredValue(maxPrice);
+async function Products({ searchParams }) {
+  const { page, search, minPrice, maxPrice } = searchParams;
 
-  const handlePageCount = useCallback((newPageCount) => {
-    setPageCount(newPageCount), [pageCount];
-  });
+  const pageParam = Number(page) ? Number(page) : 1;
+  const searchParam = search ? search : '';
+  const minPriceParam = minPrice ? minPrice : '';
+  const maxPriceParam = maxPrice ? maxPrice : '';
 
-  function handlePrevious() {
-    setPage((p) => {
-      if (p === 1) return p;
-      return p - 1;
-    });
-    window.scrollTo({
-      top: 0,
-    });
-  }
+  const params = {
+    page: pageParam,
+    search: searchParam,
+    minPrice: minPriceParam,
+    maxPrice: maxPriceParam
+  };
 
-  function handleNext() {
-    setPage((p) => {
-      if (p >= pageCount) return p;
-      return p + 1;
-    });
-    window.scrollTo({
-      top: 0,
-    });
-  }
+  const productData = await getProducts(params);
+  const products = productData.products;
+  const pageCount = productData.pageCount;
 
   return (
     <>
-      <form className='flex flex-wrap mx-2 ml-2'>
-        <SearchInput
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-        <FilterInput
-          placeholder="Minimum price"
-          value={minPrice}
-          setFilterValue={setMinPrice}
-          dataTestId="minPriceInput"
-        />
-        <FilterInput
-          placeholder="Maximum price"
-          value={maxPrice}
-          setFilterValue={setMaxPrice}
-          dataTestId="maxPriceInput"
-        />
-      </form>
+      <SearchForm />
       <ProductList
-        page={page}
-        handlePageCount={handlePageCount}
-        searchValue={deferredSearchValue}
-        minPrice={deferredMinPrice}
-        maxPrice={deferredMaxPrice}
+        products={products}
+        pageCount={pageCount}
+        params={params}
       />
-      <div className='flex justify-center my-2'>
-        <DoubleIconButton
-          leftIcon="<"
-          rightIcon=">"
-          leftButtonDisabled={page <= 1}
-          rightButtonDisabled={page >= pageCount}
-          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page <= 1 })}
-          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page >= pageCount })}
-          handleLeftClick={handlePrevious}
-          handleRightClick={handleNext}
-          count={page}
-        />
-      </div>
     </>
   );
 }

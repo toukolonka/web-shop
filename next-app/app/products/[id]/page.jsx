@@ -5,7 +5,6 @@ import AddToCartButton from '@/components/AddToCartButton';
 async function getProduct(id) {
   const response = await fetch(`http://localhost:8080/api/products/${id}`);
   const data = await response.json();
-
   return data;
 }
 

@@ -1,46 +1,42 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useDeferredValue, memo } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import classNames from 'classnames';
 import ProductCard from './ProductCard';
+import DoubleIconButton from './DoubleIconButton';
 
 function ProductList(props) {
-  const [products, setProducts] = useState([]);
-  const firstRender = useRef(true);
+  const { page, search, minPrice, maxPrice } = props.params;
+  const router = useRouter();
 
-  const deferredProducts = useDeferredValue(products);
+  const newUrl = (newPage) => `/products?page=${newPage}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
 
-  async function fetchData() {
-    const response = await fetch(`http://localhost:8080/api/products?page=${props.page}&search=${props.searchValue}&minPrice=${props.minPrice}&maxPrice=${props.maxPrice}`);
-    const data = await response.json();
-    setProducts(data.products);
-    props.handlePageCount(data.pageCount);
+  function handlePrevious() {
+    if (page === 1) return;
+    router.push(newUrl(page - 1));
+    window.scrollTo({
+      top: 0,
+    });
   }
 
-  useEffect(() => {
-    if(firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    const delayDebounceFn = setTimeout(() => {
-      fetchData();
-    }, 300);
+  function handleNext() {
+    if (page >= props.pageCount) return;
+    router.push(newUrl(page + 1));
+    window.scrollTo({
+      top: 0,
+    });
+  }
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [props.searchValue, props.minPrice, props.maxPrice]);
-
-  useEffect(() => {
-    fetchData();
-  }, [props.page]);
-
-  if (deferredProducts.length === 0) {
+  if (props.products.length === 0) {
     return <div className='m-4'>No products found.</div>;
   }
 
   return (
     <>
       <div className='xs:grid xs:grid-cols-2'>
-        {deferredProducts.map(product =>
+        {props.products.map(product =>
           <div key={product.id} className='m-2 flex justify-center items-center'>
             <Link href={`/products/${product.id}`} className="bg-gray-800 border border-gray-200 rounded-lg shadow hover:bg-gray-700 w-full">
               <ProductCard product={product} />
@@ -48,8 +44,21 @@ function ProductList(props) {
           </div>
         )}
       </div>
+      <div className='flex justify-center my-2'>
+        <DoubleIconButton
+          leftIcon="<"
+          rightIcon=">"
+          leftButtonDisabled={page <= 1}
+          rightButtonDisabled={page >= props.pageCount}
+          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page <= 1 })}
+          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page >= props.pageCount })}
+          handleLeftClick={handlePrevious}
+          handleRightClick={handleNext}
+          count={page}
+        />
+      </div>
     </>
   );
 }
 
-export default memo(ProductList);
+export default ProductList;
