@@ -46,6 +46,20 @@ services:
     env_file:
       - project.env
 
+  preact-opt-client:
+    build: preact-opt-client
+    image: preact-opt-client
+    restart: "no"
+    volumes:
+      - ./preact-opt-client/:/app
+      - react_node_modules:/app/node_modules
+    ports:
+      - 3003:3003
+    depends_on:
+      - server
+    env_file:
+      - project.env
+
   server:
     build: server
     image: server

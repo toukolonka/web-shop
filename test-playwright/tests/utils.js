@@ -2,6 +2,32 @@ const { chromium } = require('playwright');
 const { test } = require('@playwright/test');
 const fs = require('fs');
 const glob = require('glob');
+const lighthouseDesktopConfig = require('lighthouse/lighthouse-core/config/lr-desktop-config');
+const lighthouseMobileConfig = require('lighthouse/lighthouse-core/config/lr-mobile-config');
+
+const thresholds = {
+  performance: 50,
+  accessibility: 50,
+  'best-practices': 50,
+  seo: 50,
+  pwa: 10,
+};
+
+const apps = ['react', 'reactOpt', 'preact', 'preactOpt'];
+
+const baseUrls = {
+  react: 'http://localhost:3000',
+  reactOpt: 'http://localhost:3001',
+  preact: 'http://localhost:3002',
+  preactOpt: 'http://localhost:3003'
+};
+
+const configs = [
+  lighthouseDesktopConfig,
+  lighthouseMobileConfig
+];
+
+const numberOfTests = 3;
 
 function getRandomInt() {
   const min = 4000;
@@ -64,8 +90,6 @@ function average(values) {
 function readAudits(pageType, auditType) {
   const files = glob.sync('reports/' + pageType + '*-audit.json');
 
-  console.log(files.length);
-
   const audits = files.map((f) => fs.readFileSync(f)).map((d) => JSON.parse(d));
 
   return audits.map((a) => a['audits'][auditType]['numericValue']);
@@ -84,6 +108,7 @@ function printTable(page) {
     react: {},
     reactOpt: {},
     preact: {},
+    preactOpt: {},
     // next: {},
   };
 
@@ -91,6 +116,7 @@ function printTable(page) {
     const reactValues = readAudits(`react-${page}-`, auditType);
     const reactOptValues = readAudits(`reactOpt-${page}-`, auditType);
     const preactValues = readAudits(`preact-${page}-`, auditType);
+    const preactOptValues = readAudits(`preactOpt-${page}-`, auditType);
     // const nextValues = readAudits('next-', auditType);
 
     calculatedRows.react[auditType] = {
@@ -109,6 +135,12 @@ function printTable(page) {
       firstRun: preactValues[0],
       median: median(preactValues.slice(1)),
       average: average(preactValues.slice(1)),
+    };
+
+    calculatedRows.preactOpt[auditType] = {
+      firstRun: preactOptValues[0],
+      median: median(preactOptValues.slice(1)),
+      average: average(preactOptValues.slice(1)),
     };
 
     /* calculatedRows.next[auditType] = {
@@ -166,6 +198,7 @@ function printTable(page) {
     ['React', 'react'],
     ['React optimized', 'reactOpt'],
     ['Preact', 'preact'],
+    ['Preact optimized', 'preactOpt'],
     // ['Next', 'next'],
   ];
 
@@ -173,4 +206,13 @@ function printTable(page) {
   console.table(rows.map((row) => getTable(row[0], row[1])));
 }
 
-module.exports = { lighthouseTest, getReportsConfiguration, printTable };
+module.exports = {
+  lighthouseTest,
+  getReportsConfiguration,
+  printTable,
+  thresholds,
+  apps,
+  baseUrls,
+  configs,
+  numberOfTests
+};

@@ -1,24 +1,26 @@
-import React, { useState, useCallback, useDeferredValue } from 'react';
-import classNames from 'classnames';
-import DoubleIconButton from '../components/DoubleIconButton';
+import React, { useState, useEffect } from 'react';
 import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
 import SearchInput from '../components/SearchInput';
 
 function Products() {
+  const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
-  const deferredSearchValue = useDeferredValue(searchValue);
-  const deferredMinPrice = useDeferredValue(minPrice);
-  const deferredMaxPrice = useDeferredValue(maxPrice);
+  async function fetchData() {
+    const response = await fetch(`http://localhost:8080/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+    const data = await response.json();
+    setProducts(data.products);
+    setPageCount(data.pageCount);
+  }
 
-  const handlePageCount = useCallback((newPageCount) => {
-    setPageCount(newPageCount), [pageCount];
-  });
+  useEffect(() => {
+    fetchData();
+  }, [page, searchValue, minPrice, maxPrice]);
 
   function handlePrevious() {
     setPage((p) => {
@@ -61,25 +63,12 @@ function Products() {
         />
       </form>
       <ProductList
+        products={products}
         page={page}
-        handlePageCount={handlePageCount}
-        searchValue={deferredSearchValue}
-        minPrice={deferredMinPrice}
-        maxPrice={deferredMaxPrice}
+        pageCount={pageCount}
+        handlePrevious={handlePrevious}
+        handleNext={handleNext}
       />
-      <div className='flex justify-center my-2'>
-        <DoubleIconButton
-          leftIcon="<"
-          rightIcon=">"
-          leftButtonDisabled={page <= 1}
-          rightButtonDisabled={page >= pageCount}
-          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page <= 1 })}
-          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page >= pageCount })}
-          handleLeftClick={handlePrevious}
-          handleRightClick={handleNext}
-          count={page}
-        />
-      </div>
     </>
   );
 }

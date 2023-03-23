@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import RenderIfVisible from 'react-render-if-visible';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import CartProductCard from '../components/CartProductCard';
@@ -29,15 +28,13 @@ function Order() {
         <p>Delivery address: {order.recipientInfo.address}</p>
         <p>Total price: {order.totalPrice}€</p>
       </div>
-      <h2 className='m-4 text-center xs:text-start'>Products</h2>
+      <h2 className='m-4'>Products</h2>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {
           order.products.map(productObject =>
-            <RenderIfVisible key={productObject.product.id}>
-              <div className='mx-2'>
-                <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
-              </div>
-            </RenderIfVisible>
+            <div key={productObject.product.id} className='mx-2'>
+              <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+            </div>
           )
         }
       </div>

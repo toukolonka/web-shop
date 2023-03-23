@@ -1,7 +1,5 @@
-import React, { useState, useContext, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import classNames from 'classnames';
-import { CartContext } from '../context/CartContext';
 import FormInput from './FormInput';
 import Modal from './Modal';
 
@@ -12,19 +10,12 @@ const lastNameMaxLength = 50;
 const addressMinLength = 10;
 const addressMaxLength = 100;
 
-function OrderForm() {
+function OrderForm(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const {
-    cartProducts,
-    checkout,
-  } = useContext(CartContext);
-
-  const history = useHistory();
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -33,30 +24,11 @@ function OrderForm() {
     || address.length < addressMinLength
     || address.length > addressMaxLength;
 
-  async function placeOrder() {
-    const response = await fetch('http://localhost:8080/api/orders', {
-      method: 'POST',
-      body: JSON.stringify(
-        {
-          orderProducts: cartProducts,
-          recipientInfo: {
-            firstName,
-            lastName,
-            address,
-          },
-          userId: localStorage.getItem('user'),
-        }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    checkout();
-    const orderId = await response.json();
-    history.push(`/orders/${orderId}`);
-  }
-
-  const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]);
+  const recipientInfo = {
+    firstName,
+    lastName,
+    address,
+  };
 
   return (
     <form className='mx-2 mt-4'>
@@ -112,10 +84,11 @@ function OrderForm() {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={handlePlaceOrder}
-        onCancel={handleModalClose}
-        text="Confirm order"
-      />
+        onSubmit={() => props.placeOrder(recipientInfo)}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        Confirm order
+      </Modal>
     </form>
   );
 }

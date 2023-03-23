@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
@@ -11,4 +11,4 @@ function OrderCard(props) {
   );
 }
 
-export default memo(OrderCard);
+export default OrderCard;
