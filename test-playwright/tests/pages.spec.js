@@ -10,152 +10,188 @@ const thresholds = {
   pwa: 10,
 };
 
-lighthouseTest.afterAll(() => {
-  printTable();
-});
+const apps = ['react', 'reactOpt', 'preact'];
 
-testSuites(['react', 'react-opt', 'preact']);
+const baseUrls = {
+  react: 'http://localhost:3000',
+  reactOpt: 'http://localhost:3001',
+  preact: 'http://localhost:3002'
+};
+
+testSuites(apps);
 
 function testSuites(names) {
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} home page ${i}`, async ({ page, port }) => {
-        await page.goto('/');
+  lighthouseTest.describe('home page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('home');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} home page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/`;
+          await page.goto(url);
 
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-home-${i}`),
-        });
-      })
-    )
-  );
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-home-${i}`),
+          });
+        })
+      )
+    );
+  });
 
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} products page ${i}`, async ({ page, port }) => {
-        await page.goto('/products');
+  lighthouseTest.describe('products page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('products');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} products page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/products`;
+          await page.goto(url);
 
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-products-${i}`),
-        });
-      })
-    )
-  );
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-products-${i}`),
+          });
+        })
+      )
+    );
+  });
 
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} product page ${i}`, async ({ page, port }) => {
-        await page.goto('/products');
+  lighthouseTest.describe('product page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('product');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} product page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/products`;
+          await page.goto(url);
 
-        await page.getByTestId('productCard100').click();
+          await page.getByTestId('productCard100').click();
 
-        await expect((page).getByText(/product/)).toBeVisible();
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-product-${i}`),
+          });
+        })
+      )
+    );
+  });
 
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-product-${i}`),
-        });
-      })
-    )
-  );
+  lighthouseTest.describe('cart page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('cart');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} cart page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/products`;
+          await page.goto(url);
 
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} cart page ${i}`, async ({ page, port }) => {
-        await page.goto('/products');
+          await page.getByTestId('productCard100').click();
 
-        await page.getByTestId('productCard100').click();
+          await page.getByTestId('addToCartButton').click();
 
-        await expect((page).getByText(/product/)).toBeVisible();
+          const cartUrl = `${baseUrls[name]}/cart`;
+          await page.goto(cartUrl);
 
-        await page.getByTestId('addToCartButton').click();
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-cart-${i}`),
+          });
+        })
+      )
+    );
+  });
 
-        await page.goto('/cart');
+  lighthouseTest.describe('order page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('order');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} order page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/products`;
+          await page.goto(url);
 
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-cart-${i}`),
-        });
-      })
-    )
-  );
+          await page.getByTestId('productCard100').click();
 
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} order page ${i}`, async ({ page, port }) => {
-        await page.goto('/products');
+          await page.getByTestId('addToCartButton').click();
 
-        await page.getByTestId('productCard100').click();
+          const cartUrl = `${baseUrls[name]}/cart`;
+          await page.goto(cartUrl);
 
-        await expect((page).getByText(/product/)).toBeVisible();
+          await page.getByTestId('firstNameInput').fill('Touko');
+          await page.getByTestId('lastNameInput').fill('Lonka');
+          await page.getByTestId('addressInput').fill('Address 123');
 
-        await page.getByTestId('addToCartButton').click();
+          await page.getByTestId('placeOrderButton').click();
 
-        await page.goto('/cart');
+          await page.getByTestId('confirmButton').click();
 
-        await page.getByTestId('firstNameInput').fill('Touko');
-        await page.getByTestId('lastNameInput').fill('Lonka');
-        await page.getByTestId('addressInput').fill('Address 123');
+          await expect((page).getByText(/Order on/)).toBeVisible();
 
-        await page.getByTestId('placeOrderButton').click();
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-order-${i}`),
+          });
+        })
+      )
+    );
+  });
 
-        await page.getByTestId('confirmButton').click();
+  lighthouseTest.describe('orders page', () => {
+    lighthouseTest.afterAll(() => {
+      printTable('orders');
+    });
+    Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
+      names.forEach((name) =>
+        lighthouseTest(`${name} orders page ${i}`, async ({ page, port }) => {
+          const url = `${baseUrls[name]}/products`;
+          await page.goto(url);
 
-        await expect((page).getByText(/Order on/)).toBeVisible();
+          await page.getByTestId('productCard100').click();
 
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-order-${i}`),
-        });
-      })
-    )
-  );
+          await page.getByTestId('addToCartButton').click();
 
-  Array.from({ length: 5 }, (_, i) => i + 1).forEach((i) =>
-    names.forEach((name) =>
-      lighthouseTest(`${name} orders page ${i}`, async ({ page, port }) => {
-        await page.goto('/products');
+          const cartUrl = `${baseUrls[name]}/cart`;
+          await page.goto(cartUrl);
 
-        await page.getByTestId('productCard100').click();
+          await page.getByTestId('firstNameInput').fill('Touko');
+          await page.getByTestId('lastNameInput').fill('Lonka');
+          await page.getByTestId('addressInput').fill('Address 123');
 
-        await expect((page).getByText(/product/)).toBeVisible();
+          await page.getByTestId('placeOrderButton').click();
 
-        await page.getByTestId('addToCartButton').click();
+          await page.getByTestId('confirmButton').click();
 
-        await page.goto('/cart');
+          await expect((page).getByText(/Order on/)).toBeVisible();
 
-        await page.getByTestId('firstNameInput').fill('Touko');
-        await page.getByTestId('lastNameInput').fill('Lonka');
-        await page.getByTestId('addressInput').fill('Address 123');
+          const ordersUrl = `${baseUrls[name]}/orders`;
+          await page.goto(ordersUrl);
 
-        await page.getByTestId('placeOrderButton').click();
+          await expect((page).getByText(/Order on/)).toBeVisible();
 
-        await page.getByTestId('confirmButton').click();
-
-        await expect((page).getByText(/Order on/)).toBeVisible();
-
-        await page.goto('/orders');
-
-        await expect((page).getByText(/Order on/)).toBeVisible();
-
-        await playAudit({
-          page,
-          port,
-          thresholds,
-          reports: getReportsConfiguration(`${name}-orders-${i}`),
-        });
-      })
-    )
-  );
+          await playAudit({
+            page,
+            port,
+            thresholds,
+            reports: getReportsConfiguration(`${name}-orders-${i}`),
+          });
+        })
+      )
+    );
+  });
 }

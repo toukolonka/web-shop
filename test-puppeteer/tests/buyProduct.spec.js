@@ -1,7 +1,7 @@
 import { launch } from 'puppeteer';
 import fs from 'fs';
 import open from 'open';
-import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
+import { startFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
 
 (async () => {
     const browser = await launch({
@@ -16,16 +16,16 @@ import {startFlow} from 'lighthouse/lighthouse-core/fraggle-rock/api.js';
       configContext: {
         settingsOverrides: {
           screenEmulation: {
-            mobile: false,
+            mobile: true,
             width: 1847,
             height: 1068,
           },
-          formFactor: 'desktop',
+          formFactor: 'mobile',
         },
       },
     }
 
-    const baseUrl = 'http://localhost:3000/';
+    const baseUrl = 'http://localhost:3001/';
 
     const flow = await startFlow(page, {name: 'Single Navigation'});
     await flow.navigate(baseUrl, options);

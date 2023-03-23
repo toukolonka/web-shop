@@ -64,12 +64,14 @@ function average(values) {
 function readAudits(pageType, auditType) {
   const files = glob.sync('reports/' + pageType + '*-audit.json');
 
+  console.log(files.length);
+
   const audits = files.map((f) => fs.readFileSync(f)).map((d) => JSON.parse(d));
 
   return audits.map((a) => a['audits'][auditType]['numericValue']);
 }
 
-function printTable() {
+function printTable(page) {
   // Check the output JSON files for possible audits
   const auditTypes = [
     'first-contentful-paint',
@@ -82,12 +84,14 @@ function printTable() {
     react: {},
     reactOpt: {},
     preact: {},
+    // next: {},
   };
 
   auditTypes.forEach((auditType) => {
-    const reactValues = readAudits('react-', auditType);
-    const reactOptValues = readAudits('react-opt-', auditType);
-    const preactValues = readAudits('preact-', auditType);
+    const reactValues = readAudits(`react-${page}-`, auditType);
+    const reactOptValues = readAudits(`reactOpt-${page}-`, auditType);
+    const preactValues = readAudits(`preact-${page}-`, auditType);
+    // const nextValues = readAudits('next-', auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
@@ -106,6 +110,14 @@ function printTable() {
       median: median(preactValues.slice(1)),
       average: average(preactValues.slice(1)),
     };
+
+    /* calculatedRows.next[auditType] = {
+      firstRun: nextValues[0],
+      median: median(nextValues.slice(1)),
+      average: average(nextValues.slice(1)),
+    }; */
+
+    console.log(page);
   });
 
   class Table {
@@ -154,6 +166,7 @@ function printTable() {
     ['React', 'react'],
     ['React optimized', 'reactOpt'],
     ['Preact', 'preact'],
+    // ['Next', 'next'],
   ];
 
   // eslint-disable-next-line no-console
