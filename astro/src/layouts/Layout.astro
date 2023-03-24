@@ -10,7 +10,6 @@ import MobileNavBar from '../components/MobileNavBar.astro';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="/styles/index.css" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
@@ -22,6 +21,7 @@ import MobileNavBar from '../components/MobileNavBar.astro';
 		<div class='mx-auto max-w-xl w-full my-2'>
 			<div class='mx-2'>
 				<slot />
+				<div id="portal" />
 			</div>
 		</div>
 	</body>
@@ -49,6 +49,40 @@ import MobileNavBar from '../components/MobileNavBar.astro';
 
 		input:invalid[focused="true"] ~ span{
 			display: block;
+		}
+
+		.btn {
+			@apply font-bold py-2 px-4 rounded cursor-pointer;
+		}
+		.btn-blue {
+			@apply bg-blue-500 text-white;
+		}
+		.btn-green {
+			@apply bg-green-500 text-white;
+		}
+		.btn-red {
+			@apply bg-red-500 text-white;
+		}
+		.btn-green:hover {
+			@apply bg-green-700;
+		}
+		.btn-red:hover {
+			@apply bg-red-700;
+		}
+		.btn-blue:hover {
+			@apply bg-blue-700;
+		}
+		.btn-disabled {
+			@apply opacity-50 cursor-not-allowed;
+		}
+		.input {
+			@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-500 p-2.5;
+		}
+		.card-text {
+			@apply text-2xl font-bold tracking-tight
+		}
+		.card-secondary-text {
+			@apply font-normal
 		}
 	</style>
 </html>

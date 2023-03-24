@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import AddToCartButton from '../../components/AddToCartButton.jsx'
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const response = await fetch('http://localhost:8080/api/products/all');
   const products = await response.json();
