@@ -26,6 +26,11 @@ productRouter.get('/', async (request, response) => {
   });
 });
 
+productRouter.get('/all', async (request, response) => {
+  const products = await Product.find({});
+  response.json(products);
+});
+
 productRouter.get('/:id', async (request, response) => {
   const product = await Product.findById(request.params.id);
   response.json(product);

@@ -1,0 +1,54 @@
+---
+const { title } = Astro.props;
+import NavBar from '../components/NavBar.astro';
+import MobileNavBar from '../components/MobileNavBar.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="/styles/index.css" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body class="bg-slate-200">
+		<nav class="border-gray-200 py-1 px-2 bg-white sticky top-0 z-50">
+			<NavBar />
+			<MobileNavBar />
+		</nav>
+		<div class='mx-auto max-w-xl w-full my-2'>
+			<div class='mx-2'>
+				<slot />
+			</div>
+		</div>
+	</body>
+	<style is:global>
+		/* Remove arrows from number inputs */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		h1 {
+			font-size: 1.875rem/* 30px */;
+			line-height: 2.25rem/* 36px */;
+		}
+
+		h2 {
+			font-size: 1.25rem/* 20px */;
+			line-height: 1.75rem/* 28px */;
+		}
+
+		input:invalid[focused="true"]{
+			border: 1px solid red;
+		}
+
+		input:invalid[focused="true"] ~ span{
+			display: block;
+		}
+	</style>
+</html>

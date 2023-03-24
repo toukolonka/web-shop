@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductList from '../../components/ProductList.jsx'
+import PageButtons from '../../components/PageButtons.jsx'
+
+export async function getStaticPaths({ paginate }) {
+  const response = await fetch('http://localhost:8080/api/products/all');
+  const products = await response.json();
+
+  return paginate(products, { pageSize: 50 });
+}
+
+const { page } = Astro.props;
+console.log(page);
+---
+
+<Layout>
+  <ProductList
+    client:only
+    products={page.data}
+  />
+  <PageButtons
+    currentPage={page.currentPage}
+    prevUrl={page.url.prev}
+    nextUrl={page.url.next}
+    lastPage={page.lastPage}
+  />
+</Layout>

@@ -149,6 +149,7 @@ function printTable(page) {
       average: average(nextValues.slice(1)),
     }; */
 
+    // eslint-disable-next-line no-console
     console.log(page);
   });
 
