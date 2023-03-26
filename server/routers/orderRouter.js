@@ -2,6 +2,7 @@ const orderRouter = require('express').Router();
 const Order = require('../models/order');
 
 orderRouter.get('/', async (request, response) => {
+  console.log('ORDERS');
   const { userId } = request.query;
   const orders = await Order
     .find({ userId })
@@ -10,6 +11,7 @@ orderRouter.get('/', async (request, response) => {
 });
 
 orderRouter.get('/:id', async (request, response) => {
+  console.log('ORDER1');
   const order = await Order
     .findById(request.params.id)
     .populate({

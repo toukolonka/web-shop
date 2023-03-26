@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import CartProductCard from '../../components/CartProductCard.jsx';
 import { format } from 'date-fns';
 
-const response = await fetch(`http://localhost:8080/api/orders/${Astro.params.id}`);
+const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/orders/${Astro.params.id}`);
 const order = await response.json();
 ---
 

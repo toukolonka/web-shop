@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import OrderCard from '../../components/OrderCard.jsx'
 
-const response = await fetch('http://localhost:8080/api/orders');
+const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/orders`);
 const orders = await response.json();
 ---
 

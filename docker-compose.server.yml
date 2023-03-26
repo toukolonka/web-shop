@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  server:
+    container_name: server
+    build: server
+    image: server
+    restart: "no"
+    volumes:
+      - ./server/:/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    env_file:
+      - project.env
+    links:
+      - database
+
+  database:
+    container_name: database
+    image: mongo:latest
+    volumes:
+      - ./server/data:/data/db
+      - ./server/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017

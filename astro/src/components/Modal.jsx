@@ -11,7 +11,7 @@ function Modal({ open, text, onSubmit, onCancel }) {
         <h1 className='mb-4 mx-2 text-center xs:text-left'>{text}</h1>
         <div className='flex flex-col xs:flex-row items-center justify-center'>
           <button data-testid="cancelButton" className='btn btn-red mx-2 mb-2 w-24' onClick={onCancel}>Cancel</button>
-          <a href="orders">
+          <a href="orders?formSubmitted=true">
             <button data-testid="confirmButton" className='btn btn-green mx-2 mb-2 w-24' onClick={onSubmit}>Confirm</button>
           </a>
         </div>

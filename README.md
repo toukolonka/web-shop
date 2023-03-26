@@ -3,7 +3,8 @@
 ### Getting started
 
 ```bash
-docker-compose up
+docker-compose -f docker-compose.server.yml up
+docker-compose -f docker-compose.client.yml up
 ```
 
 #### Server (development)

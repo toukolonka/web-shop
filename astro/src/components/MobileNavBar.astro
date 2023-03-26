@@ -11,7 +11,7 @@ const pathname = Astro.url.pathname;
     <Burger />
     <CustomLink pathname={pathname} dataTestId="cartNavLink" href="/cart">
       <span>Cart (</span>
-      <ShoppingCartProductsNumber client:only />
+      <ShoppingCartProductsNumber client:only="react" />
       <span>)</span>
     </CustomLink>
   </div>

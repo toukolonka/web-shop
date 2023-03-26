@@ -14,7 +14,7 @@ const pathname = Astro.url.pathname;
 			<CustomLink pathname={pathname} dataTestId="ordersNavLink" href="/orders">Orders</CustomLink>
 			<CustomLink pathname={pathname} dataTestId="cartNavLink" href="/cart">
 				<span>Cart (</span>
-				<ShoppingCartProductsNumber client:only />
+				<ShoppingCartProductsNumber client:only="react" />
 				<span>)</span>
 			</CustomLink>
 		</div>
