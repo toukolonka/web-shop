@@ -1,20 +1,19 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import OrderCard from '@/components/OrderCard';
 
-function Orders() {
-  const [orders, setOrders] = useState(null);
+async function getOrders() {
+  const response = await fetch(
+    // eslint-disable-next-line no-undef
+    `http://${process.env.SERVER_HOST_NAME}:8080/api/orders`,
+    { cache: 'no-store' }
+  );
+  const orderData = await response.json();
 
-  useEffect(() => {
-    async function fetchOrder() {
-      const response = await fetch(`http://localhost:8080/api/orders?userId=${localStorage.getItem('user')}`);
-      const orderData = await response.json();
-      setOrders(orderData);
-    }
-    fetchOrder();
-  }, []);
+  return orderData;
+}
 
+async function Orders() {
+  const orders = await getOrders();
   if (!orders) {
     return <div>Loading...</div>;
   }

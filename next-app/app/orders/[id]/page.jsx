@@ -4,7 +4,8 @@ import CartProductCard from '@/components/CartProductCard';
 
 async function getOrder(id) {
   const response = await fetch(
-    `http://localhost:8080/api/orders/${id}`,
+    // eslint-disable-next-line no-undef
+    `http://${process.env.SERVER_HOST_NAME}:8080/api/orders/${id}`,
     {
       next: { revalidate: 10 },
     },

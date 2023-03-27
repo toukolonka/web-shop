@@ -2,9 +2,8 @@ const orderRouter = require('express').Router();
 const Order = require('../models/order');
 
 orderRouter.get('/', async (request, response) => {
-  const { userId } = request.query;
   const orders = await Order
-    .find({ userId })
+    .find({})
     .sort({ createdAt: 'desc' });
   response.json(orders);
 });
@@ -24,7 +23,7 @@ orderRouter.get('/:id', async (request, response) => {
 });
 
 orderRouter.post('/', async (request, response) => {
-  const { orderProducts, recipientInfo, userId } = request.body;
+  const { orderProducts, recipientInfo } = request.body;
 
   const products = orderProducts.map((product) => ({
     product: product.id,
@@ -36,7 +35,6 @@ orderRouter.post('/', async (request, response) => {
   const totalProductCount = orderProducts.reduce((a, product) => a + product.quantity, 0);
 
   const order = new Order({
-    userId,
     recipientInfo,
     products,
     createdAt: new Date(Date.now()).toISOString(),

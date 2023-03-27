@@ -13,6 +13,7 @@ const nextConfig = {
       },
     ],
   },
+  output: 'standalone',
 };
 
 // eslint-disable-next-line no-undef

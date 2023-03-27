@@ -15,6 +15,7 @@ productRouter.get('/', async (request, response) => {
 
   const products = await Product
     .find(searchQuery)
+    .sort({ price: 'asc' })
     .skip((page - 1) * PRODUCTS_PER_PAGE)
     .limit(PRODUCTS_PER_PAGE);
 
@@ -27,7 +28,7 @@ productRouter.get('/', async (request, response) => {
 });
 
 productRouter.get('/all', async (request, response) => {
-  const products = await Product.find({});
+  const products = await Product.find({}).sort({ price: 'asc' });
   response.json(products);
 });
 

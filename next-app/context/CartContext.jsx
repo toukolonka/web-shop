@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useEffect, useState, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 export const CartContext = createContext({});
 
@@ -15,10 +14,6 @@ const CartContextProvider = (props) => {
       setCartProducts(JSON.parse(localStorage.getItem('cart')));
     } else {
       localStorage.setItem('cart', JSON.stringify(cartProducts));
-    }
-    if (!localStorage.getItem('user')) {
-      let uuid = uuidv4();
-      localStorage.setItem('user', uuid);
     }
   }, []);
 

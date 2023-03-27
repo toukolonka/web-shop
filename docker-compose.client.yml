@@ -52,13 +52,19 @@ services:
     env_file:
       - project.env
 
+  next-app:
+    build: next-app
+    image: next-app
+    restart: "no"
+    ports:
+      - 3004:3004
+    env_file:
+      - project.env
+
   astro:
     build: astro
     image: astro
     restart: "no"
-    volumes:
-      - ./astro/:/app
-      - react_node_modules:/app/node_modules
     ports:
       - 3005:8080
     env_file:

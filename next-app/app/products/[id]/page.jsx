@@ -2,14 +2,29 @@ import React from 'react';
 import Image from 'next/image';
 import AddToCartButton from '@/components/AddToCartButton';
 
-async function getProduct(id) {
-  const response = await fetch(`http://localhost:8080/api/products/${id}`);
+export async function getProducts(id = false) {
+  let response;
+  if (id) {
+    // eslint-disable-next-line no-undef
+    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/${id}`);
+  } else {
+    // eslint-disable-next-line no-undef
+    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/all`);
+  }
   const data = await response.json();
   return data;
 }
 
+export async function generateStaticParams() {
+  const products = await getProducts();
+
+  return products.map((product) => ({
+    id: product.id,
+  }));
+}
+
 async function Product({ params }) {
-  const product = await getProduct(params.id);
+  const product = await getProducts(params.id);
 
   return (
     <div className='mx-2'>

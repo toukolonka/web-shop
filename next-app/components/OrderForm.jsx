@@ -46,7 +46,6 @@ function OrderForm() {
             lastName,
             address,
           },
-          userId: localStorage.getItem('user'),
         }),
       headers: {
         'Content-Type': 'application/json'
@@ -54,6 +53,8 @@ function OrderForm() {
     });
     checkout();
     const orderId = await response.json();
+    router.push('/orders');
+    router.refresh();
     router.push(`/orders/${orderId}`);
   }
 
