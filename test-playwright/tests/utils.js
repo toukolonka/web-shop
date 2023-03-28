@@ -13,13 +13,15 @@ const thresholds = {
   pwa: 10,
 };
 
-const apps = ['react', 'reactOpt', 'preact', 'preactOpt'];
+const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro'];
 
 const baseUrls = {
   react: 'http://localhost:3000',
   reactOpt: 'http://localhost:3001',
   preact: 'http://localhost:3002',
-  preactOpt: 'http://localhost:3003'
+  preactOpt: 'http://localhost:3003',
+  next: 'http://localhost:3004',
+  astro: 'http://localhost:3005',
 };
 
 const configs = [
@@ -109,7 +111,8 @@ function printTable(page) {
     reactOpt: {},
     preact: {},
     preactOpt: {},
-    // next: {},
+    next: {},
+    astro: {},
   };
 
   auditTypes.forEach((auditType) => {
@@ -117,7 +120,8 @@ function printTable(page) {
     const reactOptValues = readAudits(`reactOpt-${page}-`, auditType);
     const preactValues = readAudits(`preact-${page}-`, auditType);
     const preactOptValues = readAudits(`preactOpt-${page}-`, auditType);
-    // const nextValues = readAudits('next-', auditType);
+    const nextValues = readAudits('next-', auditType);
+    const astroValues = readAudits('astro-', auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
@@ -143,11 +147,17 @@ function printTable(page) {
       average: average(preactOptValues.slice(1)),
     };
 
-    /* calculatedRows.next[auditType] = {
+    calculatedRows.next[auditType] = {
       firstRun: nextValues[0],
       median: median(nextValues.slice(1)),
       average: average(nextValues.slice(1)),
-    }; */
+    };
+
+    calculatedRows.astro[auditType] = {
+      firstRun: astroValues[0],
+      median: median(astroValues.slice(1)),
+      average: average(astroValues.slice(1)),
+    };
 
     // eslint-disable-next-line no-console
     console.log(page);
@@ -200,7 +210,8 @@ function printTable(page) {
     ['React optimized', 'reactOpt'],
     ['Preact', 'preact'],
     ['Preact optimized', 'preactOpt'],
-    // ['Next', 'next'],
+    ['Next', 'next'],
+    ['Astro', 'astro'],
   ];
 
   // eslint-disable-next-line no-console
