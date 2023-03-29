@@ -11,7 +11,7 @@ const Menu = (props) => {
         <CustomLink pathname={props.pathname} href="/products/">
             Products
         </CustomLink>
-        <CustomLink pathname={props.pathname} href="/orders/">
+        <CustomLink pathname={props.pathname} href="/orders">
             Orders
         </CustomLink>
       </div>

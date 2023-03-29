@@ -69,3 +69,12 @@ services:
       - 3005:8080
     env_file:
       - project.env
+
+  astro-preact:
+    build: astro-preact
+    image: astro-preact
+    restart: "no"
+    ports:
+      - 3007:8080
+    env_file:
+      - project.env

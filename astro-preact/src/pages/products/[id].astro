@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AddToCartButton from '../../components/AddToCartButton.jsx'
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/products/all`);
+  const products = await response.json();
+
+  return products.map(product => ({
+    params: {
+      id: product.id,
+    },
+    props: {
+      product,
+    },
+  }));
+}
+
+const { product } = Astro.props
+---
+
+<Layout>
+	<div class='mx-2'>
+    <div>
+      <img
+        class={'rounded-t-lg rounded-lg'}
+        src={`https://picsum.photos/seed/${product.id}/600/300`}
+        crossorigin="anonymous"
+        alt="Product image"
+        width="600"
+        height="300"
+      />
+      <div class="flex flex-col items-center p-5">
+        <strong class='mb-2 card-text text-gray-700'>{product.name}</strong>
+        <p class='mb-3 card-secondary-text text-gray-600'>{product.price}€</p>
+        <AddToCartButton client:only="preact" product={product} />
+      </div>
+    </div>
+  </div>
+</Layout>

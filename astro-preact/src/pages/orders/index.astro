@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OrderCard from '../../components/OrderCard.jsx'
+
+const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/orders`);
+const orders = await response.json();
+---
+
+<Layout>
+	<div class='sm:grid sm:grid-cols-2'>
+		{orders.map(order =>
+				<OrderCard key={order.id} order={order} />)}
+	</div>
+</Layout>
