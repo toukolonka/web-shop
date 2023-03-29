@@ -70,6 +70,15 @@ services:
     env_file:
       - project.env
 
+  next-preact:
+    build: next-preact
+    image: next-preact
+    restart: "no"
+    ports:
+      - 3006:3006
+    env_file:
+      - project.env
+
   astro-preact:
     build: astro-preact
     image: astro-preact

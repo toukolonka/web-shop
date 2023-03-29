@@ -34,7 +34,7 @@ cd test-playwright
 
 npm install
 
-npx playwright test pages
+npx playwright test products
 ```
 
 #### Lighthouse user flow tests
