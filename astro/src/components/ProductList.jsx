@@ -1,31 +1,48 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import FilterInput from './FilterInput';
 import SearchInput from './SearchInput';
 import ProductCard from './ProductCard';
+import DoubleIconButton from './DoubleIconButton';
+
+const PRODUCTS_PER_PAGE = 50;
 
 function ProductList(props) {
+  const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [products, setProducts] = useState([]);
-  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if(isFirstRender.current) {
-      setProducts(props.products);
-      isFirstRender.current = false;
-      return;
+    if (page !== 1) {
+      setPage(1);
     }
-    setProducts(props.products.filter(product =>
-      product.name.includes(searchValue) &&
-        product.price >= (Number(minPrice) ? Number(minPrice) : 0) &&
-        product.price <= (Number(maxPrice) ? Number(maxPrice) : Infinity)));
-
   }, [searchValue, minPrice, maxPrice]);
 
-  if (props.products.length === 0) {
-    return <div className='m-4'>No products found.</div>;
+  const pageCount = Math.ceil(props.products.length / PRODUCTS_PER_PAGE);
+
+  function handlePrevious() {
+    if (page === 1) return;
+    setPage(page - 1);
+    window.scrollTo({
+      top: 0,
+    });
   }
+
+  function handleNext() {
+    if (page >= pageCount) return;
+    setPage(page + 1);
+    window.scrollTo({
+      top: 0,
+    });
+  }
+
+  const productsForPage = props.products
+    .filter(product =>
+      product.name.includes(searchValue) &&
+      product.price >= (Number(minPrice) ? Number(minPrice) : 0) &&
+      product.price <= (Number(maxPrice) ? Number(maxPrice) : Infinity))
+    .slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
   return (
     <>
@@ -48,13 +65,26 @@ function ProductList(props) {
         />
       </form>
       <div className='xs:grid xs:grid-cols-2'>
-        {products.map(product =>
+        {productsForPage.map(product =>
           <div key={product.id} className='m-2 flex justify-center items-center'>
             <a href={`/products/${product.id}`} className="bg-gray-800 border border-gray-200 rounded-lg shadow hover:bg-gray-700 w-full">
               <ProductCard product={product} />
             </a>
           </div>
         )}
+      </div>
+      <div className='flex justify-center my-2'>
+        <DoubleIconButton
+          leftIcon="<"
+          rightIcon=">"
+          leftButtonDisabled={page <= 1}
+          rightButtonDisabled={page >= pageCount}
+          leftButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page <= 1 })}
+          rightButtonClassNames={classNames('btn-blue', { 'btn-disabled' : page >= pageCount })}
+          handleLeftClick={handlePrevious}
+          handleRightClick={handleNext}
+          count={page}
+        />
       </div>
     </>
   );

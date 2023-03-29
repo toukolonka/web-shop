@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
 import ProductCard from './ProductCard';
@@ -15,6 +15,12 @@ function ProductList(props) {
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+
+  useEffect(() => {
+    if (page !== 1) {
+      setPage(1);
+    }
+  }, [searchValue, minPrice, maxPrice]);
 
   const pageCount = Math.ceil(props.products.length / PRODUCTS_PER_PAGE);
 
@@ -32,10 +38,6 @@ function ProductList(props) {
     window.scrollTo({
       top: 0,
     });
-  }
-
-  if (props.products.length === 0) {
-    return <div className='m-4'>No products found.</div>;
   }
 
   const productsForPage = props.products
