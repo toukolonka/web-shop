@@ -13,7 +13,7 @@ const thresholds = {
   pwa: 10,
 };
 
-const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro'];
+const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact'];
 
 const baseUrls = {
   react: 'http://localhost:3000',
@@ -22,6 +22,8 @@ const baseUrls = {
   preactOpt: 'http://localhost:3003',
   next: 'http://localhost:3004',
   astro: 'http://localhost:3005',
+  nextPreact: 'http://localhost:3006',
+  astroPreact: 'http://localhost:3007',
 };
 
 const configs = [
@@ -113,6 +115,8 @@ function printTable(page) {
     preactOpt: {},
     next: {},
     astro: {},
+    nextPreact: {},
+    astroPreact: {},
   };
 
   auditTypes.forEach((auditType) => {
@@ -120,8 +124,10 @@ function printTable(page) {
     const reactOptValues = readAudits(`reactOpt-${page}-`, auditType);
     const preactValues = readAudits(`preact-${page}-`, auditType);
     const preactOptValues = readAudits(`preactOpt-${page}-`, auditType);
-    const nextValues = readAudits('next-', auditType);
-    const astroValues = readAudits('astro-', auditType);
+    const nextValues = readAudits(`next-${page}-`, auditType);
+    const astroValues = readAudits(`astro-${page}-`, auditType);
+    const nextPreactValues = readAudits(`nextPreact-${page}-`, auditType);
+    const astroPreactValues = readAudits(`astroPreact-${page}-`, auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
@@ -157,6 +163,18 @@ function printTable(page) {
       firstRun: astroValues[0],
       median: median(astroValues.slice(1)),
       average: average(astroValues.slice(1)),
+    };
+
+    calculatedRows.nextPreact[auditType] = {
+      firstRun: nextPreactValues[0],
+      median: median(nextPreactValues.slice(1)),
+      average: average(nextPreactValues.slice(1)),
+    };
+
+    calculatedRows.astroPreact[auditType] = {
+      firstRun: astroPreactValues[0],
+      median: median(astroPreactValues.slice(1)),
+      average: average(astroPreactValues.slice(1)),
     };
 
     // eslint-disable-next-line no-console
@@ -212,6 +230,8 @@ function printTable(page) {
     ['Preact optimized', 'preactOpt'],
     ['Next', 'next'],
     ['Astro', 'astro'],
+    ['Next Preact', 'nextPreact'],
+    ['Astro Preact', 'astroPreact'],
   ];
 
   // eslint-disable-next-line no-console

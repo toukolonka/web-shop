@@ -31,3 +31,4 @@ server/data
 */screenshots/
 */playwright/.cache/
 test-playwright/reports
+.vscode

@@ -22,6 +22,8 @@ lighthouseTest.describe('products page', () => {
         const url = `${baseUrls[name]}/products`;
         await page.goto(url);
 
+        console.log('URL', url, 'REPORT', `${name}-products-${i}`);
+
         await playAudit({
           page,
           port,
