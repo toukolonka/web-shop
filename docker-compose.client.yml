@@ -52,18 +52,18 @@ services:
     env_file:
       - project.env
 
-  next-app:
-    build: next-app
-    image: next-app
+  next-react:
+    build: next-react
+    image: next-react
     restart: "no"
     ports:
       - 3004:3004
     env_file:
       - project.env
 
-  astro:
-    build: astro
-    image: astro
+  astro-react:
+    build: astro-react
+    image: astro-react
     restart: "no"
     ports:
       - 3005:8080
