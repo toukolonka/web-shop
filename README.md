@@ -30,11 +30,11 @@ npm run dev
 #### Lighthouse performance tests
 
 ```bash
-cd test-playwright
+cd test-lighthouse
 
 npm install
 
-npx playwright test products
+npm run test testName
 ```
 
 #### Lighthouse user flow tests

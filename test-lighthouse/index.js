@@ -1,20 +1,47 @@
 import fs from 'fs';
 import lighthouse from 'lighthouse';
 import chromeLauncher from 'chrome-launcher';
-import lighthouseDefaultConfig from './node_modules/lighthouse/core/config/default-config.js';
-import lighthouseDesktopConfig from './node_modules/lighthouse/core/config/lr-desktop-config.js';
-import lighthouseMobileConfig from './node_modules/lighthouse/core/config/lr-mobile-config.js';
+import {
+  printTable,
+  apps,
+  baseUrls,
+  numberOfTests
+} from './utils.js';
 
-const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
-const runnerResult = await lighthouse('http://localhost:3006/products', options, lighthouseDefaultConfig);
+async function test(name, i, page, path) {
+  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+  const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
+  const runnerResult = await lighthouse(`${baseUrls[name]}/${path}`, options);
 
-// `.report` is the HTML report as a string
-const reportHtml = runnerResult.report;
-fs.writeFileSync('./reports/lhreport.json', reportHtml);
+  const report = runnerResult.report;
+  fs.writeFileSync(`./reports/${name}-${page}-${i}-audit.json`, report);
 
-// `.lhr` is the Lighthouse Result as a JS object
-console.log('Report is done for', runnerResult.lhr.finalDisplayedUrl);
-console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
+  await chrome.kill();
+}
 
-await chrome.kill();
+const page = process.argv[2];
+let path = page;
+
+if (page === 'home') {
+  path = '/';
+} else if (page === 'order') {
+  const response = await fetch('http://localhost:8080/api/orders');
+  const orders = await response.json();
+  const exampleOrder = orders[0];
+  const id = exampleOrder.id;
+  path = `orders/${id}`;
+} else if (page === 'product') {
+  const response = await fetch('http://localhost:8080/api/products/');
+  const products = await response.json();
+  const exampleProduct = products[0];
+  const id = exampleProduct.id;
+  path = `products/${id}`;
+}
+
+for (let i = 0; i < numberOfTests; i++) {
+  for (let j = 0; j < apps.length; j++) {
+    await test(apps[j], i, page, path);
+  }
+}
+
+printTable(page);
