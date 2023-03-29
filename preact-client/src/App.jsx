@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch, Route
 } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import CartContextProvider from './context/CartContext';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
@@ -24,11 +23,6 @@ function Wrapper(props) {
 }
 
 function App() {
-  if (!localStorage.getItem('user')) {
-    let uuid = uuidv4();
-    localStorage.setItem('user', uuid);
-  }
-
   return (
     <CartContextProvider>
       <Router>

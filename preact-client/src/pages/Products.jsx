@@ -3,44 +3,56 @@ import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
 import SearchInput from '../components/SearchInput';
 
+const PRODUCTS_PER_PAGE = 50;
+
 function Products() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
 
   async function fetchData() {
-    const response = await fetch(`http://localhost:8080/api/products?page=${page}&search=${searchValue}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
-    const data = await response.json();
-    setProducts(data.products);
-    setPageCount(data.pageCount);
+    const response = await fetch('http://localhost:8080/api/products/all');
+    const products = await response.json();
+    setProducts(products);
   }
 
   useEffect(() => {
     fetchData();
-  }, [page, searchValue, minPrice, maxPrice]);
+  }, []);
+
+  useEffect(() => {
+    if (page !== 1) {
+      setPage(1);
+    }
+  }, [searchValue, minPrice, maxPrice]);
+
+  const pageCount = Math.ceil(products.length / PRODUCTS_PER_PAGE);
 
   function handlePrevious() {
-    setPage((p) => {
-      if (p === 1) return p;
-      return p - 1;
-    });
+    if (page === 1) return;
+    setPage(page - 1);
     window.scrollTo({
       top: 0,
     });
   }
 
   function handleNext() {
-    setPage((p) => {
-      if (p >= pageCount) return p;
-      return p + 1;
-    });
+    if (page >= pageCount) return;
+    setPage(page + 1);
     window.scrollTo({
       top: 0,
     });
   }
+
+  const productsForPage = products
+    .filter(product =>
+      product.name.includes(searchValue) &&
+      product.price >= (Number(minPrice) ? Number(minPrice) : 0) &&
+      product.price <= (Number(maxPrice) ? Number(maxPrice) : Infinity))
+    .slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
+
 
   return (
     <>
@@ -63,8 +75,8 @@ function Products() {
         />
       </form>
       <ProductList
-        products={products}
         page={page}
+        products={productsForPage}
         pageCount={pageCount}
         handlePrevious={handlePrevious}
         handleNext={handleNext}

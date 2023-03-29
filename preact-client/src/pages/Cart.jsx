@@ -24,7 +24,6 @@ function Cart() {
         {
           orderProducts: cartProducts,
           recipientInfo,
-          userId: localStorage.getItem('user'),
         }),
       headers: {
         'Content-Type': 'application/json'

@@ -39,7 +39,6 @@ function OrderForm() {
             lastName,
             address,
           },
-          userId: localStorage.getItem('user'),
         }),
       headers: {
         'Content-Type': 'application/json'
