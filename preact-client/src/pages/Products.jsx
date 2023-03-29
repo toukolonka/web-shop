@@ -3,7 +3,7 @@ import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
 import SearchInput from '../components/SearchInput';
 
-const PRODUCTS_PER_PAGE = 50;
+const PRODUCTS_PER_PAGE = 1000000;
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -13,7 +13,7 @@ function Products() {
   const [maxPrice, setMaxPrice] = useState('');
 
   async function fetchData() {
-    const response = await fetch('http://localhost:8080/api/products/all');
+    const response = await fetch('http://localhost:8080/api/products/');
     const products = await response.json();
     setProducts(products);
   }

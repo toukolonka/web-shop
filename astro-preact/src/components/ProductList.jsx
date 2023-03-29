@@ -5,7 +5,7 @@ import SearchInput from './SearchInput';
 import ProductCard from './ProductCard';
 import DoubleIconButton from './DoubleIconButton';
 
-const PRODUCTS_PER_PAGE = 50;
+const PRODUCTS_PER_PAGE = 1000000;
 
 function ProductList(props) {
   const [page, setPage] = useState(1);

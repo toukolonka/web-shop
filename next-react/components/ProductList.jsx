@@ -8,7 +8,7 @@ import DoubleIconButton from './DoubleIconButton';
 import FilterInput from '@/components/FilterInput';
 import SearchInput from '@/components/SearchInput';
 
-const PRODUCTS_PER_PAGE = 50;
+const PRODUCTS_PER_PAGE = 1000000;
 
 function ProductList(props) {
   const [page, setPage] = useState(1);

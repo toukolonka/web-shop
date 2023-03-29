@@ -2,8 +2,12 @@ const orderRouter = require('express').Router();
 const Order = require('../models/order');
 
 orderRouter.get('/', async (request, response) => {
+  const { limit } = request.query;
+  const orderLimit = Number(limit) || undefined;
+
   const orders = await Order
     .find({})
+    .limit(orderLimit)
     .sort({ createdAt: 'desc' });
   response.json(orders);
 });

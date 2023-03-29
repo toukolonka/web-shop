@@ -5,7 +5,7 @@ import AddToCartButton from '../../components/AddToCartButton.jsx'
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/products/all`);
+  const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/products/`);
   const products = await response.json();
 
   return products.map(product => ({

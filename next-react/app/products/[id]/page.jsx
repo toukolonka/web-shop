@@ -9,7 +9,7 @@ export async function getProducts(id = false) {
     response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/${id}`);
   } else {
     // eslint-disable-next-line no-undef
-    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/all`);
+    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/`);
   }
   const data = await response.json();
   return data;
