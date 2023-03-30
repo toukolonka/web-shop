@@ -97,7 +97,6 @@ function OrderForm() {
         type='button'
         disabled={buttonDisabled}
         onClick={() => setIsModalOpen(true)}
-        href='/orders'
         className={classNames('btn btn-blue w-full order-button bg-blue-500 hover:bg-blue-700', { 'btn-disabled': buttonDisabled })}
         data-testid="placeOrderButton"
       >
