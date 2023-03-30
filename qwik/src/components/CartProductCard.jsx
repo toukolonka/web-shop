@@ -11,6 +11,8 @@ export default component$((props) => {
         alt="Product image"
         width="450"
         height="300"
+        loading="lazy"
+        decoding="async"
       />
       <div class="flex flex-col justify-center items-center pl-4 my-4 sm:my-0 flex-grow">
         <strong class="text-white card-text">{props.product.name}</strong>

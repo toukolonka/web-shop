@@ -2,10 +2,15 @@ import {
   createContextId,
 } from '@builder.io/qwik';
 
-const CartContext = createContextId('cart');
+interface CartStore {
+  value: any[];
+}
+
+const CartContext = createContextId<CartStore>('cart');
+
 export default CartContext;
 
-export function getTotalQuantity(cartProducts) {
+export function getTotalQuantity(cartProducts: CartStore) {
   let totalQuantity = 0;
 
   cartProducts.value.forEach(product => totalQuantity += product.quantity);
@@ -13,7 +18,16 @@ export function getTotalQuantity(cartProducts) {
   return totalQuantity;
 }
 
-export function getProductQuantity(productId, cartProducts) {
+export function getTotalPrice(cartProducts: CartStore) {
+  let totalPrice = 0;
+
+  cartProducts.value.forEach((cartProduct) => {
+    totalPrice += (cartProduct.price * cartProduct.quantity);
+  });
+  return totalPrice;
+}
+
+export function getProductQuantity(productId: any, cartProducts: CartStore) {
   const quantity = cartProducts.value.find(product => product.id === productId)?.quantity;
 
   if (quantity === undefined) {
@@ -23,7 +37,7 @@ export function getProductQuantity(productId, cartProducts) {
   return quantity;
 }
 
-export function addToCart(newProduct, cartProducts) {
+export function addToCart(newProduct: any, cartProducts: CartStore) {
   const quantity = getProductQuantity(newProduct.id, cartProducts);
 
   if (quantity === 0) {
@@ -41,9 +55,11 @@ export function addToCart(newProduct, cartProducts) {
         : product
     );
   }
+
+  localStorage.setItem('cart', JSON.stringify(cartProducts.value));
 }
 
-export function removeFromCart(productId, cartProducts) {
+export function removeFromCart(productId: any, cartProducts: CartStore) {
   const quantity = getProductQuantity(productId, cartProducts);
 
   if(quantity === 0) {
@@ -60,8 +76,15 @@ export function removeFromCart(productId, cartProducts) {
     );
     cartProducts.value = newProducts;
   }
+
+  localStorage.setItem('cart', JSON.stringify(cartProducts.value));
 }
 
-function deleteFromCart(id, cartProducts) {
+export function checkout(cartProducts: CartStore) {
+  cartProducts.value = [];
+  localStorage.setItem('cart', JSON.stringify(cartProducts.value));
+}
+
+function deleteFromCart(id: any, cartProducts: CartStore) {
   cartProducts.value = cartProducts.value.filter(product => product.id !== id);
 }

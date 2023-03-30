@@ -1,8 +1,7 @@
-import { component$, useContextProvider, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useContextProvider, useSignal } from '@builder.io/qwik';
 import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from '@builder.io/qwik-city';
 import { RouterHead } from './components/router-head/router-head';
-
-import CartContext from './context/CartContext';
+import CartContext from '~/context/CartContext';
 
 import './global.css';
 
@@ -13,16 +12,6 @@ export default component$(() => {
    *
    * Dont remove the `<head>` and `<body>` elements.
    */
-
-  const cartProducts = useSignal([]);
-
-  useVisibleTask$(() => {
-    if (localStorage.getItem('cart')) {
-      cartProducts.value = JSON.parse(localStorage.getItem('cart'));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cartProducts));
-    }
-  });
 
   useContextProvider(
     CartContext,
