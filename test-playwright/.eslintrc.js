@@ -7,8 +7,10 @@ module.exports = {
   'extends': 'eslint:recommended',
   'overrides': [
   ],
+  'parser': 'babel-eslint',
   'parserOptions': {
-    'ecmaVersion': 'latest'
+    'sourceType': 'module',
+    'allowImportExportEverywhere': true
   },
   'rules': {
     'semi': [2, 'always'],

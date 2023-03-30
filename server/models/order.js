@@ -1,7 +1,6 @@
 const { model, Schema } = require('mongoose');
 
 const orderSchema = new Schema({
-  userId: String,
   recipientInfo: {
     firstName: String,
     lastName: String,
