@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import RenderIfVisible from 'react-render-if-visible';
 import OrderCard from '../components/OrderCard';
 
 function Orders() {
@@ -25,11 +24,9 @@ function Orders() {
   return (
     <div className='sm:grid sm:grid-cols-2'>
       {orders.map(order =>
-        <RenderIfVisible key={order.id}>
-          <div className='m-2 flex justify-center items-center'>
-            <OrderCard order={order} />
-          </div>
-        </RenderIfVisible>)}
+        <div key={order.id} className='m-2 flex justify-center items-center'>
+          <OrderCard order={order} />
+        </div>)}
     </div>
   );
 }

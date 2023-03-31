@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 function FilterInput(props) {
   return (
@@ -13,4 +13,4 @@ function FilterInput(props) {
   );
 }
 
-export default FilterInput;
+export default memo(FilterInput);

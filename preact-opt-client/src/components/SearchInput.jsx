@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 function SearchInput(props) {
   return (
@@ -13,4 +13,4 @@ function SearchInput(props) {
   );
 }
 
-export default SearchInput;
+export default memo(SearchInput);

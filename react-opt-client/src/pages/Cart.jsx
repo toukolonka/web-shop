@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
-import RenderIfVisible from 'react-render-if-visible';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
 import CartProductCard from '../components/CartProductCard';
+import DoubleIconButton from '../components/DoubleIconButton';
 
 function Cart() {
   const {
@@ -19,16 +19,24 @@ function Cart() {
     <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         {cartProducts.map(product =>
-          <RenderIfVisible key={product.id}>
-            <div key={product.id}  className='m-2 flex justify-between items-center'>
-              <CartProductCard
-                product={product}
-                removeFromCart={() => removeFromCart(product.id)}
-                addToCart={() => addToCart(product)}
-                count={getProductQuantity(product.id)}
-              />
-            </div>
-          </RenderIfVisible>
+          <div key={product.id}  className='m-2 flex justify-between items-center'>
+            <CartProductCard
+              product={product}
+            >
+              <div className='m-4'>
+                <DoubleIconButton
+                  leftIcon="-"
+                  rightIcon="+"
+                  textClassNames='text-white'
+                  leftButtonClassNames='btn-red'
+                  rightButtonClassNames='btn-blue'
+                  handleLeftClick={removeFromCart}
+                  handleRightClick={addToCart}
+                  count={getProductQuantity(product.id)}
+                />
+              </div>
+            </CartProductCard>
+          </div>
         )}
       </div>
       { cartProducts.length > 0

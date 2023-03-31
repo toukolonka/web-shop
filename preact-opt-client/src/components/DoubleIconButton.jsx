@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 
 function DoubleIconButton(props) {
@@ -31,4 +31,4 @@ function DoubleIconButton(props) {
   );
 }
 
-export default DoubleIconButton;
+export default memo(DoubleIconButton);
