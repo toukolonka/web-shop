@@ -4,7 +4,9 @@ import { qwikCity } from '@builder.io/qwik-city/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path : '.env' });
+dotenv.config({ path : `.env.${process.env.NODE_ENV}` });
+
+console.log(process.env.NODE_ENV);
 
 export default defineConfig(() => {
   return {

@@ -87,3 +87,12 @@ services:
       - 3007:8080
     env_file:
       - project.env
+
+  qwik:
+    build: qwik
+    image: qwik
+    restart: "no"
+    ports:
+      - 3008:3000
+    env_file:
+      - qwik/.env.production

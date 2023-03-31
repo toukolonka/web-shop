@@ -1,11 +1,12 @@
 import { component$, useResource$, Resource } from '@builder.io/qwik';
+import { isBrowser } from '@builder.io/qwik/build';
 import OrderCard from '~/components/OrderCard';
 
 export default component$(() => {
   const orders = useResource$(async () => {
-    const response = await fetch(
-      'http://localhost:8080/api/orders/'
-    );
+    const response = isBrowser ?
+      await fetch(`http://localhost:8080/api/orders/`) :
+      await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/orders/`);
     const data = await response.json();
     return data;
   });

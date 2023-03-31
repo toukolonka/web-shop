@@ -1,4 +1,5 @@
 import { component$, useResource$, Resource } from '@builder.io/qwik';
+import { isBrowser } from '@builder.io/qwik/build';
 import { useLocation } from '@builder.io/qwik-city';
 import CartProductCard from '~/components/CartProductCard';
 import { format } from 'date-fns';
@@ -7,7 +8,9 @@ export default component$(() => {
   const id = useLocation().params.id;
 
   const order = useResource$(async () => {
-    const response = await fetch(`http://localhost:8080/api/orders/${id}`);
+    const response = isBrowser ?
+      await fetch(`http://localhost:8080/api/orders/${id}`) :
+      await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/orders/${id}`);
     const data = await response.json();
     return data;
   });
