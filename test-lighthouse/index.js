@@ -5,13 +5,14 @@ import {
   printTable,
   apps,
   baseUrls,
-  numberOfTests
+  numberOfTests,
+  configs,
 } from './utils.js';
 
 async function test(name, i, page, path) {
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
-  const runnerResult = await lighthouse(`${baseUrls[name]}/${path}`, options);
+  const runnerResult = await lighthouse(`${baseUrls[name]}/${path}`, options, configs.lighthouseMobileConfig);
 
   const report = runnerResult.report;
   fs.writeFileSync(`./reports/${name}-${page}-${i}-audit.json`, report);
@@ -23,7 +24,7 @@ const page = process.argv[2];
 let path = page;
 
 if (page === 'home') {
-  path = '/';
+  path = '';
 } else if (page === 'order') {
   const response = await fetch('http://localhost:8080/api/orders');
   const orders = await response.json();
