@@ -41,6 +41,8 @@ npm run dev
 
 #### Lighthouse performance tests
 
+Replace 'testName' with test name, e.g. 'home'
+
 ```bash
 cd test-lighthouse
 
