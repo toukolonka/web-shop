@@ -40,3 +40,17 @@ export default component$(() => {
     />
   );
 });
+
+export const onStaticGenerate = async () => {
+  const response = isBrowser ?
+    await fetch('http://localhost:8080/api/products/') :
+    await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/`);
+  const data = await response.json();
+  const ids = data.map((product) => product.id);
+
+  return {
+    params: ids.map((id) => {
+      return { id };
+    }),
+  };
+};

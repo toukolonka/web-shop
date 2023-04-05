@@ -28,6 +28,7 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/server ./server
 COPY --from=build /usr/src/app/dist ./dist
+RUN rm -r ./dist/orders/
 
 # Expose port 3000 (default port)
 EXPOSE 3008
