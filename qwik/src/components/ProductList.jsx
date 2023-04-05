@@ -6,7 +6,7 @@ import DoubleIconButton from './DoubleIconButton';
 import FilterInput from './FilterInput';
 import SearchInput from './SearchInput';
 
-const PRODUCTS_PER_PAGE = 1000000;
+const PRODUCTS_PER_PAGE = 10;
 
 export default component$((props) => {
   const page = useSignal(1);

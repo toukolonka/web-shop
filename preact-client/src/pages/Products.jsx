@@ -3,7 +3,7 @@ import FilterInput from '../components/FilterInput';
 import ProductList from '../components/ProductList';
 import SearchInput from '../components/SearchInput';
 
-const PRODUCTS_PER_PAGE = 1000000;
+const PRODUCTS_PER_PAGE = 10;
 
 function Products() {
   const [products, setProducts] = useState([]);
