@@ -24,7 +24,7 @@ const configs = {
   lighthouseMobileConfig,
 }
 
-const numberOfTests = 2;
+const numberOfTests = 3;
 
 function median(values) {
   const amount = values.length;
@@ -191,8 +191,8 @@ function printTable(page) {
     ['React optimized', 'reactOpt'],
     ['Preact', 'preact'],
     ['Preact optimized', 'preactOpt'],
-    ['Next', 'next'],
-    ['Astro', 'astro'],
+    ['Next React', 'next'],
+    ['Astro React', 'astro'],
     ['Next Preact', 'nextPreact'],
     ['Astro Preact', 'astroPreact'],
     ['Qwik', 'qwik'],
