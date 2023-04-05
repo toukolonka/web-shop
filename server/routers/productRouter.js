@@ -7,6 +7,7 @@ productRouter.get('/', async (request, response) => {
 
   const products = await Product
     .find({})
+    .sort({ price: 1 })
     .limit(productLimit);
 
   response.json(products);
