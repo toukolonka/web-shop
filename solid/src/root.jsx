@@ -13,7 +13,10 @@ import {
   Scripts,
   Title,
 } from "solid-start";
+
 import NavBar from "./components/NavBar";
+import { CartContextProvider } from "./context/CartContext";
+
 import "./root.css";
 export default function Root() {
   const location = useLocation();
@@ -30,16 +33,18 @@ export default function Root() {
       </Head>
       <Body className="bg-slate-200">
         <Suspense>
-          <NavBar />
-          <ErrorBoundary>
-            <div className='mx-auto max-w-xl w-full my-2'>
-              <div className='mx-2'>
-                <Routes>
-                  <FileRoutes />
-                </Routes>
-              </div>
-            </div>
-          </ErrorBoundary>
+          <CartContextProvider>
+            <NavBar />
+            <ErrorBoundary>
+                <div className='mx-auto max-w-xl w-full my-2'>
+                  <div className='mx-2'>
+                    <Routes>
+                      <FileRoutes />
+                    </Routes>
+                  </div>
+                </div>
+            </ErrorBoundary>
+          </CartContextProvider>
         </Suspense>
         <Scripts />
       </Body>

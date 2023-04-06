@@ -3,11 +3,13 @@ import { A } from "solid-start";
 import Burger from './Burger';
 import Menu from './Menu';
 import CustomLink from './CustomLink';
+import { useCart } from '../context/CartContext';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = createSignal(false);
+  const { getTotalQuantity } = useCart();
 
-  const toggleHamburger = () => setMenuOpen(!menuOpen);
+  const toggleHamburger = () => setMenuOpen(open => !open);
 
   return (
     <>
@@ -20,16 +22,16 @@ function NavBar() {
             <div className="flex flex-row space-x-4 mt-0 text-sm font-medium border-0 py-4 px-1">
               <CustomLink dataTestId="productsNavLink" href="/products">Products</CustomLink>
               <CustomLink dataTestId="ordersNavLink" href="/orders">Orders</CustomLink>
-              <CustomLink dataTestId="cartNavLink" href="/cart">Cart ({0})</CustomLink>
+              <CustomLink dataTestId="cartNavLink" href="/cart">Cart ({getTotalQuantity()})</CustomLink>
             </div>
           </div>
           <div className='flex ml-2 items-center xs:hidden justify-between w-full text-sm font-medium py-4 px-1'>
-            <Burger isOpen={menuOpen} toggle={toggleHamburger} />
-            <CustomLink href="/cart">Cart ({0})</CustomLink>
+            <Burger isOpen={menuOpen()} toggle={toggleHamburger} />
+            <CustomLink href="/cart">Cart ({getTotalQuantity()})</CustomLink>
           </div>
         </div>
         <div className='xs:hidden'>
-          <Menu isOpen={menuOpen} setOpen={toggleHamburger} />
+          <Menu isOpen={menuOpen()} setOpen={toggleHamburger} />
         </div>
       </nav>
     </>
