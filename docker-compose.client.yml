@@ -96,3 +96,12 @@ services:
       - 3008:3000
     env_file:
       - qwik/.env.production
+
+  solid:
+    build: solid
+    image: solid
+    restart: "no"
+    ports:
+      - 3009:3000
+    env_file:
+      - solid/.env.production

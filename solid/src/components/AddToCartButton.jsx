@@ -1,3 +1,5 @@
+import { HydrationScript } from "solid-js/web";
+
 import DoubleIconButton from './DoubleIconButton';
 import { useCart } from '../context/CartContext';
 
@@ -19,6 +21,7 @@ export default function AddToCartButton(props) {
         :
         <button data-testid="addToCartButton" onClick={() => addToCart(props.product)} className='btn btn-blue block w-32'>Add to cart</button>
       }
+      <HydrationScript />
     </div>
   );
 }

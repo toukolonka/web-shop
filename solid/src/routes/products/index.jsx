@@ -1,14 +1,18 @@
-import { createResource } from "solid-js";
+import { useRouteData } from "solid-start";
+import { createServerData$ } from "solid-start/server";
+
 import ProductList from '../../components/ProductList';
 
-async function fetchProducts() {
-  const response = await fetch(`http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/products/`);
-  const data = await response.json();
-  return data;
+export function routeData() {
+  return createServerData$(async () => {
+    const response = await fetch(`http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/products/`);
+    const data = await response.json();
+    return data;
+  });
 }
 
 function Products() {
-  const [products] = createResource(fetchProducts);
+  const products = useRouteData();
 
   return (
     <Show

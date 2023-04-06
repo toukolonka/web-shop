@@ -1,19 +1,19 @@
-import { createResource } from "solid-js";
-import { useParams } from "solid-start";
+import { useRouteData } from "solid-start";
+import { createServerData$ } from "solid-start/server";
+
 import { format } from 'date-fns';
 import CartProductCard from '../../components/CartProductCard';
 
-async function fetchOrder(id) {
-  const response = await fetch(
-    `http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/orders/${id}`,
-  );
-  const data = await response.json();
-  return data;
+export function routeData({ params }) {
+  return createServerData$(async ([id]) => {
+    const response = await fetch(`http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/orders/${id}`);
+    const data = await response.json();
+    return data;
+  }, { key: () => [params.id] });
 }
 
 function Order() {
-  const { id } = useParams();
-  const [order] = createResource(id, fetchOrder);
+  const order = useRouteData();
 
   return (
     <Show

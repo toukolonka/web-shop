@@ -14,13 +14,10 @@ function Cart() {
   } = useCart();
 
   return (
-    <Show
-      when={cartProducts()}
-      fallback={<div>Loading...</div>}
-    >
+    <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
         <For each={cartProducts()}>{product =>
-          <div key={product.id}  className='m-2 flex justify-between items-center'>
+          <div key={product.id} className='m-2 flex justify-between items-center'>
             <CartProductCard
               product={product}
               removeFromCart={() => removeFromCart(product.id)}
@@ -32,12 +29,12 @@ function Cart() {
       </div>
       <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {isServer ? 0 : getTotalPrice()}€</strong>
       <Show
-        when={cartProducts() && cartProducts().length > 0}
+        when={cartProducts().length > 0}
         fallback={<p className='mx-2'>Shopping cart is empty</p>}
       >
         <OrderForm />
       </Show>
-    </Show>
+    </>
   );
 }
 
