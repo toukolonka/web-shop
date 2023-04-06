@@ -1,16 +1,12 @@
-import { createSignal, createContext, useContext, onMount } from "solid-js";
+import { createSignal, createContext, useContext, createEffect } from "solid-js";
 
 export const CartContext = createContext({});
 
 export function CartContextProvider(props){
-  const [cartProducts, setCartProducts] = createSignal([]);
+  const [cartProducts, setCartProducts] = createSignal(props.value || []);
 
-  onMount(() => {
-    if (localStorage.getItem('cart')) {
-      setCartProducts(JSON.parse(localStorage.getItem('cart')));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cartProducts()));
-    }
+  createEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartProducts()));
   });
 
   function getTotalQuantity() {
@@ -97,6 +93,7 @@ export function CartContextProvider(props){
 
   const contextValue = {
     cartProducts,
+    setCartProducts,
     getTotalQuantity,
     getTotalPrice,
     getProductQuantity,

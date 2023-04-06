@@ -1,5 +1,7 @@
 import { createSignal } from "solid-js";
 import { A } from "solid-start";
+import { isServer } from "solid-js/web";
+
 import Burger from './Burger';
 import Menu from './Menu';
 import CustomLink from './CustomLink';

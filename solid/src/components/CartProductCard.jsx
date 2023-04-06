@@ -28,7 +28,7 @@ function CartProductCard(props) {
             rightButtonClassNames='btn-blue'
             handleLeftClick={props.removeFromCart}
             handleRightClick={props.addToCart}
-            count={props.count}
+            count={props.count()}
           />
         </div>
       }

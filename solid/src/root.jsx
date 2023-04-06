@@ -1,8 +1,7 @@
 // @refresh reload
 import { Suspense } from "solid-js";
+import { isServer } from "solid-js/web";
 import {
-  useLocation,
-  A,
   Body,
   ErrorBoundary,
   FileRoutes,
@@ -19,11 +18,10 @@ import { CartContextProvider } from "./context/CartContext";
 
 import "./root.css";
 export default function Root() {
-  const location = useLocation();
-  const active = (path) =>
-    path == location.pathname
-      ? "border-sky-600"
-      : "border-transparent hover:border-sky-600";
+  if (!isServer && !localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify([]));
+  }
+
   return (
     <Html lang="en">
       <Head>
@@ -33,7 +31,7 @@ export default function Root() {
       </Head>
       <Body className="bg-slate-200">
         <Suspense>
-          <CartContextProvider>
+          <CartContextProvider value={!isServer ? JSON.parse(localStorage.getItem('cart')) : []}>
             <NavBar />
             <ErrorBoundary>
                 <div className='mx-auto max-w-xl w-full my-2'>
