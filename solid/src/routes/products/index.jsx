@@ -1,5 +1,4 @@
 import { createResource } from "solid-js";
-import { A } from "solid-start";
 import ProductList from '../../components/ProductList';
 
 async function fetchProducts() {
@@ -20,7 +19,6 @@ function Products() {
         products={products()}
       />
     </Show>
-    
   );
 }
 
