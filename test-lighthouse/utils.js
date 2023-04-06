@@ -4,7 +4,7 @@ import lighthouseDefaultConfig from './node_modules/lighthouse/core/config/defau
 import lighthouseDesktopConfig from './node_modules/lighthouse/core/config/lr-desktop-config.js';
 import lighthouseMobileConfig from './node_modules/lighthouse/core/config/lr-mobile-config.js';
 
-const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact', 'qwik'];
+const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact', 'qwik', 'solid'];
 
 const baseUrls = {
   react: 'http://localhost:3000',
@@ -16,6 +16,7 @@ const baseUrls = {
   nextPreact: 'http://localhost:3006',
   astroPreact: 'http://localhost:3007',
   qwik: 'http://localhost:3008',
+  solid: 'http://localhost:3009',
 };
 
 const configs = {
@@ -73,6 +74,7 @@ function printTable(page) {
     nextPreact: {},
     astroPreact: {},
     qwik: {},
+    solid: {},
   };
 
   auditTypes.forEach((auditType) => {
@@ -85,6 +87,7 @@ function printTable(page) {
     const nextPreactValues = readAudits(`nextPreact-${page}-`, auditType);
     const astroPreactValues = readAudits(`astroPreact-${page}-`, auditType);
     const qwikValues = readAudits(`qwik-${page}-`, auditType);
+    const solidValues = readAudits(`solid-${page}-`, auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
@@ -138,6 +141,12 @@ function printTable(page) {
       firstRun: qwikValues[0],
       median: median(qwikValues.slice(1)),
       average: average(qwikValues.slice(1)),
+    };
+
+    calculatedRows.solid[auditType] = {
+      firstRun: solidValues[0],
+      median: median(solidValues.slice(1)),
+      average: average(solidValues.slice(1)),
     };
 
     // eslint-disable-next-line no-console
@@ -196,6 +205,7 @@ function printTable(page) {
     ['Next Preact', 'nextPreact'],
     ['Astro Preact', 'astroPreact'],
     ['Qwik', 'qwik'],
+    ['Solid', 'solid']
   ];
 
   // eslint-disable-next-line no-console
