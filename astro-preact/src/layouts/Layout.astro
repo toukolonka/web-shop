@@ -1,7 +1,6 @@
 ---
 const { title } = Astro.props;
-import NavBar from '../components/NavBar.astro';
-import MobileNavBar from '../components/MobileNavBar.astro';
+import NavBar from '../components/NavBar';
 ---
 
 <!DOCTYPE html>
@@ -15,10 +14,7 @@ import MobileNavBar from '../components/MobileNavBar.astro';
 		<title>Astro</title>
 	</head>
 	<body class="bg-slate-200">
-		<nav class="border-gray-200 py-1 px-2 bg-white sticky top-0 z-50">
-			<NavBar />
-			<MobileNavBar />
-		</nav>
+		<NavBar client:only="preact" />
 		<div class='mx-auto max-w-xl w-full my-2'>
 			<div class='mx-2'>
 				<slot />

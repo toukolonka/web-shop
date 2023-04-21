@@ -5,13 +5,9 @@ import ProductList from '../../components/ProductList.jsx';
 export const prerender = true;
 
 const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/products/`);
-const data = await response.json();
-const products = data.sort((p1, p2) => p1.price - p2.price);
+const products = await response.json();
 ---
 
 <Layout>
-  <ProductList
-    client:load
-    products={products}
-  />
+  <ProductList products={products} />
 </Layout>
