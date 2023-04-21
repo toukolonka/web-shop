@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import AddToCartButton from '@/components/AddToCartButton';
 
 export async function getProducts(id = false) {
@@ -28,15 +29,13 @@ async function Product({ params }) {
   return (
     <div className='mx-2'>
       <div>
-        <img
+        <Image
           className={'rounded-t-lg rounded-lg'}
           src={`https://picsum.photos/seed/${product.id}/600/300`}
           crossOrigin="anonymous"
           alt="Product image"
           width="600"
           height="300"
-          loading="lazy"
-          decoding="async"
         />
         <div className="flex flex-col items-center p-5">
           <strong className='mb-2 card-text text-gray-700'>{product.name}</strong>
