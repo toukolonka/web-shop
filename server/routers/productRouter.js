@@ -2,8 +2,7 @@ const productRouter = require('express').Router();
 const Product = require('../models/product');
 
 productRouter.get('/', async (request, response) => {
-  // const { limit } = request.query;
-  const productLimit =10;
+  const productLimit = 10;
 
   const products = await Product
     .find({})
