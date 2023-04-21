@@ -11,7 +11,7 @@ import {
 
 async function test(name, i, page, path) {
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port};
+  const options = {logLevel: 'error', output: 'json', onlyCategories: ['performance'], port: chrome.port};
   const runnerResult = await lighthouse(`${baseUrls[name]}/${path}`, options, configs.lighthouseMobileConfig);
 
   const report = runnerResult.report;
@@ -41,6 +41,7 @@ if (page === 'home') {
 
 for (let i = 0; i < numberOfTests; i++) {
   for (let j = 0; j < apps.length; j++) {
+    console.log(`Testing ${apps[j]}, index: ${i}`)
     await test(apps[j], i, page, path);
   }
 }
