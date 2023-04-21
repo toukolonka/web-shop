@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
+import { CartContext } from '../context/CartContext';
 import FormInput from './FormInput';
 import Modal from './Modal';
 
@@ -10,12 +12,19 @@ const lastNameMaxLength = 50;
 const addressMinLength = 10;
 const addressMaxLength = 100;
 
-function OrderForm(props) {
+function OrderForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {
+    cartProducts,
+    checkout,
+  } = useContext(CartContext);
+
+  const history = useHistory();
 
   const buttonDisabled = firstName.length < firstNameMinLength
     || firstName.length > firstNameMaxLength
@@ -24,11 +33,26 @@ function OrderForm(props) {
     || address.length < addressMinLength
     || address.length > addressMaxLength;
 
-  const recipientInfo = {
-    firstName,
-    lastName,
-    address,
-  };
+  async function placeOrder() {
+    const response = await fetch('http://localhost:8080/api/orders', {
+      method: 'POST',
+      body: JSON.stringify(
+        {
+          orderProducts: cartProducts,
+          recipientInfo: {
+            firstName,
+            lastName,
+            address,
+          },
+        }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    checkout();
+    const orderId = await response.json();
+    history.push(`/orders/${orderId}`);
+  }
 
   return (
     <form className='mx-2 mt-4'>
@@ -84,11 +108,10 @@ function OrderForm(props) {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={() => props.placeOrder(recipientInfo)}
+        onSubmit={() => placeOrder()}
         onCancel={() => setIsModalOpen(false)}
-      >
-        Confirm order
-      </Modal>
+        text="Confirm order"
+      />
     </form>
   );
 }

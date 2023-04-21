@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AddToCartButton from './AddToCartButton';
 
-function CartProductCard(props) {
+function OrderProductCard(props) {
   return (
     <Link to={`/products/${props.product.id}`} className="flex flex-col w-full items-center justify-between border rounded-lg shadow sm:flex-row sm:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700 mb-4">
       <img
@@ -17,11 +16,8 @@ function CartProductCard(props) {
         <strong className="text-white card-text">{props.product.name}</strong>
         <p className="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      <div className='m-4'>
-        <AddToCartButton textClassNames="text-white" product={props.product} />
-      </div>
     </Link>
   );
 }
 
-export default CartProductCard;
+export default OrderProductCard;

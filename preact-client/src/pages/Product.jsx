@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import DoubleIconButton from '../components/DoubleIconButton';
-import ProductCard from '../components/ProductCard';
-import { CartContext } from '../context/CartContext';
+import AddToCartButton from '../components/AddToCartButton';
 
 function Product() {
   const [product, setProduct] = useState(null);
-  const { addToCart, removeFromCart, getProductQuantity } = useContext(CartContext);
   const id = useParams().id;
 
   useEffect(() => {
@@ -18,35 +15,28 @@ function Product() {
     fetchData();
   }, []);
 
-  const addToCartButton = product
-    ?
-    <div className='inline-flex justify-center'>
-      {getProductQuantity(id) > 0
-        ?
-        <DoubleIconButton
-          leftIcon="-"
-          rightIcon="+"
-          leftButtonClassNames='btn-red'
-          rightButtonClassNames='btn-blue'
-          handleLeftClick={() => removeFromCart(product.id)}
-          handleRightClick={() => addToCart(product)}
-          count={getProductQuantity(product.id)}
-        />
-        :
-        <button data-testid="addToCartButton" onClick={() => addToCart(product)} className='btn btn-blue block w-32'>Add to cart</button>
-      }
-    </div>
-    :
-    null;
-
   return (
     <>
       { product &&
-      <>
-        <div className='mx-2'>
-          <ProductCard product={product} addToCartButton={addToCartButton} />
+      <div className='mx-2'>
+        <div>
+          <img
+            className={'rounded-t-lg rounded-lg'}
+            src={`https://picsum.photos/seed/${product.id}/600/300`}
+            crossOrigin="anonymous"
+            alt="Product image"
+            width="600"
+            height="300"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="flex flex-col items-center p-5">
+            <strong className='mb-2 card-text text-gray-700'>{product.name}</strong>
+            <p className='mb-3 card-secondary-text text-gray-600'>{product.price}€</p>
+            <AddToCartButton product={product} />
+          </div>
         </div>
-      </>
+      </div>
       }
     </>
   );
