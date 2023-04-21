@@ -2,14 +2,10 @@ import React, { useContext, useMemo } from 'react';
 import { CartContext } from '../context/CartContext';
 import OrderForm from '../components/OrderForm';
 import CartProductCard from '../components/CartProductCard';
-import DoubleIconButton from '../components/DoubleIconButton';
 
 function Cart() {
   const {
     cartProducts,
-    getProductQuantity,
-    addToCart,
-    removeFromCart,
     getTotalPrice,
   } = useContext(CartContext);
 
@@ -22,20 +18,7 @@ function Cart() {
           <div key={product.id}  className='m-2 flex justify-between items-center'>
             <CartProductCard
               product={product}
-            >
-              <div className='m-4'>
-                <DoubleIconButton
-                  leftIcon="-"
-                  rightIcon="+"
-                  textClassNames='text-white'
-                  leftButtonClassNames='btn-red'
-                  rightButtonClassNames='btn-blue'
-                  handleLeftClick={removeFromCart}
-                  handleRightClick={addToCart}
-                  count={getProductQuantity(product.id)}
-                />
-              </div>
-            </CartProductCard>
+            />
           </div>
         )}
       </div>

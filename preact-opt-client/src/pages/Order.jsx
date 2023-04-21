@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
-import CartProductCard from '../components/CartProductCard';
+import OrderProductCard from '../components/OrderProductCard';
 
 function Order() {
   const id = useParams().id;
@@ -33,7 +33,7 @@ function Order() {
         {
           order.products.map(productObject =>
             <div key={productObject.product.id} className='mx-2'>
-              <CartProductCard product={productObject.product} quantity={productObject.quantity} />
+              <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
             </div>
           )
         }

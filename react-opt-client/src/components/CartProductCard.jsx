@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AddToCartButton from './AddToCartButton';
 
 function CartProductCard(props) {
   return (
@@ -18,7 +19,9 @@ function CartProductCard(props) {
         <strong className="text-white card-text">{props.product.name}</strong>
         <p className="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      { props.children }
+      <div className='m-4'>
+        <AddToCartButton textClassNames="text-white" product={props.product} />
+      </div>
     </Link>
   );
 }
