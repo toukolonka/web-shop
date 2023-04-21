@@ -11,7 +11,7 @@ function ProductCard(props) {
         alt="Product image"
         width="600"
         height="300"
-        loading = "lazy"
+        loading="lazy"
         decoding="async"
       />
       <div className="flex flex-col items-center p-5">

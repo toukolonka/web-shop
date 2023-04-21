@@ -27,8 +27,6 @@ function Product() {
             alt="Product image"
             width="600"
             height="300"
-            loading="lazy"
-            decoding="async"
           />
           <div className="flex flex-col items-center p-5">
             <strong className='mb-2 card-text text-gray-700'>{product.name}</strong>

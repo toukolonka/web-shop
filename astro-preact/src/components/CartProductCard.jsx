@@ -11,7 +11,7 @@ function CartProductCard(props) {
         alt="Product image"
         width="450"
         height="300"
-        loading = "lazy"
+        loading="lazy"
         decoding="async"
       />
       <div className="flex flex-col justify-center items-center pl-4 my-4 sm:my-0 flex-grow">
