@@ -201,8 +201,8 @@ function printTable(page) {
     ['Preact', 'preact'],
     ['Preact optimized', 'preactOpt'],
     ['Next React', 'next'],
-    ['Astro React', 'astro'],
     ['Next Preact', 'nextPreact'],
+    ['Astro React', 'astro'],
     ['Astro Preact', 'astroPreact'],
     ['Qwik', 'qwik'],
     ['Solid', 'solid']
