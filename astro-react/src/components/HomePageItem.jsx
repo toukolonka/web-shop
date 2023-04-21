@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 function HomePageItem(props) {
   return (
@@ -12,4 +12,4 @@ function HomePageItem(props) {
   );
 }
 
-export default memo(HomePageItem);
+export default HomePageItem;
