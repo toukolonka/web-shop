@@ -33,7 +33,7 @@ function Order() {
         {
           order.products.map(productObject =>
             <div key={productObject.product.id} className='mx-2'>
-              <OrderProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+              <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
             </div>
           )
         }

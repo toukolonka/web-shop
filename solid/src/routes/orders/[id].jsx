@@ -1,8 +1,8 @@
 import { useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
-
 import { format } from 'date-fns';
-import CartProductCard from '../../components/CartProductCard';
+
+import OrderProductCard from '../../components/OrderProductCard';
 
 export function routeData({ params }) {
   return createServerData$(async ([id]) => {
@@ -30,7 +30,7 @@ function Order() {
       <div className='xs:grid sm:block xs:grid-cols-2'>
         <For each={order().products}>{productObject =>
           <div key={productObject.product.id} className='mx-2'>
-            <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+            <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
           </div>}
         </For>
       </div>

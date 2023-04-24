@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CartProductCard from '../../components/CartProductCard.jsx';
+import OrderProductCard from '../../components/OrderProductCard.jsx';
 import { format } from 'date-fns';
 
 const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/orders/${Astro.params.id}`);
@@ -19,7 +19,7 @@ const order = await response.json();
         {
           order.products.map(productObject =>
             <div key={productObject.product.id} class='mx-2'>
-              <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+              <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
             </div>
           )
         }

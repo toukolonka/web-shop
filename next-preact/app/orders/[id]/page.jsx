@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import CartProductCard from '@/components/CartProductCard';
+import OrderProductCard from '@/components/OrderProductCard';
 
 async function getOrder(id) {
   const response = await fetch(
@@ -31,7 +31,7 @@ async function Order({ params }) {
         {
           order.products.map(productObject =>
             <div key={productObject.product.id} className='mx-2'>
-              <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+              <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
             </div>
           )
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import DoubleIconButton from './DoubleIconButton';
+import AddToCartButton from './AddToCartButton';
 
 function CartProductCard(props) {
   return (
@@ -18,20 +18,9 @@ function CartProductCard(props) {
         <strong className="text-white card-text">{props.product.name}</strong>
         <p className="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      { !props.noButtons &&
-        <div className='m-4'>
-          <DoubleIconButton
-            leftIcon="-"
-            rightIcon="+"
-            textClassNames='text-white'
-            leftButtonClassNames='btn-red'
-            rightButtonClassNames='btn-blue'
-            handleLeftClick={props.removeFromCart}
-            handleRightClick={props.addToCart}
-            count={props.count}
-          />
-        </div>
-      }
+      <div className='m-4'>
+        <AddToCartButton textClassNames="text-white" product={props.product} />
+      </div>
     </Link>
   );
 }

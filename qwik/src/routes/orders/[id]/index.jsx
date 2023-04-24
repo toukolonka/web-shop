@@ -1,7 +1,7 @@
 import { component$, useResource$, Resource } from '@builder.io/qwik';
 import { isBrowser } from '@builder.io/qwik/build';
 import { useLocation } from '@builder.io/qwik-city';
-import CartProductCard from '~/components/CartProductCard';
+import OrderProductCard from '~/components/OrderProductCard';
 import { format } from 'date-fns';
 
 export default component$(() => {
@@ -31,7 +31,7 @@ export default component$(() => {
           <div class='xs:grid xs:grid-cols-2 sm:block'>
             {order.products.map(productObject =>
               <div key={productObject.product.id} class='mx-2'>
-                <CartProductCard product={productObject.product} quantity={productObject.quantity} noButtons />
+                <OrderProductCard product={productObject.product} quantity={productObject.quantity} />
               </div>
             )}
           </div>

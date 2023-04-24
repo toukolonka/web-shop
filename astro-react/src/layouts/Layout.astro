@@ -14,7 +14,7 @@ const pathname = Astro.url.pathname;
 		<title>Astro</title>
 	</head>
 	<body class="bg-slate-200">
-		<NavBar client:only="react" />
+		<NavBar client:load />
 		<div class='mx-auto max-w-xl w-full my-2'>
 			<div class='mx-2'>
 				<slot />
