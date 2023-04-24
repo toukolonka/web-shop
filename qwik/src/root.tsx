@@ -23,6 +23,7 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="description" content="A simple web shop" />
         <RouterHead />
       </head>
       <body lang="en" class="bg-slate-200">

@@ -5,7 +5,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Next Preact',
-  description: 'Next app',
+  description: 'A simple web shop',
 };
 
 export default function RootLayout({ children }) {

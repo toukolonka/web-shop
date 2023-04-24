@@ -28,6 +28,7 @@ export default function Root() {
         <Title>Solid</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta name="description" content="A simple web shop" />
       </Head>
       <Body className="bg-slate-200">
         <Suspense>
