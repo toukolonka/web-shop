@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useStore } from '@nanostores/react';
+import { createSignal, createEffect } from "solid-js";
+import { useStore } from '@nanostores/solid';
 
 import Burger from './Burger';
 import Menu from './Menu';
@@ -7,17 +7,15 @@ import CustomLink from './CustomLink';
 import { cartProducts } from '../store/cartStore';
 
 function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [menuOpen, setMenuOpen] = createSignal(false);
+  const [totalQuantity, setTotalQuantity] = createSignal(0);
   const $cartProducts = useStore(cartProducts);
 
-  console.log($cartProducts);
+  createEffect(() => {
+    setTotalQuantity($cartProducts().reduce((sum, product) => sum += product.quantity, 0));
+  });
 
-  useEffect(() => {
-    setTotalQuantity($cartProducts.reduce((sum, product) => sum += product.quantity, 0));
-  }, []);
-
-  const toggleHamburger = useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
+  const toggleHamburger = () => setMenuOpen(open => !open);
 
   return (
     <>
@@ -34,12 +32,12 @@ function NavBar() {
             </div>
           </div>
           <div className='flex ml-2 items-center xs:hidden justify-between w-full text-sm font-medium py-4 px-1'>
-            <Burger isOpen={menuOpen} toggle={toggleHamburger} />
+            <Burger isOpen={menuOpen()} toggle={toggleHamburger} />
             <CustomLink href="/cart">Cart ({totalQuantity})</CustomLink>
           </div>
         </div>
         <div className='xs:hidden'>
-          <Menu isOpen={menuOpen} setOpen={toggleHamburger} />
+          <Menu isOpen={menuOpen()} setOpen={toggleHamburger} />
         </div>
       </nav>
     </>

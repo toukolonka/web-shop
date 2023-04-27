@@ -105,3 +105,12 @@ services:
       - 3009:3000
     env_file:
       - solid/.env.production
+
+  astro-solid:
+    build: astro-solid
+    image: astro-solid
+    restart: "no"
+    ports:
+      - 3010:8080
+    env_file:
+      - project.env

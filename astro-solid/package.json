@@ -1,0 +1,29 @@
+{
+  "name": "astro-solid",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^5.1.0",
+    "@astrojs/solid-js": "^2.1.0",
+    "@astrojs/tailwind": "^3.1.1",
+    "@nanostores/persistent": "^0.7.0",
+    "@nanostores/solid": "^0.3.2",
+    "astro": "^2.1.7",
+    "classnames": "2.3.2",
+    "nanostores": "0.7.4",
+    "solid-js": "^1.7.3",
+    "sharp": "^0.31.3",
+    "tailwindcss": "3.2.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-plugin-solid": "^0.12.1"
+  }
+}

@@ -1,22 +1,18 @@
-import { isServer } from "solid-js/web";
-
-import { useCart } from '~/context/CartContext';
-import OrderForm from '~/components/OrderForm';
-import CartProductCard from '~/components/CartProductCard';
+import { useStore } from '@nanostores/solid';
+import OrderForm from './OrderForm';
+import CartProductCard from './CartProductCard';
+import { cartProducts, removeFromCart, addToCart, getProductQuantity } from '../store/cartStore';
 
 function Cart() {
-  const {
-    cartProducts,
-    getProductQuantity,
-    addToCart,
-    removeFromCart,
-    getTotalPrice,
-  } = useCart();
+  const $cartProducts = useStore(cartProducts);
+  const totalPrice = $cartProducts().length > 0
+    ? $cartProducts().reduce((sum, product) => sum += product.quantity * product.price, 0)
+    : 0;
 
   return (
     <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
-        <For each={cartProducts()}>{product =>
+        <For each={$cartProducts()}>{product =>
           <div key={product.id} className='m-2 flex justify-between items-center'>
             <CartProductCard
               product={product}
@@ -28,11 +24,11 @@ function Cart() {
         </For>
       </div>
       <Show
-        when={cartProducts().length > 0}
+        when={$cartProducts().length > 0}
         fallback={<p className='mx-2'>Shopping cart is empty</p>}
       >
         <>
-          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {isServer ? 0 : getTotalPrice()}€</strong>
+          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {totalPrice}€</strong>
           <OrderForm />
         </>
       </Show>

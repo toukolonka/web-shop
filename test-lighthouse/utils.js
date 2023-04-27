@@ -4,7 +4,7 @@ import lighthouseDefaultConfig from './node_modules/lighthouse/core/config/defau
 import lighthouseDesktopConfig from './node_modules/lighthouse/core/config/lr-desktop-config.js';
 import lighthouseMobileConfig from './node_modules/lighthouse/core/config/lr-mobile-config.js';
 
-const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact', 'qwik', 'solid'];
+const apps = ['astroSolid'];
 
 const baseUrls = {
   react: 'http://localhost:3000',
@@ -17,6 +17,7 @@ const baseUrls = {
   astroPreact: 'http://localhost:3007',
   qwik: 'http://localhost:3008',
   solid: 'http://localhost:3009',
+  astroSolid: 'http://localhost:3010',
 };
 
 const configs = {
@@ -75,6 +76,7 @@ function printTable(page) {
     astroPreact: {},
     qwik: {},
     solid: {},
+    astroSolid: {},
   };
 
   auditTypes.forEach((auditType) => {
@@ -88,6 +90,7 @@ function printTable(page) {
     const astroPreactValues = readAudits(`astroPreact-${page}-`, auditType);
     const qwikValues = readAudits(`qwik-${page}-`, auditType);
     const solidValues = readAudits(`solid-${page}-`, auditType);
+    const astroSolidValues = readAudits(`astroSolid-${page}-`, auditType);
 
     calculatedRows.react[auditType] = {
       firstRun: reactValues[0],
@@ -149,6 +152,12 @@ function printTable(page) {
       average: average(solidValues.slice(1)),
     };
 
+    calculatedRows.astroSolid[auditType] = {
+      firstRun: astroSolidValues[0],
+      median: median(astroSolidValues.slice(1)),
+      average: average(astroSolidValues.slice(1)),
+    };
+
     // eslint-disable-next-line no-console
     console.log(page);
   });
@@ -205,7 +214,8 @@ function printTable(page) {
     ['Astro React', 'astro'],
     ['Astro Preact', 'astroPreact'],
     ['Qwik', 'qwik'],
-    ['Solid', 'solid']
+    ['Solid', 'solid'],
+    ['Astro Solid', 'astroSolid'],
   ];
 
   // eslint-disable-next-line no-console

@@ -1,10 +1,10 @@
 import { createSignal, createEffect } from 'solid-js';
-import { useNavigate } from "solid-start";
 import classNames from 'classnames';
+import { useStore } from '@nanostores/solid';
 
-import { useCart } from '~/context/CartContext';
 import FormInput from './FormInput';
 import Modal from './Modal';
+import { cartProducts, checkout } from '../store/cartStore';
 
 const firstNameMinLength = 2;
 const firstNameMaxLength = 50;
@@ -21,12 +21,7 @@ function OrderForm() {
   const [isModalOpen, setIsModalOpen] = createSignal(false);
   const [buttonDisabled, setButtonDisabled] = createSignal(true);
 
-  const {
-    cartProducts,
-    checkout
-  } = useCart();
-
-  const navigate = useNavigate();
+  const $cartProducts = useStore(cartProducts);
 
   createEffect(() => {
     setButtonDisabled(
@@ -41,11 +36,11 @@ function OrderForm() {
 
   async function placeOrder(event) {
     event.preventDefault();
-    const response = await fetch('http://localhost:8080/api/orders', {
+    await fetch('http://localhost:8080/api/orders', {
       method: 'POST',
       body: JSON.stringify(
         {
-          orderProducts: cartProducts(),
+          orderProducts: $cartProducts(),
           recipientInfo: {
             firstName: firstName(),
             lastName: lastName(),
@@ -56,9 +51,7 @@ function OrderForm() {
         'Content-Type': 'application/json'
       }
     });
-    const orderId = await response.json();
     checkout();
-    navigate(`/orders/${orderId}`);
   }
 
   return (
