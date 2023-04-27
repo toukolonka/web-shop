@@ -1,5 +1,6 @@
 import { createSignal, createEffect } from 'solid-js';
 import { useNavigate } from "solid-start";
+import classNames from 'classnames';
 
 import { useCart } from '~/context/CartContext';
 import FormInput from './FormInput';
@@ -107,7 +108,7 @@ function OrderForm() {
         type="button"
         disabled={buttonDisabled()}
         onClick={() => setIsModalOpen(true)}
-        classList={{'btn btn-blue w-full': true, 'btn-disabled': buttonDisabled() }}
+        className={classNames('btn btn-blue w-full', { 'btn-disabled': buttonDisabled })}
         data-testid="placeOrderButton"
       >
         Place order

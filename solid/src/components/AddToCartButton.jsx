@@ -1,4 +1,5 @@
 import { HydrationScript } from "solid-js/web";
+import classNames from "classnames";
 
 import { useCart } from '../context/CartContext';
 
@@ -19,7 +20,7 @@ export default function AddToCartButton(props) {
           >
             -
           </button>
-          <div classList={{'inline-flex w-12 justify-center': true, [props.textClassNames]: props.textClassNames}}>{getProductQuantity(props.product.id)}</div>
+          <div className={classNames('inline-flex w-12 justify-center', props.textClassNames)}>{getProductQuantity(props.product.id)}</div>
           <button
             className='btn w-10 inline-flex justify-center btn-blue'
             onClick={ (e) => {
