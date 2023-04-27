@@ -18,6 +18,7 @@ docker-compose -f docker-compose.client.yml up
 7. next preact(http://localhost:3006)
 8. astro preact (http://localhost:3007)
 9. qwik (http://localhost:3008)
+10. solid (http://localhost:3009)
 
 #### Server (development)
 
