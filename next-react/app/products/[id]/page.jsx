@@ -1,22 +1,17 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import Image from 'next/image';
 import AddToCartButton from '@/components/AddToCartButton';
 
-export async function getProducts(id = false) {
-  let response;
-  if (id) {
-    // eslint-disable-next-line no-undef
-    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/${id}`);
-  } else {
-    // eslint-disable-next-line no-undef
-    response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/`);
-  }
+export async function getProduct(id) {
+  const response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/${id}`);
   const data = await response.json();
   return data;
 }
 
 export async function generateStaticParams() {
-  const products = await getProducts();
+  const response = await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/`);
+  const products = await response.json();
 
   return products.map((product) => ({
     id: product.id,
@@ -24,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 async function Product({ params }) {
-  const product = await getProducts(params.id);
+  const product = await getProduct(params.id);
 
   return (
     <div className='mx-2'>

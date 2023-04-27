@@ -5,9 +5,7 @@ async function getOrder(id) {
   const response = await fetch(
     // eslint-disable-next-line no-undef
     `http://${process.env.SERVER_HOST_NAME}:8080/api/orders/${id}`,
-    {
-      next: { revalidate: 10 },
-    },
+    { cache: 'no-store' },
   );
   const data = await response.json();
 
