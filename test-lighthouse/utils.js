@@ -221,8 +221,8 @@ function printTable(page) {
   function createLatexTable(matrix, page) {
     const begin = `\\begin{table}[htb]\n\\centering\n\\begin{tabular}{${'|p{2.3cm}' + '|c'.repeat(matrix[0].length - 1)}|}\n\\hline\n`;
     const firstRow = '& \\makecell{ FCP \\\\ median } & \\makecell{ FCP \\\\ avg } & \\makecell{ TTI \\\\ median } & \\makecell{ TTI \\\\ avg } & \\makecell{ LCP \\\\ median } & \\makecell{ LCP \\\\ avg } & \\makecell{ SRT \\\\ median } & \\makecell{ SRT \\\\ avg } \\\\ \\hline\n';
-    const end = `\\end{tabular}\n\\caption{${page.charAt(0).toUpperCase() + page.slice(1)} page}\n\\label{table:${page}-page}\n\\end{table}`;
     const data =  matrix.map(row => row.join(' & ') + ' \\\\ \\hline').join('\n');
+    const end = `\n\\end{tabular}\n\\caption{${page.charAt(0).toUpperCase() + page.slice(1)} page}\n\\label{table:${page}-page}\n\\end{table}`;
     return begin + firstRow + data + end;
   }
 
