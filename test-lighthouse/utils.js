@@ -4,7 +4,7 @@ import lighthouseDefaultConfig from './node_modules/lighthouse/core/config/defau
 import lighthouseDesktopConfig from './node_modules/lighthouse/core/config/lr-desktop-config.js';
 import lighthouseMobileConfig from './node_modules/lighthouse/core/config/lr-mobile-config.js';
 
-const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact', 'qwik', 'solid', 'astroSolid'];
+const apps = [];
 
 const baseUrls = {
   react: 'http://localhost:3000',
@@ -204,11 +204,33 @@ function printTable(page) {
     );
   }
 
+  function getArray(name, property) {
+    return [
+      name,
+      Math.round(calculatedRows[property]['first-contentful-paint'].median),
+      Math.round(calculatedRows[property]['first-contentful-paint'].average),
+      Math.round(calculatedRows[property]['interactive'].median),
+      Math.round(calculatedRows[property]['interactive'].average),
+      Math.round(calculatedRows[property]['largest-contentful-paint'].median),
+      Math.round(calculatedRows[property]['largest-contentful-paint'].average),
+      Math.round(calculatedRows[property]['server-response-time'].median),
+      Math.round(calculatedRows[property]['server-response-time'].average)
+    ];
+  }
+
+  function createLatexTable(matrix, page) {
+    const begin = `\\begin{table}[htb]\n\\centering\n\\begin{tabular}{${'|p{2.3cm}' + '|c'.repeat(matrix[0].length - 1)}|}\n\\hline\n`;
+    const firstRow = '& \\makecell{ FCP \\\\ median } & \\makecell{ FCP \\\\ avg } & \\makecell{ TTI \\\\ median } & \\makecell{ TTI \\\\ avg } & \\makecell{ LCP \\\\ median } & \\makecell{ LCP \\\\ avg } & \\makecell{ SRT \\\\ median } & \\makecell{ SRT \\\\ avg } \\\\ \\hline\n';
+    const end = `\\end{tabular}\n\\caption{${page.charAt(0).toUpperCase() + page.slice(1)} page}\n\\label{table:${page}-page}\n\\end{table}`;
+    const data =  matrix.map(row => row.join(' & ') + ' \\\\ \\hline').join('\n');
+    return begin + firstRow + data + end;
+  }
+
   const rows = [
     ['React', 'react'],
-    ['React optimized', 'reactOpt'],
+    ['React opt', 'reactOpt'],
     ['Preact', 'preact'],
-    ['Preact optimized', 'preactOpt'],
+    ['Preact opt', 'preactOpt'],
     ['Next React', 'next'],
     ['Next Preact', 'nextPreact'],
     ['Astro React', 'astro'],
@@ -220,6 +242,11 @@ function printTable(page) {
 
   // eslint-disable-next-line no-console
   console.table(rows.map((row) => getTable(row[0], row[1])));
+  console.log('TABLE STARTS HERE');
+  console.log('--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
+  console.log(createLatexTable(rows.map((row) => getArray(row[0], row[1])), page));
+  console.log('--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
+  console.log('TABLE ENDS HERE');
 }
 
 export {
