@@ -11,8 +11,6 @@ function NavBar() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const $cartProducts = useStore(cartProducts);
 
-  console.log($cartProducts);
-
   useEffect(() => {
     setTotalQuantity($cartProducts.reduce((sum, product) => sum += product.quantity, 0));
   }, []);
