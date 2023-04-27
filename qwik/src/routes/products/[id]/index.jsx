@@ -9,7 +9,7 @@ export default component$(() => {
   const product = useResource$(async () => {
     const response = isBrowser ?
       await fetch(`http://localhost:8080/api/products/${id}`) :
-      await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/${id}`);
+      await fetch(`http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/products/${id}`);
     const data = await response.json();
     return data;
   });
@@ -44,7 +44,7 @@ export default component$(() => {
 export const onStaticGenerate = async () => {
   const response = isBrowser ?
     await fetch('http://localhost:8080/api/products/') :
-    await fetch(`http://${process.env.SERVER_HOST_NAME}:8080/api/products/`);
+    await fetch(`http://${process.env.VITE_SERVER_HOST_NAME}:8080/api/products/`);
   const data = await response.json();
   const ids = data.map((product) => product.id);
 

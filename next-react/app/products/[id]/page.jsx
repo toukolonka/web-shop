@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import Image from 'next/image';
 import AddToCartButton from '@/components/AddToCartButton';
 
 export async function getProduct(id) {
@@ -24,7 +23,7 @@ async function Product({ params }) {
   return (
     <div className='mx-2'>
       <div>
-        <Image
+        <img
           className={'rounded-t-lg rounded-lg'}
           src={`https://picsum.photos/seed/${product.id}/600/300`}
           crossOrigin="anonymous"

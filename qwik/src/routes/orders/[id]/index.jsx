@@ -9,7 +9,7 @@ export default component$(() => {
   const order = useResource$(async () => {
     const response = isBrowser ?
       await fetch(`http://localhost:8080/api/orders/${id}`) :
-      await fetch(`http://host.docker.internal:8080/api/orders/${id}`);
+      await fetch(`http://${import.meta.env.VITE_SERVER_HOST_NAME}:8080/api/orders/${id}`);
     const data = await response.json();
     return data;
   });

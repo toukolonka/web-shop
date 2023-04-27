@@ -4,48 +4,48 @@ volumes:
   react_node_modules:
 
 services:
-  react-client:
-    build: react-client
-    image: react-client
+  react:
+    build: react
+    image: react
     restart: "no"
     volumes:
-      - ./react-client/:/app
+      - ./react/:/app
       - react_node_modules:/app/node_modules
     ports:
       - 3000:3000
     env_file:
       - project.env
 
-  react-opt-client:
-    build: react-opt-client
-    image: react-opt-client
+  react-opt:
+    build: react-opt
+    image: react-opt
     restart: "no"
     volumes:
-      - ./react-opt-client/:/app
+      - ./react-opt/:/app
       - react_node_modules:/app/node_modules
     ports:
       - 3001:3001
     env_file:
       - project.env
 
-  preact-client:
-    build: preact-client
-    image: preact-client
+  preact:
+    build: preact
+    image: preact
     restart: "no"
     volumes:
-      - ./preact-client/:/app
+      - ./preact/:/app
       - react_node_modules:/app/node_modules
     ports:
       - 3002:3002
     env_file:
       - project.env
 
-  preact-opt-client:
-    build: preact-opt-client
-    image: preact-opt-client
+  preact-opt:
+    build: preact-opt
+    image: preact-opt
     restart: "no"
     volumes:
-      - ./preact-opt-client/:/app
+      - ./preact-opt/:/app
       - react_node_modules:/app/node_modules
     ports:
       - 3003:3003
