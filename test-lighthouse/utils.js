@@ -4,7 +4,7 @@ import lighthouseDefaultConfig from './node_modules/lighthouse/core/config/defau
 import lighthouseDesktopConfig from './node_modules/lighthouse/core/config/lr-desktop-config.js';
 import lighthouseMobileConfig from './node_modules/lighthouse/core/config/lr-mobile-config.js';
 
-const apps = [];
+const apps = ['react', 'reactOpt', 'preact', 'preactOpt', 'next', 'astro', 'nextPreact', 'astroPreact', 'qwik', 'solid', 'astroSolid'];
 
 const baseUrls = {
   react: 'http://localhost:3000',
@@ -26,7 +26,7 @@ const configs = {
   lighthouseMobileConfig,
 }
 
-const numberOfTests = 3;
+const numberOfTests = 5;
 
 function median(values) {
   const amount = values.length;
@@ -235,8 +235,8 @@ function printTable(page) {
     ['Next Preact', 'nextPreact'],
     ['Astro React', 'astro'],
     ['Astro Preact', 'astroPreact'],
-    ['Qwik', 'qwik'],
-    ['Solid', 'solid'],
+    ['Qwik City', 'qwik'],
+    ['SolidStart', 'solid'],
     ['Astro Solid', 'astroSolid'],
   ];
 
