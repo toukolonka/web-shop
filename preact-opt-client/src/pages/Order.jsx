@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { format } from 'date-fns';
 import OrderProductCard from '../components/OrderProductCard';
 
 function Order() {
@@ -20,9 +19,15 @@ function Order() {
     return <div>Loading...</div>;
   }
 
+  const getDatetimeString = (createdAt) => {
+    const datetime = new Date(createdAt);
+    const options = { hour: 'numeric', minute: 'numeric' };
+    return `${datetime.toLocaleDateString('fi-FI')} ${datetime.toLocaleTimeString('en-GB', options)}`;
+  };
+
   return (
     <>
-      <h1 className='text-center'>Order on {format(new Date(order.createdAt), 'dd.MM.yyyy HH:mm')}</h1>
+      <h1 className='text-center'>Order on {getDatetimeString(order.createdAt)}</h1>
       <div className='m-4 text-center xs:text-start'>
         <p>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</p>
         <p>Delivery address: {order.recipientInfo.address}</p>

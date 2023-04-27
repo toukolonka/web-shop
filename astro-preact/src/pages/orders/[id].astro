@@ -1,14 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import OrderProductCard from '../../components/OrderProductCard.jsx';
-import { format } from 'date-fns';
 
 const response = await fetch(`http://${import.meta.env.SERVER_HOST_NAME}:8080/api/orders/${Astro.params.id}`);
 const order = await response.json();
+
+const datetime = new Date(order.createdAt);
+const options = { hour: 'numeric', minute: 'numeric' };
+const datetimeString = `${datetime.toLocaleDateString('fi-FI')} ${datetime.toLocaleTimeString('en-GB', options)}`;
 ---
 
 <Layout>
-	<h1 class='text-center'>Order on {format(new Date(order.createdAt), 'dd.MM.yyyy HH:mm')}</h1>
+	<h1 class='text-center'>Order on {datetimeString}</h1>
       <div class='m-4 text-center xs:text-start'>
         <p>Recipient name: {order.recipientInfo.firstName} {order.recipientInfo.lastName}</p>
         <p>Delivery address: {order.recipientInfo.address}</p>

@@ -14,11 +14,11 @@ export default component$((props) => {
         loading="lazy"
         decoding="async"
       />
-      <div class="flex flex-col justify-center items-center pl-4 my-4 sm:my-0 flex-grow">
+      <div class="flex flex-col justify-center items-center sm:pl-4 my-4 sm:my-0 flex-grow">
         <strong class="text-white card-text">{props.product.name}</strong>
         <p class="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      <div class='m-4'>
+      <div class='sm:mb-0 mb-4 mx-4'>
         <AddToCartButton textClassNames="text-white" product={props.product} />
       </div>
     </a>

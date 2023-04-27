@@ -15,11 +15,11 @@ function CartProductCard(props) {
         loading="lazy"
         decoding="async"
       />
-      <div className="flex flex-col justify-center items-center pl-4 my-4 sm:my-0 flex-grow">
+      <div className="flex flex-col justify-center items-center sm:pl-4 my-4 sm:my-0 flex-grow">
         <strong className="text-white card-text">{props.product.name}</strong>
         <p className="card-secondary-text text-gray-300">{props.product.price}€ {props.quantity && `(${props.quantity})`}</p>
       </div>
-      <div className='m-4'>
+      <div className='sm:mb-0 mb-4 mx-4'>
         <AddToCartButton textClassNames="text-white" product={props.product} />
       </div>
     </Link>
