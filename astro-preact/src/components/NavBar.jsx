@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useStore } from '@nanostores/preact';
 
 import Burger from './Burger';
@@ -8,10 +8,12 @@ import { cartProducts } from '../store/cartStore';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const $cartProducts = useStore(cartProducts);
-  const totalQuantity = $cartProducts.length > 0
-    ? $cartProducts.reduce((sum, product) => sum += product.quantity, 0)
-    : 0;
+
+  useEffect(() => {
+    setTotalQuantity($cartProducts.reduce((sum, product) => sum += product.quantity, 0));
+  }, []);
 
   const toggleHamburger = useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
 
