@@ -9,18 +9,18 @@ docker-compose -f docker-compose.client.yml up
 
 #### Apps
 
-1. react (http://localhost:3000)
-2. react optimized (http://localhost:3001)
-3. preact (http://localhost:3002)
-4. preact optimized (http://localhost:3003)
-5. next react (http://localhost:3004)
-6. astro react (http://localhost:3005)
-7. next preact(http://localhost:3006)
-8. astro preact (http://localhost:3007)
-9. qwik (http://localhost:3008)
-10. solid (http://localhost:3009)
+1. React (http://localhost:3000)
+2. React optimized (http://localhost:3001)
+3. Preact (http://localhost:3002)
+4. Preact optimized (http://localhost:3003)
+5. Next React (http://localhost:3004)
+6. Astro React (http://localhost:3005)
+7. Next Preact(http://localhost:3006)
+8. Astro Preact (http://localhost:3007)
+9. Qwik City (http://localhost:3008)
+10. SolidStart (http://localhost:3009)
 
-#### Server (development)
+#### Server API (development)
 
 ```bash
 cd server
@@ -33,7 +33,7 @@ npm run dev
 #### Client (development)
 
 ```bash
-cd react-client
+cd react
 
 npm install
 
@@ -42,14 +42,12 @@ npm run dev
 
 #### Lighthouse performance tests
 
-Replace 'testName' with test name, e.g. 'home'
-
 ```bash
 cd test-lighthouse
 
 npm install
 
-npm run test testName
+npm run test
 ```
 
 #### Lighthouse user flow tests
