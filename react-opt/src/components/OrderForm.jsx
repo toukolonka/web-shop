@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { CartContext } from '../context/CartContext';
@@ -54,9 +54,6 @@ function OrderForm() {
     history.push(`/orders/${orderId}`);
   }
 
-  const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]);
-
   return (
     <form className='mx-2 mt-4'>
       <div className="grid gap-6 mb-6 sm:grid-cols-2">
@@ -111,8 +108,8 @@ function OrderForm() {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={handlePlaceOrder}
-        onCancel={handleModalClose}
+        onSubmit={placeOrder}
+        onCancel={() => setIsModalOpen(false)}
         text="Confirm order"
       />
     </form>

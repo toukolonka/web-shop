@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { memo } from 'react';
+import React from 'react';
 
 function Burger(props){
   return(
@@ -11,4 +11,4 @@ function Burger(props){
   );
 }
 
-export default memo(Burger);
+export default Burger;

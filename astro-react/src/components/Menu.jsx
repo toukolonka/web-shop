@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import CustomLink from './CustomLink';
 
 const Menu = (props) => {
@@ -21,4 +21,4 @@ const Menu = (props) => {
     </>
   );
 };
-export default memo(Menu);
+export default Menu;

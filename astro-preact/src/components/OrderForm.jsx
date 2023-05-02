@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useStore } from '@nanostores/preact';
 import classNames from 'classnames';
 import FormInput from './FormInput';
@@ -46,9 +46,6 @@ function OrderForm() {
     });
     checkout();
   }
-
-  const handlePlaceOrder = useCallback(() => placeOrder(), [isModalOpen]);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), [isModalOpen]);
 
   return (
     <form className='mx-2 mt-4'>
@@ -104,8 +101,8 @@ function OrderForm() {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={handlePlaceOrder}
-        onCancel={handleModalClose}
+        onSubmit={placeOrder}
+        onCancel={() => setIsModalOpen(false)}
         text="Confirm order"
       />
     </form>

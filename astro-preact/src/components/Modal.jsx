@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 
 function Modal({ open, text, onSubmit, onCancel }) {
@@ -21,4 +21,4 @@ function Modal({ open, text, onSubmit, onCancel }) {
   );
 }
 
-export default memo(Modal);
+export default Modal;

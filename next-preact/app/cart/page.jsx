@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
 import OrderForm from '@/components/OrderForm';
 import CartProductCard from '@/components/CartProductCard';
@@ -13,8 +13,6 @@ function Cart() {
     removeFromCart,
     getTotalPrice,
   } = useContext(CartContext);
-
-  const totalPrice = useMemo(() => getTotalPrice(), [cartProducts]);
 
   return (
     <>
@@ -33,7 +31,7 @@ function Cart() {
       { cartProducts.length > 0
         ?
         <>
-          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {totalPrice}€</strong>
+          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {getTotalPrice()}€</strong>
           <OrderForm />
         </>
         :

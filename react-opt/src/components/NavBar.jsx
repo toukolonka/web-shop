@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Burger from './Burger';
 import { CartContext } from '../context/CartContext';
@@ -9,7 +9,7 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { getTotalQuantity } = useContext(CartContext);
 
-  const toggleHamburger = useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
+  const toggleHamburger = () => setMenuOpen(!menuOpen);
 
   return (
     <>
