@@ -229,11 +229,11 @@ function printTable(page) {
   const rows = [
     ['React', 'react'],
     ['React opt', 'reactOpt'],
+    ['Next React', 'next'],
+    ['Astro React', 'astro'],
     ['Preact', 'preact'],
     ['Preact opt', 'preactOpt'],
-    ['Next React', 'next'],
     ['Next Preact', 'nextPreact'],
-    ['Astro React', 'astro'],
     ['Astro Preact', 'astroPreact'],
     ['Qwik City', 'qwik'],
     ['SolidStart', 'solid'],
