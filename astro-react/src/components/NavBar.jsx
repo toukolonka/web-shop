@@ -13,7 +13,7 @@ function NavBar() {
 
   useEffect(() => {
     setTotalQuantity($cartProducts.reduce((sum, product) => sum += product.quantity, 0));
-  }, []);
+  }, [$cartProducts]);
 
   const toggleHamburger = useCallback(() => setMenuOpen(!menuOpen), [menuOpen]);
 
