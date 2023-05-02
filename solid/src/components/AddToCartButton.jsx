@@ -1,13 +1,20 @@
+import { createSignal, createEffect } from "solid-js";
 import { HydrationScript } from "solid-js/web";
 import classNames from "classnames";
 
 import { useCart } from '../context/CartContext';
 
 export default function AddToCartButton(props) {
-  const { addToCart, removeFromCart, getProductQuantity } = useCart();
+  const { addToCart, removeFromCart, cartProducts } = useCart();
+  const [productQuantity, setProductQuantity] = createSignal(0);
+
+  createEffect(() => {
+    setProductQuantity(cartProducts().find(product => product.id === props.product.id)?.quantity);
+  });
+
   return (
     <div className='inline-flex justify-center'>
-      {getProductQuantity(props.product.id) > 0
+      {productQuantity() > 0
         ?
         <div className='inline'>
           <button
@@ -20,7 +27,7 @@ export default function AddToCartButton(props) {
           >
             -
           </button>
-          <div className={classNames('inline-flex w-12 justify-center', props.textClassNames)}>{getProductQuantity(props.product.id)}</div>
+          <div className={classNames('inline-flex w-12 justify-center', props.textClassNames)}>{productQuantity()}</div>
           <button
             className='btn w-10 inline-flex justify-center btn-blue'
             onClick={ (e) => {

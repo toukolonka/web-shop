@@ -1,3 +1,4 @@
+import { createSignal, createEffect } from "solid-js";
 import { isServer } from "solid-js/web";
 
 import { useCart } from '~/context/CartContext';
@@ -13,10 +14,16 @@ function Cart() {
     getTotalPrice,
   } = useCart();
 
+  const [products, setProducts] = createSignal([]);
+
+  createEffect(() => {
+    setProducts(cartProducts());
+  });
+
   return (
     <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
-        <For each={cartProducts()}>{product =>
+        <For each={products()}>{product =>
           <div key={product.id} className='m-2 flex justify-between items-center'>
             <CartProductCard
               product={product}
@@ -28,7 +35,7 @@ function Cart() {
         </For>
       </div>
       <Show
-        when={cartProducts().length > 0}
+        when={products().length > 0}
         fallback={<p className='mx-2'>Shopping cart is empty</p>}
       >
         <>
