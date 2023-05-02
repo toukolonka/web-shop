@@ -4,7 +4,7 @@ const db = new Mongo().getDB('db');
 db.createCollection('products', { capped: false });
 db.createCollection('orders', { capped: false });
 
-const products = Array.from({ length: 1000 }, (_, i) => i + 1).map(i =>
+const products = Array.from({ length: 10 }, (_, i) => i + 1).map(i =>
 {
   return {
     name: `product ${i}`,
@@ -17,7 +17,7 @@ db.products.insert(products);
 
 const product = db.products.findOne({});
 
-const orders = Array.from({ length: 1000 }, (_, i) => i + 1).map(i =>
+const orders = Array.from({ length: 10 }, (_, i) => i + 1).map(i =>
 {
   return {
     recipientInfo: {
