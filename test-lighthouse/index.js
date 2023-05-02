@@ -20,30 +20,39 @@ async function test(name, i, page, path) {
   await chrome.kill();
 }
 
-const page = process.argv[2];
-let path = page;
+// const page = process.argv[2];
 
-if (page === 'home') {
-  path = '';
-} else if (page === 'order') {
-  const response = await fetch('http://localhost:8080/api/orders');
-  const orders = await response.json();
-  const exampleOrder = orders[0];
-  const id = exampleOrder.id;
-  path = `orders/${id}`;
-} else if (page === 'product') {
-  const response = await fetch('http://localhost:8080/api/products/');
-  const products = await response.json();
-  const exampleProduct = products[0];
-  const id = exampleProduct.id;
-  path = `products/${id}`;
+if (!fs.existsSync('./reports')){
+  fs.mkdirSync('./reports');
 }
 
-for (let i = 0; i < numberOfTests; i++) {
-  for (let j = 0; j < apps.length; j++) {
-    console.log(`Testing ${apps[j]}, index: ${i}`)
-    await test(apps[j], i, page, path);
+const pages = ['home', 'products', 'product', 'orders', 'order', 'cart'];
+
+for (const page of pages) {
+  let path = page;
+
+  if (page === 'home') {
+    path = '';
+  } else if (page === 'order') {
+    const response = await fetch('http://localhost:8080/api/orders');
+    const orders = await response.json();
+    const exampleOrder = orders[0];
+    const id = exampleOrder.id;
+    path = `orders/${id}`;
+  } else if (page === 'product') {
+    const response = await fetch('http://localhost:8080/api/products/');
+    const products = await response.json();
+    const exampleProduct = products[0];
+    const id = exampleProduct.id;
+    path = `products/${id}`;
   }
-}
 
-printTable(page);
+  for (let i = 0; i < numberOfTests; i++) {
+    for (let j = 0; j < apps.length; j++) {
+      console.log(`Testing page: ${page}, app: ${apps[j]}, index: ${i}`)
+      await test(apps[j], i, page, path);
+    }
+  }
+
+  printTable(page);
+}
