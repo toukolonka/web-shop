@@ -12,6 +12,8 @@ function CartProductCard(props) {
         alt="Product image"
         width="450"
         height="300"
+        loading="lazy"
+        decoding="async"
       />
       <div className="flex flex-col justify-center items-center sm:pl-4 my-4 sm:my-0 flex-grow">
         <strong className="text-white card-text">{props.product.name}</strong>

@@ -9,8 +9,8 @@ export default component$(({ open, text, onSubmit, onCancel }) => {
       <div class='fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white p-12 z-[1000] rounded'>
         <h1 class='mb-4 mx-2 text-center xs:text-left'>{text}</h1>
         <div class='flex flex-col xs:flex-row items-center justify-center'>
-          <button data-testid="cancelButton" class='btn btn-red mx-2 mb-2 w-24' preventdefault:click  onClick$={onCancel}>Cancel</button>
           <button data-testid="confirmButton" class='btn btn-green mx-2 mb-2 w-24' preventdefault:click  onClick$={onSubmit}>Confirm</button>
+          <button data-testid="cancelButton" class='btn btn-red mx-2 mb-2 w-24' preventdefault:click  onClick$={onCancel}>Cancel</button>
         </div>
       </div>
     </>

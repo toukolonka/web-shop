@@ -108,7 +108,7 @@ function OrderForm() {
       </button>
       <Modal
         open={isModalOpen}
-        onSubmit={() => placeOrder()}
+        onSubmit={placeOrder}
         onCancel={() => setIsModalOpen(false)}
         text="Confirm order"
       />

@@ -9,9 +9,7 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { getTotalQuantity } = useContext(CartContext);
 
-  const toggleHamburger = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleHamburger = () => setMenuOpen(!menuOpen);
 
   return (
     <>

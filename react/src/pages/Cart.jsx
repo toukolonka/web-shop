@@ -9,8 +9,6 @@ function Cart() {
     getTotalPrice,
   } = useContext(CartContext);
 
-  const totalPrice = getTotalPrice();
-
   return (
     <>
       <div className='xs:grid sm:block xs:grid-cols-2'>
@@ -25,7 +23,7 @@ function Cart() {
       { cartProducts.length > 0
         ?
         <>
-          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {totalPrice}€</strong>
+          <strong className='mx-2 xs:text-left text-center font-bold'>Total price: {getTotalPrice()}€</strong>
           <OrderForm />
         </>
         :
