@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 
 export default component$((props) => {
   return (
-    <a to={`/products/${props.product.id}`} class="flex flex-col w-full items-center justify-between border rounded-lg shadow sm:flex-row sm:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700 mb-4">
+    <a href={`/products/${props.product.id}`} class="flex flex-col w-full items-center justify-between border rounded-lg shadow sm:flex-row sm:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700 mb-4">
       <img
         class="object-cover w-full rounded-t-lg h-auto sm:w-48 sm:rounded-none sm:rounded-l-lg"
         src={`https://picsum.photos/seed/${props.product.id}/450/300`}
