@@ -19,6 +19,7 @@ docker-compose -f docker-compose.client.yml up
 8. Astro Preact (http://localhost:3007)
 9. Qwik City (http://localhost:3008)
 10. SolidStart (http://localhost:3009)
+11. Astro Solid (http://localhost:3010)
 
 #### Server API (development)
 
